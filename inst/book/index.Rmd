@@ -1,0 +1,48 @@
+---
+title: "Relatório de Análise Estatística sobre o Projeto:"
+subtitle: "\"Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade\""
+author: 
+  - name: "Mariana Almeida<br>Luís Gustavo Esteves<br>Renata Massami Hirota<br>Giovanna Vendeiro Vilar"
+pesquisadora: "Priscilla A. M. Ferronato"
+colaboradores: "Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel"
+instituicao: "Faculdade de Filosofia e Ciências Humanas da Universidade de São Paulo"
+finalidade: "Publicação"
+date: "São Paulo, `r format(Sys.Date(), '%B de %Y')`"
+referencia: "ALMEIDA, M.C.; ESTEVES, L.G.; HIROTA, R.M.; VILAR, G.V. <b>Relatório de análise estatística sobre o projeto: \"Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade\"</b>. São Paulo, IME-USP, 2021. (RAE–CEA-21P27)"
+knit: "bookdown::render_book"
+documentclass: report
+bibliography: [assets/bib/book.bib, assets/bib/packages.bib]
+biblio-style: apalike
+toc-title: "Sumário"
+link-citations: yes
+fontsize: '12pt'
+colorlinks: yes 
+lot: false
+lof: false
+site: bookdown::bookdown_site
+description: "Relatório de pesquisa da disciplina MAE0433."
+include-before: "RAE-CEA–21P27"
+sign_page: true
+preface: "<br>"
+  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  message = FALSE, 
+  comment = FALSE, 
+  warning = FALSE, 
+  fig.height = 6, 
+  fig.width = 9
+)
+
+library(patchwork)
+library(magrittr)
+participantes <- pseudopalavras::dados %>% 
+  dplyr::distinct(informante, .keep_all = TRUE) 
+```
+
+<!-- # Sobre este documento {-} -->
+
+<!-- Este relatório foi produzido em *RMarkdown*, utilizando o software estatístico R na versão `r paste(version$major, version$minor, sep = ".")`. -->

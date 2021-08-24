@@ -1,0 +1,21 @@
+# FICHA TÉCNICA {-}
+
+## REFERÊNCIAS BIBLIOGRÁFICAS {-}
+
+## PROGRAMAS COMPUTACIONAIS UTILIZADOS {-}
+
+Software R (versão 4.1.1)
+
+## TÉCNICAS ESTATÍSTICAS UTILIZADAS
+
+<!-- Análise Descritiva Unidimensional (03:010) -->
+<!-- Análise de Dados Categorizados (06:030) -->
+<!-- Outros (07:990) -->
+
+
+## ÁREA DE APLICAÇÃO {-}
+
+Outros (14:990)
+
+
+<div id="refs"></div>

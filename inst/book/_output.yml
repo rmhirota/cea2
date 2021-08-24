@@ -1,0 +1,26 @@
+bookdown::gitbook:
+  dev: svglite
+  edit: null
+  css: ["assets/css/bookdown.css"]
+  header-includes:
+    "footer.tex"
+  config:
+    toc:
+      collapse: none
+      before: |
+        <li><a href="./">Pseudopalavras</a></li>
+      after: |
+        <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+    sharing:
+      github: no
+      facebook: no
+    download: ["pdf"]
+
+pagedown::thesis_paged:
+  toc: true
+  lof: false
+  lot: false
+  css: ["thesis", "assets/css/pagedown.css"]
+  template: "assets/template.html"
+  self_contained: true
+

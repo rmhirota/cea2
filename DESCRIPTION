@@ -1,0 +1,18 @@
+Package: cea2
+Title: Analise de Dados do Projeto Emergencia e Desenvolvimento da Acao Manipulativa de Apertar em Bebes 
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Renata", family = "Hirota", 
+             email = "re.hirota@gmail.com", 
+             role = c("cre", "aut")),
+      person(given = "Mariana", family = "Almeida", 
+             role = c("aut")),
+      person(given = "Giovanna", family = "Vendeiro", 
+             role = c("aut"))
+      )
+Description: Projeto da disciplina MAE0423 - Estatistica Aplicada II (2o sem/2021).
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1

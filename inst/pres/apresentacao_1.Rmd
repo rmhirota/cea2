@@ -1,0 +1,46 @@
+---
+title: "O processamento de pseudopalavras no Português Brasileiro"
+subtitle: ""
+author: |
+  Pesquisadora: Priscilla A. M. Ferronato<br>
+  Colaboradores: Luiz Eduardo P B T Dantas e Edison de Jesus Manoel
+  Responsáveis: Mariana Almeida, Luís Gustavo Esteves, Renata Massami Hirota, Giovanna Vendeiro Vilar
+# institute: ""
+encoding: "UTF-8"
+# date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    # css: ["css/pres.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+```
+
+class: inverse, center, middle
+
+# Introdução
+
+# Introdução
+
+
+---
+class: inverse, center, middle
+
+# Objetivos
+
+
+---
+class: inverse, center, middle
+
+# Descrição do estudo
+
+---
+
+
