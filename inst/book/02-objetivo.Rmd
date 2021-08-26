@@ -1,2 +1,7 @@
 # Objetivo(s)
 
+O objetivo principal do trabalho é entender a emergência e desenvolvimento do comportamento voluntário das mãos em bebês de até três meses de idade, com base em alguns cenários experimentais. 
+A finalidade da análise estatística pode ser resumida nos seguintes tópicos:
+a) descrever o comportamento de apertar ao longo dos três primeiros meses após o nascimento;
+ b) verificar se bebês de um a três meses são capazes de identificar a existência de um relacionamento entre o seu próprio comportamento de apertar e alterações no contexto ambiental; 
+c) identificar se as relações do comportamento manual com os eventos ambientais se alteram ao longo de três sessões de prática na situação experimental.

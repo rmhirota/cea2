@@ -1,3 +1,14 @@
 # Descrição do estudo {#descricao-estudo}
 
+## Participantes
+
+O estudo foi realizado de maneira presencial em três sessões individuais, dentro de um período de 7 dias, entre a pesquisadora e cada um dos participantes. Consistiu em apresentar aos bebês quatro condições experimentais e registrar, para cada uma, dados de pressão palmar relacionados aos apertos que os bebes realizaram sobre um equipamento com sensor de pressão colocado na palma de suas mãos.
+A coleta dos dados foi realizada (perguntar quando foi) com 22 indivíduos recrutados pelos pesquisadores através de conhecidos e da divulgação em redes sociais. Os voluntários tiveram como pré-requisitos nascimento com 38 a 42 semanas de gestação sem nenhuma complicação médica (perguntar se é isso mesmo) e estar na faixa etária de 1 a 3 meses de vida. Salientamos que todos os recrutados participaram das três sessões observadas.
+
+##	Condições Experimentais
+
+Em um período de, aproximadamente, 12 minutos foram apresentadas a cada um dos participantes 3 condições experimentais diferentes. Ao final de cada condição foram coletados os dados de pressão palmar 
+Primeiramente, era apresentada a Condição Basal (sem nenhuma variação ambiental), na qual não foi apresentado aos bebês nenhum estímulo visual. Em seguida, era apresentada em ordem aleatória duas outras condições: Contingente, na qual um vídeo aparecia quando o sujeito atingia determinada pressão palmar, e Não Contingente, na qual um vídeo aparecia de forma automâtica sem que o bebê atingisse determinada pressão. Posteriormente, foi concedida uma segunda Condição Basal. (é isso gente¿)
+Em resumo, cada bebê realizou três sessões de testes compostas destas quatro condições dentro de um período de 7 dias e o vídeo aparecia de maneira contingente (como consequência do aperto), não contingente (automaticamente programado) ou ainda basal (sem o vídeo).
+As limitações do estudo são o número pequeno de participantes em cada grupo etário, a quantidade diferente de participantes em cada grupo e a distribuição não Normal dos dados.
 

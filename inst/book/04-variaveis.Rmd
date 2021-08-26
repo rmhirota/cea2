@@ -1,4 +1,22 @@
 # Descrição das variáveis {#descricao-variaveis}
 
+Para cada condição, foram coletadas variáveis relacionadas à pessão palmar realizada pelos participante em cada dia do experimento. 
+A partir delas, a pesquisadora definiu outras métricas que serão consideradas na análise do estudo.
+A seguir, listamos as variáveis que de fato foram consideradas na análise.
+
+- Participante: 1 a 22
+- Grupo: 	1= 1 mes, 2=2 meses, 3=3 meses
+- Condicao: C = Contingente, NC = Não Contigente, B = Basal, B2 = Basal 2
+- Sessao: 1 = primeira, 2 =segunda, 3 = terceira
+- Video: 0 = sem vídeo e 1 = com vídeo
+- Numero apertos:	número de apertos 
+- Frequencia de apertos:	frequência de apertos (apertos/min)
+- Pressao media: pressão média tentativa completa 
+- Desvio padrao da pressao: desvio padrão da pressão media
+- Pico:	pico máximo da pressão
+- Pico medio:	média de picos de pressão 
+- Desvio padrao do pico da pressao: desvio padrão da média de picos de pressão 
+- Duracao do aperto:	duração do apertos
+- Desvio padrao da duracao:	desvio padrão da duração dos apertos
 
 
