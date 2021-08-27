@@ -1,0 +1,38 @@
+---
+title: "Dúvidas"
+author: "Renata Hirota"
+date: "8/26/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Arquivos
+
+- Icon_
+- não usar
+- contexto (sonolento, chorando, ruído, etc)
+- cortado, cortar depois, etc
+
+# Pressão gatilho
+
+- Gatilho muda a cada sessão?
+- Como é estabelecido o limite a partir do basal?
+
+# Variáveis sav
+
+- somas de pressão
+- tentativa completa
+
+## Janelada
+
+- n de apertos não é acumulado
+- @1m_c_30_abaixo_d1 = 4.886: tempo que ficou abaixo de 30%? ou pressão?
+- acima de 30% e acima de 20% são disjuntos?
+
+## Vídeo
+
+- para todos os dias?
+
