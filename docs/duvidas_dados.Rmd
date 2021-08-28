@@ -20,11 +20,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - Gatilho muda a cada sessão?
 - Como é estabelecido o limite a partir do basal?
+- pressão medida em qual unidade? mmH2O?
+- duração em qual unidade? minuto?
+
+Para cada condição definida, foram coletados os valores de pressão palmar realizada pelos participante ao longo do tempo em cada dia do experimento. A partir deles, a pesquisadora identificou os picos de pressão ao
+longo da série temporal que foram classificados como apertos. (é isso?)
 
 # Variáveis sav
 
 - somas de pressão
 - tentativa completa
+- definição de pico de pressao e aperto. 
 
 ## Janelada
 
@@ -35,4 +41,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Vídeo
 
 - para todos os dias?
+- Contingente: o video aparecia quando a pressão do bebe atingia 75% da pressão média na condição brasal? Ou era o valor de pressão exercida pelo
+bebê no cilindro durante 75% do tempo de coleta na condição basal (desconsiderando os valores zero quando o bebe não fazia pressão no equipamento.)
+
+## Experimento
+- existem pré-requsitos e validação dos resultados?
+- houve interrupções nas coletas por causa da condição dos bebes?
+- condição experimental do bebe (acredito que isso influencia sua resposta a estimulos)
+- quando foi realizada a coleta de dados
+- os voluntarios tiveram algum pre requsito p participar? alem da idade
+- pq existe uma segunda condição basal?
 
