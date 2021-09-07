@@ -27,16 +27,22 @@ ler_arquivos_brutos <- function(arq) {
     )
 }
 
-arquivos %>%
-  stringr::str_detect(stringr::regex("usar", TRUE)) %>%
-  sum()
-
 arquivos <- fs::dir_ls(
   "data-raw/", type = "file", recurse = TRUE,
-  regexp = "(res|R)$", invert = TRUE
+  regexp = "(res|R|sav|Icon_|lnk)$", invert = TRUE
 )
 
-"data-raw/brutos/B3Bruna_Fernanda/bruna1basa2" %>%
+# não usar
+arquivos %>%
+  purrr::keep(~stringr::str_detect(.x, "usa"))
+
+
+
+
+
+
+
+"data-raw/brutos/B1Eduardo/Eduardo1cont2cortado.txt" %>%
   ler_arquivos_brutos()
 
 da <- purrr::map_df(arquivos, ler_arquivos_brutos)
