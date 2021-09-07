@@ -18,9 +18,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Pressão gatilho
 
-- Gatilho muda a cada sessão?
+
+Gatilho: pressão mais frequente (70% da tentativa) 0.2 caso contrário
+- Gatilho muda a cada sessão? sim
 - Como é estabelecido o limite a partir do basal?
-- pressão medida em qual unidade? mmH2O?
 - duração em qual unidade? minuto?
 
 Para cada condição definida, foram coletados os valores de pressão palmar realizada pelos participante ao longo do tempo em cada dia do experimento. A partir deles, a pesquisadora identificou os picos de pressão ao
@@ -28,9 +29,11 @@ longo da série temporal que foram classificados como apertos. (é isso?)
 
 # Variáveis sav
 
-- somas de pressão
-- tentativa completa
+- somas de pressão milissegundos
+- tentativa completa: tempo completo
 - definição de pico de pressao e aperto. 
+  - picos de pressão
+  - aperto: a partir de determinada % de pressão 
 
 ## Janelada
 
