@@ -1,0 +1,26 @@
+library(magrittr)
+
+da_spss <- foreign::read.spss("data-raw/spss/Completo 3 dias variaveis base.sav") %>%
+  dplyr::as_tibble()
+
+dplyr::glimpse(da_spss)
+
+da_spss_tidy <- da_spss %>%
+  janitor::clean_names() %>%
+  tidyr::pivot_longer(-c(nome, grupo)) %>%
+  dplyr::mutate(
+    dia = dplyr::case_when(
+      stringr::str_detect(name, "x2") ~ 2,
+      stringr::str_detect(name, "x3") ~ 3,
+      TRUE ~ 1
+    ),
+    condicao = stringr::str_remove(stringr::str_extract(name, ".+?(?=_)"), "x."),
+    name = stringr::str_remove_all(name, "(c|bas|nc|pos)_"),
+    name = stringr::str_remove_all(name, "x[23]"),
+    name = stringr::str_replace_all(name, "x", "media"),
+    nome = stringr::str_squish(nome)
+  ) %>%
+  tidyr::pivot_wider(names_from = name, values_from = value)
+
+View(da_spss_tidy)
+
