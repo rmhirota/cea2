@@ -18,7 +18,8 @@ tbl_arquivos_brutos <- function(dir) {
     dplyr::mutate(
       basename = tolower(basename(arq)),
       grupo = stringr::str_extract(arq, "B."),
-      nome = tolower(stringr::str_extract(basename, "[:alpha:]+")),
+      nome = tolower(basename(dirname(arq))),
+      nome = stringr::str_remove(stringr::str_extract(nome, "(?<=b.).+"), "_.+"),
       dia = stringr::str_extract(basename, "[0-9](?=[\\s\\S])"),
       condicao = dplyr::case_when(
         stringr::str_detect(basename, "ba[ds]a.*2") ~ "basal2",
@@ -27,26 +28,11 @@ tbl_arquivos_brutos <- function(dir) {
         stringr::str_detect(basename, "nc") ~ "não contingente",
         stringr::str_detect(basename, "c$") ~ "contingente"
       ),
-      # correções manuais
-      nome = dplyr::case_when(
-        nome == "bernado" | nome == "bernando" ~ "bernardo",
-        nome == "duardo" ~ "eduardo",
-        stringr::str_detect(nome, "luizmat") ~ "luizmateus",
-        stringr::str_detect(nome, "hen") ~ "henriqueluiz",
-        nome == "m" ~ "meduarda",
-        stringr::str_detect(nome, "gabri") ~ "gabriel",
-        stringr::str_detect(nome, "mlaura") ~ "mlaura",
-        stringr::str_detect(nome, "nic") ~ "nicolas",
-        stringr::str_detect(nome, "^ph") ~ "ph",
-        stringr::str_detect(nome, "rafaell") ~ "rafaella",
-        stringr::str_detect(nome, "stel") ~ " stella",
-        TRUE ~ nome
-      ),
       condicao = stringr::str_squish(stringr::str_remove_all(condicao, "[-_]"))
     )
 }
 
-da_brutos <- tbl_arquivos_brutos("data-raw/brutos/")
+da_brutos <- tbl_arquivos_brutos(dir = "data-raw/brutos/")
 
 # nomes ok
 da_brutos %>%
