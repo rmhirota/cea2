@@ -156,6 +156,44 @@ da_spss %>%
   col_dia_grupo_cond(media_media_duracao_pico)
 
 
+## tentativa de grafico 3d - apertos
+library(plotly)
+dia1 = da_spss %>% filter(dia==1) %>% select(grupo,n_apertos)
+dia2 = da_spss %>% filter(dia==2) %>% select(n_apertos)
+dia3 = da_spss %>% filter(dia==3) %>% select(n_apertos)
+data = data.frame(dia1,dia2,dia3)
+colnames(data) = c("grupo","dia1","dia2","dia3")
+
+fig <- plot_ly(data,x=data$dia1, y=data$dia2, z=data$dia3,color=data$grupo,mode="markers",type="scatter3d")
+fig <- add_markers(fig)
+fig <- layout(fig,scene = list(xaxis = list(title = 'Apertos: Dia 1'),
+                                   yaxis = list(title = 'Apertos: Dia 2'),
+                                   zaxis = list(title = 'Apertos: Dia 3')))
+fig
+
+## 2 x 2
+data %>%  plot_ly(x=data$dia1, y=data$dia2,color=data$grupo,mode="markers",type="scatter") %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'Apertos: Dia 1'),
+                               yaxis = list(title = 'Apertos: Dia 2')))
+
+data %>%  plot_ly(x=data$dia2, y=data$dia3,color=data$grupo,mode="markers",type="scatter") %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'Apertos: Dia 2'),
+                      yaxis = list(title = 'Apertos: Dia 3')))
 
 
+## tentativa de grafico 3d - pressão
+dia1_ = da_spss %>% filter(dia==1) %>% select(grupo,pico)
+dia2_ = da_spss %>% filter(dia==2) %>% select(pico)
+dia3_ = da_spss %>% filter(dia==3) %>% select(pico)
+data_ = data.frame(dia1_,dia2_,dia3_)
+colnames(data_) = c("grupo","dia1","dia2","dia3")
+
+fig2 <- plot_ly(data_,x=data_$dia1, y=data_$dia2, z=data_$dia3,color=data_$grupo,mode="markers",type="scatter3d")
+fig2 <- add_markers(fig2)
+fig2 <- layout(fig2,scene = list(xaxis = list(title = 'Picos: Dia 1'),
+                               yaxis = list(title = 'Picos: Dia 2'),
+                               zaxis = list(title = 'Picos: Dia 3')))
+fig2
 
