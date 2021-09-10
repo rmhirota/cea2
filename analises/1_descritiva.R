@@ -51,27 +51,28 @@ da_spss %>%
   media_grupo(n_apertos, grupo, condicao, dia) %>%
   col_dia_grupo_cond(media_n_apertos)
 
-# da_spss %>%
-#   media_grupo(n_apertos, nome, grupo, condicao, dia) %>%
-#   ggplot2::ggplot(ggplot2::aes(
-#     x = grupo, y = media_n_apertos, colour = grupo
-#   )) +
-#   ggplot2::geom_point() +
-#   ggplot2::facet_wrap(~condicao)
-#
-# da_spss %>%
-#   dplyr::mutate(
-#     nome = stringr::str_c(nome, grupo),
-#     grupo = stringr::str_c("B", grupo),
-#     dia = as.factor(dia)
-#   ) %>%
-#   dplyr::group_by(nome, grupo, condicao, dia) %>%
-#   dplyr::summarise(media = mean(n_apertos)) %>%
-#   ggplot2::ggplot(ggplot2::aes(
-#     x = grupo, y = media, colour = dia
-#   )) +
-#   ggplot2::geom_point() +
-#   ggplot2::facet_wrap(~condicao)
+da_spss %>%
+  media_grupo(n_apertos, nome, grupo, condicao, dia) %>%
+  tidyr::pivot_longer(dia, values_to = "dia")
+  ggplot2::ggplot(ggplot2::aes(
+    x = dia, y = media_n_apertos, colour = dia
+  )) +
+  ggplot2::geom_point() +
+  ggplot2::facet_wrap(~condicao)
+
+da_spss %>%
+  dplyr::mutate(
+    nome = stringr::str_c(nome, grupo),
+    grupo = stringr::str_c("B", grupo),
+    dia = as.factor(dia)
+  ) %>%
+  dplyr::group_by(nome, grupo, condicao, dia) %>%
+  dplyr::summarise(media = mean(n_apertos)) %>%
+  ggplot2::ggplot(ggplot2::aes(
+    x = grupo, y = media, colour = dia
+  )) +
+  ggplot2::geom_point() +
+  ggplot2::facet_wrap(~condicao)
 
 
 #  freq_apertos -----------------------------------------------------------
@@ -99,21 +100,21 @@ da_spss %>%
   media_grupo(media_pressao, grupo, condicao, dia) %>%
   col_dia_grupo_cond(media_media_pressao)
 
-# da_spss %>%
-#   dplyr::filter(grupo == 3) %>%
-#   dplyr::mutate(
-#     nome = stringr::str_c(nome, grupo),
-#     grupo = stringr::str_c("B", grupo),
-#     dia = as.factor(dia)
-#   ) %>%
-#   dplyr::group_by(nome, grupo, condicao, dia) %>%
-#   dplyr::summarise(media = mean(media_pressao)) %>%
-#   ggplot2::ggplot(ggplot2::aes(
-#     x = dia, y = media, colour = condicao
-#   )) +
-#   ggplot2::geom_point() +
-#   ggplot2::facet_wrap(~condicao)
-#
+da_spss %>%
+  dplyr::filter(grupo == 3) %>%
+  dplyr::mutate(
+    nome = stringr::str_c(nome, grupo),
+    grupo = stringr::str_c("B", grupo),
+    dia = as.factor(dia)
+  ) %>%
+  dplyr::group_by(nome, grupo, condicao, dia) %>%
+  dplyr::summarise(media = mean(media_pressao)) %>%
+  ggplot2::ggplot(ggplot2::aes(
+    x = dia, y = media, colour = condicao
+  )) +
+  ggplot2::geom_point() +
+  ggplot2::facet_wrap(~condicao)
+
 # da_spss %>%
 #   dplyr::mutate(
 #     nome = stringr::str_c(nome, grupo),
