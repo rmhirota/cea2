@@ -20,7 +20,14 @@ da_spss_tidy <- da_spss %>%
     name = stringr::str_replace_all(name, "x", "media"),
     nome = stringr::str_squish(nome)
   ) %>%
-  tidyr::pivot_wider(names_from = name, values_from = value)
+  tidyr::pivot_wider(names_from = name, values_from = value) %>%
+  dplyr::mutate(
+    grupo = as.factor(grupo),
+    dia = as.factor(dia),
+    condicao = as.factor(condicao)
+  )
 
-View(da_spss_tidy)
+# dplyr::glimpse(da_spss_tidy)
+# View(da_spss_tidy)
 
+readr::write_rds(da_spss_tidy, "data-raw/da_spss_tidy.rds")
