@@ -164,7 +164,7 @@ dia3 = da_spss %>% filter(dia==3) %>% select(n_apertos)
 data = data.frame(dia1,dia2,dia3)
 colnames(data) = c("grupo","dia1","dia2","dia3")
 
-fig <- plot_ly(data,x=data$dia1, y=data$dia2, z=data$dia3,color=data$grupo,mode="markers",type="scatter3d")
+fig <- plot_ly(data,x=data$dia1, y=data$dia2, z=data$dia3,color=data$grupo,colors = "Set1",mode="markers")
 fig <- add_markers(fig)
 fig <- layout(fig,scene = list(xaxis = list(title = 'Apertos: Dia 1'),
                                    yaxis = list(title = 'Apertos: Dia 2'),
@@ -172,28 +172,57 @@ fig <- layout(fig,scene = list(xaxis = list(title = 'Apertos: Dia 1'),
 fig
 
 ## 2 x 2
-data %>%  plot_ly(x=data$dia1, y=data$dia2,color=data$grupo,mode="markers",type="scatter") %>%
+data %>%  plot_ly(x=data$dia1, y=data$dia2,color=data$grupo,mode="markers",colors = "Set1") %>%
   add_markers() %>%
-  layout(scene = list(xaxis = list(title = 'Apertos: Dia 1'),
-                               yaxis = list(title = 'Apertos: Dia 2')))
+  layout(title = 'Número de apertos: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
+                               yaxis = list(title = 'Dia 2'))
 
-data %>%  plot_ly(x=data$dia2, y=data$dia3,color=data$grupo,mode="markers",type="scatter") %>%
+data %>%  plot_ly(x=data$dia2, y=data$dia3,color=data$grupo,mode="markers",colors = "Set1") %>%
   add_markers() %>%
-  layout(scene = list(xaxis = list(title = 'Apertos: Dia 2'),
-                      yaxis = list(title = 'Apertos: Dia 3')))
+  layout(title= 'Número de apertos: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
+                      yaxis = list(title = 'Dia 3'))
 
 
-## tentativa de grafico 3d - pressão
-dia1_ = da_spss %>% filter(dia==1) %>% select(grupo,pico)
-dia2_ = da_spss %>% filter(dia==2) %>% select(pico)
-dia3_ = da_spss %>% filter(dia==3) %>% select(pico)
+## tentativa de grafico 3d - pressão média
+dia1_ = da_spss %>% filter(dia==1) %>% select(grupo,media_pressao)
+dia2_ = da_spss %>% filter(dia==2) %>% select(media_pressao)
+dia3_ = da_spss %>% filter(dia==3) %>% select(media_pressao)
 data_ = data.frame(dia1_,dia2_,dia3_)
 colnames(data_) = c("grupo","dia1","dia2","dia3")
 
-fig2 <- plot_ly(data_,x=data_$dia1, y=data_$dia2, z=data_$dia3,color=data_$grupo,mode="markers",type="scatter3d")
+fig2 <- plot_ly(data_,x=data_$dia1, y=data_$dia2, z=data_$dia3,colors = "Set1",color=data_$grupo,mode="markers")
 fig2 <- add_markers(fig2)
-fig2 <- layout(fig2,scene = list(xaxis = list(title = 'Picos: Dia 1'),
-                               yaxis = list(title = 'Picos: Dia 2'),
-                               zaxis = list(title = 'Picos: Dia 3')))
+fig2 <- layout(fig2,scene = list(xaxis = list(title = 'Dia 1'),
+                               yaxis = list(title = 'Dia 2'),
+                               zaxis = list(title = 'Dia 3')))
 fig2
 
+## 2 x 2
+data_ %>%  plot_ly(x=data_$dia1, y=data_$dia2,color=data_$grupo,mode="markers",colors = "Set1") %>%
+  add_markers() %>%
+  layout(title = 'Pressão: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
+         yaxis = list(title = 'Dia 2'))
+
+data_ %>%  plot_ly(x=data_$dia2, y=data_$dia3,color=data_$grupo,mode="markers",colors = "Set1") %>%
+  add_markers() %>%
+  layout(title= 'Pressão: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
+         yaxis = list(title = 'Dia 3'))
+
+# Média de tempo de vídeo por grupo na condição contingente
+# valores referentes a porcentagem do tempo da tentativa em que o vídeo esteve ativado.
+
+spss3 <- foreign::read.spss("data-raw/spss/Tempo Video.sav") %>%
+  +   dplyr::as_tibble()
+
+graf_cont = spss3 %>% group_by(Grupo) %>% summarise(media_cont = mean(Cont), media_nc = mean(NC)) %>%
+  ggplot() +
+  geom_col(aes(x = Grupo, y = media_cont),fill="purple") +
+  ggtitle("Média do tempo de vídeo na condição contingente") +
+  labs(y = "Média de tempo")+theme_minimal()+
+  geom_label(aes(x = Grupo, y = media_cont, label = round(media_cont,2)))
+graf_cont
+
+# No geral, no primeiro dia do experimento a porcentagem do tempo média em que o vídeo esteve ativado.
+# é superior nos grupos 1 e 2 (parece q bebes nesses grupos tendem a atingir mais o valor gatilho)
+# intrigante pq vimos anteriormente que o o número médio de apertos nesse dia era maior nos grupos 2 e 3
+# ou seja, bebes de 3 meses apertaram mais, porém, atingiram em média menos vezes o valor de gatilho
