@@ -55,46 +55,45 @@ da_brutos %>%
 
 ler_arquivos_brutos <- function(arq) {
   arq %>%
-    readr::read_delim(
-      delim = "\t",
-      col_names = c("excluir", "video", "tempo", "pressao")
+    readr::read_tsv(
+      col_names = c("excluir", "video", "tempo", "pressao"),
+      col_types = "cccc"
     ) %>%
     dplyr::select(-excluir) %>%
-    dplyr::mutate(arq = arq)
+    dplyr::mutate(
+      arq = arq,
+      video = as.logical(as.numeric(stringr::str_replace(video, ",", "."))),
+      tempo = as.numeric(stringr::str_replace(tempo, ",", ".")),
+      pressao = as.numeric(stringr::str_replace(pressao, ",", ".")),
+    )
 }
 
 da <- purrr::map_dfr(da_brutos$arq, ler_arquivos_brutos)
-da <- da_brutos %>%
-  dplyr::left_join(da)
+da <- dplyr::left_join(da_brutos, da, "arq")
+
+dplyr::glimpse(da)
+
+readr::write_rds(da, "data-raw/da_tidy.rds", compress = "xz")
 
 
-# SPSS --------------------------------------------------------------------
+# Arquivos novos ----------------------------------------------------------
 
-spss1 <- foreign::read.spss("data-raw/spss/Completo 3 dias variaveis base.sav") %>%
-  dplyr::as_tibble()
-dplyr::glimpse(spss1)
-spss2 <- foreign::read.spss("data-raw/spss/gatilho_janelada.sav") %>%
-  dplyr::as_tibble()
-dplyr::glimpse(spss2)
-spss3 <- foreign::read.spss("data-raw/spss/Tempo Video.sav") %>%
-  dplyr::as_tibble()
-dplyr::glimpse(spss3)
-
-# variáveis
-# - idade
-# - dia
-# - condicao
-# - n_pertos
-# - freq_apertos
-# - pressao_media
-# - sd_pressao
-# - max_pressao (pico maximo)
-# - media_picos
-# - sd_picos
-# - duracao_picos
-# - sd_duracao_picos
-
-
+# arquivos <- fs::dir_ls(
+#   "data-raw/", type = "file", recurse = TRUE,
+#   regexp = "(R|sav)$", invert = TRUE
+# )
+# arquivos_novos <- fs::dir_ls(
+#   "Dados Brutos/", type = "file", recurse = TRUE,
+#   regexp = "(R|sav)$", invert = TRUE
+# )
+# arquivos <- arquivos %>% stringr::str_remove_all("data-raw/brutos")
+# arquivos_novos <- arquivos_novos %>% stringr::str_remove_all("Dados Brutos")
+# length(arquivos_novos)
+# length(arquivos)
+# setdiff(arquivos_novos, arquivos)
+# setdiff(arquivos, arquivos_novos)
+# arquivos_novos %>%
+#   purrr::keep(~stringr::str_detect(.x, "mamando"))
 
 
 
