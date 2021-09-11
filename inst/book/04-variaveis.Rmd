@@ -1,25 +1,40 @@
 # Descrição das variáveis {#descricao-variaveis}
 
-Para cada condição definida, foram coletados os valores de pressão palmar realizada pelos participante ao longo do tempo. A partir deles, a pesquisadora identificou os picos de pressão ao longo da série temporal que foram classificados como apertos. 
+Para cada condição definida e dia do experimento foram coletados os valores de pressão palmar realizada pelos participante ao longo do tempo. A partir deles, a pesquisadora identificou os picos de pressão e os apertos ao longo da série temporal. 
 A seguir, listamos as variáveis que de fato foram consideradas na análise.
 
-- Participante: 1 a 22
-- Grupo: 	1= 1 mes, 2=2 meses, 3=3 meses
-- Condicao: C = Contingente, NC = Não Contigente, B = Basal, B2 = Basal 2
-- Sessao: 1 = primeira, 2 =segunda, 3 = terceira
+## Variáveis Dados Brutos
+
+Variáveis brutas do experimento, ou seja, os valores coletados diretamente pelo software conectado ao aparelho de pressão. Foram enviados um arquivo por bebê o qual continha as informações separadas por dia e condição do experimento. Após o tratamento das informações, obtivemos as seguintes variáveis:
+
+- Participante: 1 a 20
 - Video: 0 = sem vídeo e 1 = com vídeo
-- Numero de apertos:	número de apertos 
-- Frequencia media do aperto:	apertos/min
-- Media do numero de apertos
-- Variacao da frequencia media do aperto: desvio padrão da frequência média
-- Pressao media: pressão média tentativa completa (mmH2O)
-- Variacao da pressao media do aperto: desvio padrão da pressão media (mmH2O)
-- Pico:	pico máximo da pressão (mmH2O)
-- Media do pico maximo do aperto: média de picos de pressão 
-- Variacao do pico maximo do aperto: desvio padrão do pico médio
-- Duracao do aperto:	duração dos apertos
-- Variacao da duracao media:	desvio padrão da duração média dos apertos
-- Variacao da duracao do aperto: desvio padrão da média de duração do aperto
+- Tempo: tempo observado (segundos)
+- Pressao: pressão medida no tempo observado (mmHg)
+- Dia: 1, 2 ou 3
+- Grupo: 1= 1 mês, 2= 2 meses, 3= 3 meses (ou B1, B2, B3)
+- Condicao:  c = Contingente, nc = Não Contigente, bas = Basal, pos = Basal 2
+
+## Variáveis Dados Agrupados
+
+Variáveis calculadas pela pesquisadora através dos dados brutos do experimento. Após o tratamento das informações, obtivemos as seguintes variáveis:
+
+- Participante: 1 a 20 (ou nome?)
+- Grupo: 	1= 1 mês, 2= 2 meses, 3= 3 meses
+- Dia: 1, 2 ou 3
+- Condicao: c = Contingente, nc = Não Contigente, bas = Basal, pos = Basal 2
+- N_apertos: número de apertos
+- Freq_apertos: apertos/min
+- Media_pressao: pressão média na tentativa completa (mmHg)
+- Sd_pressao: desvio padrão da pressão media (mmHg)
+- Pico: pico máximo de pressão (mmHg)
+- Media_pressao_pico:  média de picos de pressão(?)
+- Sd_pressao_pico: desvio padrão do pico médio (?)
+- Media_duracao_pico: média de duração do aperto (milissegundo)
+- Sd_duracao_pico: 	desvio padrão da duração média do pico (milissegundo)
+
+
+
 
 
 
