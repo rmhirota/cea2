@@ -155,7 +155,6 @@ da_spss %>%
   media_grupo(media_duracao_pico, grupo, condicao, dia) %>%
   col_dia_grupo_cond(media_media_duracao_pico)
 
-
 ## tentativa de grafico 3d - apertos
 library(plotly)
 dia1 = da_spss %>% filter(dia==1) %>% select(grupo,n_apertos)
@@ -226,3 +225,97 @@ graf_cont
 # é superior nos grupos 1 e 2 (parece q bebes nesses grupos tendem a atingir mais o valor gatilho)
 # intrigante pq vimos anteriormente que o o número médio de apertos nesse dia era maior nos grupos 2 e 3
 # ou seja, bebes de 3 meses apertaram mais, porém, atingiram em média menos vezes o valor de gatilho
+
+
+# Perfis ------------------------------------------------------------------
+da <- readr::read_rds( "data-raw/da_tidy.rds")
+
+# por bebê com vídeo (contingente)
+p_video_bebe <- function(da, bebe, d, gr) {
+  da_bebe <- da %>%
+    dplyr::filter(
+      condicao == "contingente", dia == d,
+      grupo == gr, nome == bebe
+    )
+  video <- da_bebe %>%
+    dplyr::mutate(id = dplyr::row_number()) %>%
+    dplyr::select(id, video, tempo, pressao) %>%
+    dplyr::filter(video)
+  pressao_min <- min(video$id)
+  gatilho <- da_bebe %>%
+    dplyr::mutate(id = dplyr::row_number()) %>%
+    dplyr::filter(id < pressao_min) %>%
+    dplyr::slice_max(id) %>%
+    dplyr::pull(pressao)
+  da_bebe %>%
+    ggplot2::ggplot(ggplot2::aes(x = tempo, y = pressao)) +
+    ggplot2::geom_line() +
+    ggplot2::geom_vline(
+      data = video, ggplot2::aes(xintercept = tempo),
+      alpha = .01, colour = "blue"
+    ) +
+    ggplot2::geom_hline(yintercept = gatilho, colour = "red") +
+    ggplot2::theme_bw() +
+    ggplot2::theme(
+      panel.grid.major.x = ggplot2::element_blank() ,
+      panel.grid.major.y = ggplot2::element_line(size=.1, color="black"),
+      panel.grid.minor.x = ggplot2::element_blank() ,
+      panel.grid.minor.y = ggplot2::element_line(size=.01, color="black")
+    )
+}
+
+nomes_b1 <- da %>%
+  dplyr::filter(grupo == "B1") %>%
+  dplyr::pull(nome) %>% unique()
+nomes_b2 <- da %>%
+  dplyr::filter(grupo == "B2") %>%
+  dplyr::pull(nome) %>% unique()
+
+# dia 1
+purrr::map(nomes_b1, ~p_video_bebe(da, .x, 1, "B2"))
+purrr::map(nomes_b2, ~p_video_bebe(da, .x, 1, "B2"))
+
+
+
+perfil <- function(da, d, gr, cond) {
+  da %>%
+    dplyr::filter(condicao == cond, dia == d, grupo == gr) %>%
+    dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+    dplyr::group_by(nome, tempo_trunc) %>%
+    dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+    ggplot2::ggplot(ggplot2::aes(
+      x = tempo_trunc, y = media_pressao, group = nome, colour = nome
+    )) +
+    ggplot2::geom_line() +
+    ggplot2::labs(
+      title = "Média de pressão por segundo",
+      subtitle = glue::glue("Dia {d} / Grupo {gr} / {cond}")
+    )
+}
+
+# dia 1
+# grupo 1
+perfil(da, 1, "B1", "basal1")
+perfil(da, 1, "B1", "contingente")
+perfil(da, 1, "B1", "não contingente")
+perfil(da, 1, "B1", "basal2")
+
+
+# agrupado por condição
+# grupo 1, dia 1
+da %>%
+  dplyr::filter(dia == 1, grupo == "B2") %>%
+  dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, tempo_trunc) %>%
+  dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(tempo_trunc, media_pressao, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.tempo_trunc}<br>",
+      "<b>Pressão</b>: {point.media_pressao}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
