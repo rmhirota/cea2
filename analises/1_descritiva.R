@@ -11,11 +11,13 @@ media_grupo <- function(da, variavel, ...) {
     dplyr::group_by(...) %>%
     dplyr::summarise(
       "media_{{variavel}}" := mean({{variavel}}),
+      "dp_{{variavel}}" := sd({{variavel}}),
       .groups = "drop"
     )
 }
-media_grupo(da_spss, n_apertos, dia, grupo)
+media_grupo(da_spss, freq_apertos, dia, grupo)
 media_grupo(da_spss, n_apertos, dia)
+media_grupo(da_spss, n_apertos, grupo)
 media_grupo(da_spss, n_apertos, grupo)
 
 # boxplot
@@ -241,12 +243,12 @@ p_video_bebe <- function(da, bebe, d, gr) {
     dplyr::mutate(id = dplyr::row_number()) %>%
     dplyr::select(id, video, tempo, pressao) %>%
     dplyr::filter(video)
-  pressao_min <- min(video$id)
-  gatilho <- da_bebe %>%
-    dplyr::mutate(id = dplyr::row_number()) %>%
-    dplyr::filter(id < pressao_min) %>%
-    dplyr::slice_max(id) %>%
-    dplyr::pull(pressao)
+  # pressao_min <- min(video$id)
+  # gatilho <- da_bebe %>%
+  #   dplyr::mutate(id = dplyr::row_number()) %>%
+  #   dplyr::filter(id < pressao_min) %>%
+  #   dplyr::slice_max(id) %>%
+  #   dplyr::pull(pressao)
   da_bebe %>%
     ggplot2::ggplot(ggplot2::aes(x = tempo, y = pressao)) +
     ggplot2::geom_line() +
@@ -254,7 +256,7 @@ p_video_bebe <- function(da, bebe, d, gr) {
       data = video, ggplot2::aes(xintercept = tempo),
       alpha = .01, colour = "blue"
     ) +
-    ggplot2::geom_hline(yintercept = gatilho, colour = "red") +
+    # ggplot2::geom_hline(yintercept = gatilho, colour = "red") +
     ggplot2::theme_bw() +
     ggplot2::theme(
       panel.grid.major.x = ggplot2::element_blank() ,
@@ -270,11 +272,16 @@ nomes_b1 <- da %>%
 nomes_b2 <- da %>%
   dplyr::filter(grupo == "B2") %>%
   dplyr::pull(nome) %>% unique()
+nomes_b3 <- da %>%
+  dplyr::filter(grupo == "B3") %>%
+  dplyr::pull(nome) %>% unique()
 
 # dia 1
-purrr::map(nomes_b1, ~p_video_bebe(da, .x, 1, "B2"))
+purrr::map(nomes_b1, ~p_video_bebe(da, .x, 1, "B1"))
 purrr::map(nomes_b2, ~p_video_bebe(da, .x, 1, "B2"))
+purrr::map(nomes_b3, ~p_video_bebe(da, .x, 1, "B3"))
 
+p_video_bebe(da, nomes_b1[2], 1, "B2")
 
 
 perfil <- function(da, d, gr, cond) {
