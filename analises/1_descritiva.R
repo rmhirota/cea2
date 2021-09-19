@@ -1,4 +1,5 @@
 library(magrittr)
+library(patchwork)
 
 da_spss <- readr::read_rds("data-raw/da_spss_tidy.rds")
 dplyr::glimpse(da_spss)
@@ -230,7 +231,9 @@ graf_cont
 
 
 # Perfis ------------------------------------------------------------------
-da <- readr::read_rds( "data-raw/da_tidy.rds")
+dados1 <- readr::read_rds( "data-raw/da_tidy.rds")
+dados2 <- readr::read_rds( "data-raw/da_brutos.rds")
+da = dplyr::inner_join(dados1,dados2,by="arq",suffix = c("",""))
 
 # por bebê com vídeo (contingente)
 p_video_bebe <- function(da, bebe, d, gr) {
@@ -267,22 +270,33 @@ p_video_bebe <- function(da, bebe, d, gr) {
 }
 
 nomes_b1 <- da %>%
-  dplyr::filter(grupo == "B1") %>%
+  dplyr::filter(grupo == "b1") %>%
   dplyr::pull(nome) %>% unique()
 nomes_b2 <- da %>%
-  dplyr::filter(grupo == "B2") %>%
+  dplyr::filter(grupo == "b2") %>%
   dplyr::pull(nome) %>% unique()
 nomes_b3 <- da %>%
-  dplyr::filter(grupo == "B3") %>%
+  dplyr::filter(grupo == "b3") %>%
   dplyr::pull(nome) %>% unique()
 
 # dia 1
-purrr::map(nomes_b1, ~p_video_bebe(da, .x, 1, "B1"))
-purrr::map(nomes_b2, ~p_video_bebe(da, .x, 1, "B2"))
-purrr::map(nomes_b3, ~p_video_bebe(da, .x, 1, "B3"))
+purrr::map(nomes_b1, ~p_video_bebe(da, .x, 1, "b1"))
+purrr::map(nomes_b2, ~p_video_bebe(da, .x, 1, "b2"))
+purrr::map(nomes_b3, ~p_video_bebe(da, .x, 1, "b3"))
 
-p_video_bebe(da, nomes_b1[2], 1, "B2")
+p_video_bebe(da, nomes_b1[2], 1, "b2")
 
+# dia 2
+
+purrr::map(nomes_b1, ~p_video_bebe(da, .x, 2, "b1"))
+purrr::map(nomes_b2, ~p_video_bebe(da, .x, 2, "b2"))
+purrr::map(nomes_b3, ~p_video_bebe(da, .x, 2, "b3"))
+
+# dia 3
+
+purrr::map(nomes_b1, ~p_video_bebe(da, .x, 3, "b1"))
+purrr::map(nomes_b2, ~p_video_bebe(da, .x, 3, "b2"))
+purrr::map(nomes_b3, ~p_video_bebe(da, .x, 3, "b3"))
 
 perfil <- function(da, d, gr, cond) {
   da %>%
@@ -296,22 +310,23 @@ perfil <- function(da, d, gr, cond) {
     ggplot2::geom_line() +
     ggplot2::labs(
       title = "Média de pressão por segundo",
+      ylab= "Segundos", xlab = "Pressão Média")
       subtitle = glue::glue("Dia {d} / Grupo {gr} / {cond}")
-    )
 }
 
 # dia 1
 # grupo 1
-perfil(da, 1, "B1", "basal1")
-perfil(da, 1, "B1", "contingente")
-perfil(da, 1, "B1", "não contingente")
-perfil(da, 1, "B1", "basal2")
+perfil(da, 1, "b1", "basal1")  #bebe nicolas com uma media de pressão mto alta em detrminado momento
+perfil(da, 1, "b1", "contingente")  #media de pressão maior do que na condição basal
+perfil(da, 1, "b1", "não contingente")  #media de pressão mto menor (pico do bebe renan)
+                                       #aqui, o comportamento deles é mto parecido
+perfil(da, 1, "b1", "basal2")
 
 
 # agrupado por condição
 # grupo 1, dia 1
 da %>%
-  dplyr::filter(dia == 1, grupo == "B2") %>%
+  dplyr::filter(dia == 1, grupo == "b1") %>%
   dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
   dplyr::group_by(condicao, tempo_trunc) %>%
   dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
@@ -326,3 +341,231 @@ da %>%
       "<b>Condição</b>: {point.condicao}<br>"
     )
   )
+
+# grupo 1, dia 2
+da %>%
+  dplyr::filter(dia == 2, grupo == "b1") %>%
+  dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, tempo_trunc) %>%
+  dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(tempo_trunc, media_pressao, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.tempo_trunc}<br>",
+      "<b>Pressão</b>: {point.media_pressao}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+# grupo 1, dia 3
+da %>%
+  dplyr::filter(dia == 3, grupo == "b1") %>%
+  dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, tempo_trunc) %>%
+  dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(tempo_trunc, media_pressao, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.tempo_trunc}<br>",
+      "<b>Pressão</b>: {point.media_pressao}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+# grupo 2, dia 1
+da %>%
+  dplyr::filter(dia == 1, grupo == "b2") %>%
+  dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, tempo_trunc) %>%
+  dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(tempo_trunc, media_pressao, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.tempo_trunc}<br>",
+      "<b>Pressão</b>: {point.media_pressao}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+# grupo 2, dia 2
+da %>%
+  dplyr::filter(dia == 2, grupo == "b2") %>%
+  dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, tempo_trunc) %>%
+  dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(tempo_trunc, media_pressao, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.tempo_trunc}<br>",
+      "<b>Pressão</b>: {point.media_pressao}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+# grupo 2, dia 3
+da %>%
+  dplyr::filter(dia == 3, grupo == "b2") %>%
+  dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, tempo_trunc) %>%
+  dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(tempo_trunc, media_pressao, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.tempo_trunc}<br>",
+      "<b>Pressão</b>: {point.media_pressao}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+# grupo 3, dia 1
+da %>%
+  dplyr::filter(dia == 1, grupo == "b3") %>%
+  dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, tempo_trunc) %>%
+  dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(tempo_trunc, media_pressao, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.tempo_trunc}<br>",
+      "<b>Pressão</b>: {point.media_pressao}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+# grupo 3, dia 2
+da %>%
+  dplyr::filter(dia == 2, grupo == "b3") %>%
+  dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, tempo_trunc) %>%
+  dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(tempo_trunc, media_pressao, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.tempo_trunc}<br>",
+      "<b>Pressão</b>: {point.media_pressao}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+# grupo 3, dia 3
+da %>%
+  dplyr::filter(dia == 3, grupo == "b3") %>%
+  dplyr::mutate(tempo_trunc = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, tempo_trunc) %>%
+  dplyr::summarise(media_pressao = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(tempo_trunc, media_pressao, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.tempo_trunc}<br>",
+      "<b>Pressão</b>: {point.media_pressao}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+# variavel tempo entre disparo do video
+
+tempo_video <- function(da, d, gr, b) {
+  da %>%
+    dplyr::filter(condicao == "contingente", dia == d, grupo == gr, nome == b) %>%
+    dplyr::mutate(ate_video = dplyr::case_when(video == FALSE ~ 0,
+                                               video == TRUE ~ dplyr::lag(tempo))) %>%
+    dplyr::mutate(diff_video = dplyr::case_when(video == FALSE ~ 0,
+                                                video == TRUE ~tempo - ate_video ))%>%
+    ggplot2::ggplot(ggplot2::aes(
+      x = nome, y = diff_video)) +
+    ggplot2::geom_boxplot() +
+    ggplot2::labs(
+      title = "Tempo entre ativação do video",
+      ylab= "Segundos")
+  #subtitle = glue::glue("Dia {d} / Grupo {gr} / Bebê{b}")
+}
+
+a = purrr::map(nomes_b1, ~tempo_video(da,1, "b1",.x))
+a[[1]]+a[[2]]+a[[3]]+a[[4]]+a[[5]]+a[[6]]
+
+
+## tempo entre video ao longo da serie (scatterplot)
+
+tempo_video2 <- function(da, d, gr, b) {
+  da %>%
+    dplyr::filter(condicao == "contingente", dia == d, grupo == gr, nome == b) %>%
+    dplyr::mutate(ate_video = dplyr::case_when(video == FALSE ~ 0,
+                                               video == TRUE ~ dplyr::lag(tempo))) %>%
+    dplyr::mutate(diff_video = dplyr::case_when(video == FALSE ~ 0,
+                                                video == TRUE ~tempo - ate_video ))%>%
+    dplyr::filter(video == TRUE) %>%
+    ggplot2::ggplot(ggplot2::aes(
+      x = tempo, y = diff_video)) +
+    ggplot2::geom_point() +
+    ggplot2::labs(
+      title = "Tempo entre ativação do video",
+      ylab= "Segundos")
+  #subtitle = glue::glue("Dia {d} / Grupo {gr} / Bebê{b}")
+}
+
+b = purrr::map(nomes_b1, ~tempo_video2(da,1, "b1",.x))
+b[[1]]+b[[2]]+b[[3]]+b[[4]]+b[[5]]+b[[6]]
+
+## tempo de video ativo por bebe
+
+## acho q essa base esta errada (o lag n esta difinido por bebe)
+
+tempo_ativo1 = da %>% dplyr::filter(!condicao %in% c("basal1","basal2")) %>%
+  dplyr::mutate(ate_video = dplyr::case_when(video == FALSE ~ 0,
+                                             video == TRUE ~ dplyr::lag(tempo))) %>%
+  dplyr::mutate(diff_video = dplyr::case_when(video == FALSE ~ 0,
+                                              video == TRUE ~tempo - ate_video ))%>%
+  dplyr::group_by(dia,grupo,nome,condicao) %>% dplyr::summarise(total=sum(diff_video))
+
+
+# Média de tempo de vídeo por grupo na condição contingente
+
+graf_cont1 = tempo_ativo1 %>% dplyr::filter(dia==1,condicao=="contingente") %>%
+  dplyr::group_by(grupo) %>% dplyr::summarise(media_cont = mean(total)) %>%
+  ggplot2::ggplot() +
+  ggplot2::geom_col(ggplot2::aes(x = grupo, y = media_cont),fill="purple") +
+  ggplot2::ggtitle("Média do tempo de vídeo na condição contingente") +
+  ggplot2::labs(y = "Média de tempo (Dia 1)")+ggplot2::theme_minimal()+
+  ggplot2::geom_label(ggplot2::aes(x = grupo, y = media_cont, label = round(media_cont,2)))
+
+graf_cont2 = tempo_ativo1 %>% dplyr::filter(dia==2,condicao=="contingente") %>%
+  dplyr::group_by(grupo) %>% dplyr::summarise(media_cont = mean(total)) %>%
+  ggplot2::ggplot() +
+  ggplot2::geom_col(ggplot2::aes(x = grupo, y = media_cont),fill="purple") +
+ # ggplot2::ggtitle("Média do tempo de vídeo na condição contingente") +
+  ggplot2::labs(y = "Média de tempo (Dia 2)")+ggplot2::theme_minimal()+
+  ggplot2::geom_label(ggplot2::aes(x = grupo, y = media_cont, label = round(media_cont,2)))
+
+graf_cont3 = tempo_ativo1 %>% dplyr::filter(dia==3,condicao=="contingente") %>%
+  dplyr::group_by(grupo) %>% dplyr::summarise(media_cont = mean(total)) %>%
+  ggplot2::ggplot() +
+  ggplot2::geom_col(ggplot2::aes(x = grupo, y = media_cont),fill="purple") +
+  #ggplot2::ggtitle("Média do tempo de vídeo na condição contingente") +
+  ggplot2::labs(y = "Média de tempo (Dia 3)")+ggplot2::theme_minimal()+
+  ggplot2::geom_label(ggplot2::aes(x = grupo, y = media_cont, label = round(media_cont,2)))
+
+graf_cont1+graf_cont2+graf_cont3
