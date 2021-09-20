@@ -235,6 +235,25 @@ dados1 <- readr::read_rds( "data-raw/da_tidy.rds")
 dados2 <- readr::read_rds( "data-raw/da_brutos.rds")
 da = dplyr::inner_join(dados1,dados2,by="arq",suffix = c("",""))
 
+
+### pressão média por dia-condicao-grupo
+
+da %>% dplyr::group_by(grupo,condicao,dia) %>%
+  dplyr::summarise(media=mean(pressao)) %>%
+  ggplot2::ggplot(ggplot2::aes(
+    x = dia, y = media, fill = grupo
+  ),fill=condicao) +
+  ggplot2::geom_bar(stat="identity",position="dodge") +
+  ggplot2::facet_wrap(~condicao)+
+  #ggplot2::ggtitle("Pressão Média") +
+  ggplot2::labs(x = "Dia")+
+  ggplot2::labs(y = "Pressão Média")+
+  ggplot2::theme_minimal()+
+  ggplot2::scale_fill_manual(values=c("#CCCCCC", "#999999", "#666666"))
+
+
+
+
 # por bebê com vídeo (contingente)
 p_video_bebe <- function(da, bebe, d, gr) {
   da_bebe <- da %>%
@@ -280,11 +299,14 @@ nomes_b3 <- da %>%
   dplyr::pull(nome) %>% unique()
 
 # dia 1
-purrr::map(nomes_b1, ~p_video_bebe(da, .x, 1, "b1"))
-purrr::map(nomes_b2, ~p_video_bebe(da, .x, 1, "b2"))
-purrr::map(nomes_b3, ~p_video_bebe(da, .x, 1, "b3"))
+p1 = purrr::map(nomes_b1, ~p_video_bebe(da, .x, 1, "b1"))
+p2 = purrr::map(nomes_b2, ~p_video_bebe(da, .x, 1, "b2"))
+p3 = purrr::map(nomes_b3, ~p_video_bebe(da, .x, 1, "b3"))
 
-p_video_bebe(da, nomes_b1[2], 1, "b2")
+p1[[1]]+p1[[2]]+p1[[3]]+p1[[4]]+p1[[5]]+p1[[6]]
+p2[[1]]+p2[[2]]+p2[[3]]+p2[[4]]+p2[[5]]+p2[[6]]
+p3[[1]] + p3[[2]] + p3[[3]] + p3[[4]] + p3[[6]]
+#p_video_bebe(da, nomes_b1[2], 1, "b2")
 
 # dia 2
 
@@ -309,9 +331,10 @@ perfil <- function(da, d, gr, cond) {
     )) +
     ggplot2::geom_line() +
     ggplot2::labs(
-      title = "Média de pressão por segundo",
-      ylab= "Segundos", xlab = "Pressão Média")
-      subtitle = glue::glue("Dia {d} / Grupo {gr} / {cond}")
+      title = "Média de pressão por segundo")+
+    ggplot2::xlab("Segundos") +
+    ggplot2::ylab("Pressão Média")
+     # subtitle = glue::glue("Dia {d} / Grupo {gr} / {cond}")
 }
 
 # dia 1
@@ -322,6 +345,7 @@ perfil(da, 1, "b1", "não contingente")  #media de pressão mto menor (pico do b
                                        #aqui, o comportamento deles é mto parecido
 perfil(da, 1, "b1", "basal2")
 
+perfil(da, 3, "b2", "contingente")
 
 # agrupado por condição
 # grupo 1, dia 1
@@ -498,15 +522,33 @@ tempo_video <- function(da, d, gr, b) {
     ggplot2::ggplot(ggplot2::aes(
       x = nome, y = diff_video)) +
     ggplot2::geom_boxplot() +
-    ggplot2::labs(
-      title = "Tempo entre ativação do video",
-      ylab= "Segundos")
+    ggplot2::xlab("Bebê") +
+    ggplot2::ylab("Tempo")
+    ##ggplot2::labs(
+      ##title = "Tempo entre ativação do video")
   #subtitle = glue::glue("Dia {d} / Grupo {gr} / Bebê{b}")
 }
 
+## grupo 1
 a = purrr::map(nomes_b1, ~tempo_video(da,1, "b1",.x))
 a[[1]]+a[[2]]+a[[3]]+a[[4]]+a[[5]]+a[[6]]
 
+b3 = purrr::map(nomes_b1, ~tempo_video(da,3,"b1",.x))
+b3[[1]]+b3[[2]]+b3[[4]]+b3[[5]]+b3[[6]]
+
+## grupo 2
+a = purrr::map(nomes_b2, ~tempo_video(da,1, "b2",.x))
+a[[1]]+a[[2]]+a[[3]]+a[[4]]+a[[5]]+a[[6]]
+
+b3 = purrr::map(nomes_b2, ~tempo_video(da,3,"b2",.x))
+b3[[1]]+b3[[2]]+b3[[3]]+b3[[4]]+b3[[5]]+b3[[6]]
+
+## grupo 3
+a = purrr::map(nomes_b3, ~tempo_video(da,1, "b3",.x))
+a[[1]]+a[[2]]+a[[3]]+a[[4]]+a[[6]]
+
+b3 = purrr::map(nomes_b3, ~tempo_video(da,3,"b3",.x))
+b3[[2]]+b3[[3]]+b3[[4]]+b3[[5]]+b3[[6]]
 
 ## tempo entre video ao longo da serie (scatterplot)
 
@@ -529,6 +571,8 @@ tempo_video2 <- function(da, d, gr, b) {
 
 b = purrr::map(nomes_b1, ~tempo_video2(da,1, "b1",.x))
 b[[1]]+b[[2]]+b[[3]]+b[[4]]+b[[5]]+b[[6]]
+
+
 
 ## tempo de video ativo por bebe
 
