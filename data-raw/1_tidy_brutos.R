@@ -41,9 +41,6 @@ da_arquivos_ok <- purrr::map_dfr(arquivos_ok, ler_arquivos_brutos)
 da_arquivos_merged <- purrr::map2_dfr(parte1, parte2, merge_partes)
 da_brutos <- dplyr::bind_rows(da_arquivos_ok, da_arquivos_merged)
 
-readr::write_rds(da_brutos, "data-raw/da_brutos.rds", compress = "xz")
-
-
 # Adiciona variáveis a partir do nome do arquivo --------------------------
 
 tbl_arquivos_brutos <- function(dir) {
@@ -74,28 +71,31 @@ tbl_arquivos_brutos <- function(dir) {
     )
 }
 
-da_brutos_completo <- tbl_arquivos_brutos(dir = "data-raw/copia_dados_brutos/")
+da_brutos_metadados <- tbl_arquivos_brutos(dir = "data-raw/copia_dados_brutos/")
 
 # nome ok (lembrar que tem 2 nicolas)
-da_brutos_completo %>%
+da_brutos_metadados %>%
   dplyr::count(nome) %>%
   print(n = 40)
 
 # grupo ok
-da_brutos_completo %>%
+da_brutos_metadados %>%
   dplyr::count(grupo) %>%
   print(n = 40)
 
 # condição
-da_brutos_completo %>%
+da_brutos_metadados %>%
   dplyr::count(condicao) %>%
   print(n = 40)
 
 # dia ok
-da_brutos_completo %>%
+da_brutos_metadados %>%
   dplyr::count(dia)
 
+da_brutos <- da_brutos %>%
+  dplyr::inner_join(da_brutos_metadados, "arq") %>%
+  dplyr::relocate(video, tempo, pressao, .after = condicao)
 
-readr::write_rds(da_brutos_completo, "data-raw/da_tidy.rds", compress = "xz")
+readr::write_rds(da_brutos, "data-raw/da_tidy.rds", compress = "xz")
 
 
