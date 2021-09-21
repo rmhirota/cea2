@@ -110,4 +110,90 @@ da %>%
   ggplot2::labs(x = "Dia")+
   ggplot2::labs(y = "Pressão Média")+
   ggplot2::theme_minimal()+
-  ggplot2::scale_fill_manual(values=c("#CCCCCC", "#999999", "#666666"))
+  ggplot2::scale_fill_manual(values=c("#440154FF", "#21908CFF", "#FDE725FF"))
+
+# variavel tempo entre disparo do video
+
+tempo_video <- function(da, d, gr, b) {
+  cor <- switch(d, `1` = "#440154FF", `2` = "#21908CFF", `3` = "#FDE725FF")
+  da %>%
+    dplyr::filter(condicao == "contingente", dia == d, grupo == gr, nome == b) %>%
+    dplyr::arrange(tempo) %>%
+    dplyr::mutate(status_video = dplyr::case_when(video == FALSE & dplyr::lag(video) == TRUE  ~ "fim",
+                                                  video == TRUE & dplyr::lag(video) == FALSE ~ "inicio",
+                                                  video == TRUE & dplyr::lag(video) == TRUE ~ "meio")) %>%
+    dplyr::filter(status_video %in% c("inicio","fim")) %>%
+    dplyr::mutate(diff_video = dplyr::case_when(status_video == "inicio" &
+                                                  dplyr::lag(status_video) == "fim" ~ (tempo-dplyr::lag(tempo)))) %>%
+    ggplot2::ggplot(ggplot2::aes(
+      x = nome, y = diff_video)) +
+    ggplot2::geom_boxplot(color=cor) +
+    #ggplot2::xlab("Bebê") +
+    #ggplot2::ylab("Tempo")+
+    ggplot2::theme(
+      panel.grid.major.x = ggplot2::element_blank(),
+      legend.position="none"
+    ) +
+    ggplot2::labs(
+      #   title = "Pressão ao longo do tempo",
+      #   subtitle = glue::glue("Grupo {gr} / Dia {d}"),
+      y = ggplot2::element_blank(),
+      x = ggplot2::element_blank(),
+      axis.title.x= ggplot2::element_blank()
+    )
+}
+
+## grupo 1
+t_g1_d1 = purrr::map(nomes_b1, ~tempo_video(da,1, "b1",.x))
+purrr::reduce(t_g1_d1,`+`)
+t_g1_d2 = purrr::map(nomes_b1, ~tempo_video(da,2, "b1",.x))
+purrr::reduce(t_g1_d2,`+`)
+t_g1_d3 = purrr::map(nomes_b1, ~tempo_video(da,3, "b1",.x))
+purrr::reduce(t_g1_d3,`+`)
+
+## grupo 2
+t_g2_d1 = purrr::map(nomes_b2, ~tempo_video(da,1, "b2",.x))
+purrr::reduce(t_g2_d1,`+`)
+t_g2_d2 = purrr::map(nomes_b2, ~tempo_video(da,2,"b2",.x))
+purrr::reduce(t_g2_d2,`+`)
+t_g2_d3 = purrr::map(nomes_b2, ~tempo_video(da,3,"b2",.x))
+purrr::reduce(t_g2_d3,`+`)
+
+## grupo 3
+t_g3_d1 = purrr::map(nomes_b3, ~tempo_video(da,1, "b3",.x))
+purrr::reduce(t_g3_d1,`/`)
+t_g3_d2 = purrr::map(nomes_b3, ~tempo_video(da,2,"b3",.x))
+purrr::reduce(t_g3_d2,`+`)
+t_g3_d3 = purrr::map(nomes_b3, ~tempo_video(da,3,"b3",.x))
+purrr::reduce(t_g3_d3,`+`)
+
+# variavel tempo entre disparo do video - por dia
+
+  da %>% dplyr::filter(condicao == "contingente") %>%
+    dplyr::mutate(rank = dplyr::row_number(tempo)) %>%
+    dplyr::group_by(grupo, nome, dia, condicao) %>%
+    dplyr::mutate(status_video = dplyr::case_when(video == FALSE & dplyr::lag(video) == TRUE  ~ "fim",
+                                                  video == TRUE & dplyr::lag(video) == FALSE ~ "inicio",
+                                                  video == TRUE & dplyr::lag(video) == TRUE ~ "meio")) %>%
+    dplyr::filter(status_video %in% c("inicio","fim")) %>%
+    dplyr::mutate(diff_video = dplyr::case_when(status_video == "inicio" &
+                                                  dplyr::lag(status_video) == "fim" ~ (tempo-dplyr::lag(tempo)))) %>%
+
+    ggplot2::ggplot(ggplot2::aes(
+      x = dia, y = diff_video, fill = dia)) +
+    ggplot2::geom_boxplot() +
+    #ggplot2::xlab("Bebê") +
+    #ggplot2::ylab("Tempo")+
+    ggplot2::theme(
+      panel.grid.major.x = ggplot2::element_blank(),
+      legend.position="none"
+    ) +
+    ggplot2::labs(
+      #   title = "Pressão ao longo do tempo",
+      #   subtitle = glue::glue("Grupo {gr} / Dia {d}"),
+      y = ggplot2::element_blank(),
+      x = ggplot2::element_blank(),
+      axis.title.x= ggplot2::element_blank()
+    ) + ggplot2::theme_minimal() +
+    ggplot2::scale_fill_manual(values=c("#440154FF", "#21908CFF", "#FDE725FF"))
+
