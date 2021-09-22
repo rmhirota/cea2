@@ -98,7 +98,7 @@ ggplot2::ggsave(grupo3, "analises/perfis_grupo3.jpeg")
 
 # Pressão média por condição ----------------------------------------------
 
-da %>%
+p_media = da %>%
   dplyr::group_by(grupo, condicao, dia) %>%
   dplyr::summarise(media = mean(pressao)) %>%
   ggplot2::ggplot(ggplot2::aes(
@@ -111,6 +111,8 @@ da %>%
   ggplot2::labs(y = "Pressão Média")+
   ggplot2::theme_minimal()+
   ggplot2::scale_fill_manual(values=c("#440154FF", "#21908CFF", "#FDE725FF"))
+
+ggplot2::ggsave("analises/pressao_media.jpeg", p_media)
 
 # variavel tempo entre disparo do video
 
@@ -151,6 +153,11 @@ purrr::reduce(t_g1_d2,`+`)
 t_g1_d3 = purrr::map(nomes_b1, ~tempo_video(da,3, "b1",.x))
 purrr::reduce(t_g1_d3,`+`)
 
+ggplot2::ggsave("analises/tempo_video_g1_d1.jpeg", purrr::reduce(t_g1_d1,`+`))
+ggplot2::ggsave("analises/tempo_video_g1_d2.jpeg", purrr::reduce(t_g1_d2,`+`))
+ggplot2::ggsave("analises/tempo_video_g1_d3.jpeg", purrr::reduce(t_g1_d3,`+`))
+
+
 ## grupo 2
 t_g2_d1 = purrr::map(nomes_b2, ~tempo_video(da,1, "b2",.x))
 purrr::reduce(t_g2_d1,`+`)
@@ -159,6 +166,10 @@ purrr::reduce(t_g2_d2,`+`)
 t_g2_d3 = purrr::map(nomes_b2, ~tempo_video(da,3,"b2",.x))
 purrr::reduce(t_g2_d3,`+`)
 
+ggplot2::ggsave("analises/tempo_video_g2_d1.jpeg", purrr::reduce(t_g2_d1,`+`))
+ggplot2::ggsave("analises/tempo_video_g2_d2.jpeg", purrr::reduce(t_g2_d2,`+`))
+ggplot2::ggsave("analises/tempo_video_g2_d3.jpeg", purrr::reduce(t_g2_d3,`+`))
+
 ## grupo 3
 t_g3_d1 = purrr::map(nomes_b3, ~tempo_video(da,1, "b3",.x))
 purrr::reduce(t_g3_d1,`/`)
@@ -166,6 +177,10 @@ t_g3_d2 = purrr::map(nomes_b3, ~tempo_video(da,2,"b3",.x))
 purrr::reduce(t_g3_d2,`+`)
 t_g3_d3 = purrr::map(nomes_b3, ~tempo_video(da,3,"b3",.x))
 purrr::reduce(t_g3_d3,`+`)
+
+ggplot2::ggsave("analises/tempo_video_g3_d1.jpeg", purrr::reduce(t_g3_d1,`+`))
+ggplot2::ggsave("analises/tempo_video_g3_d2.jpeg", purrr::reduce(t_g3_d2,`+`))
+ggplot2::ggsave("analises/tempo_video_g3_d3.jpeg", purrr::reduce(t_g3_d3,`+`))
 
 # variavel tempo entre disparo do video - por dia
 

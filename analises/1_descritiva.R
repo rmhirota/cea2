@@ -174,12 +174,17 @@ fig <- layout(fig,scene = list(xaxis = list(title = 'Apertos: Dia 1'),
 fig
 
 ## 2 x 2
-data %>%  plot_ly(x=data$dia1, y=data$dia2,color=data$grupo,mode="markers",colors = "Set1") %>%
+dia1 = da_spss %>% filter(dia==1) %>% select(condicao,n_apertos)
+dia2 = da_spss %>% filter(dia==2) %>% select(n_apertos)
+dia3 = da_spss %>% filter(dia==3) %>% select(n_apertos)
+data = data.frame(dia1,dia2,dia3)
+colnames(data) = c("condicao","dia1","dia2","dia3")
+data %>%  plot_ly(x=data$dia1, y=data$dia2,color=data$condicao,mode="markers",colors = "Set1") %>%
   add_markers() %>%
   layout(title = 'Número de apertos: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
                                yaxis = list(title = 'Dia 2'))
 
-data %>%  plot_ly(x=data$dia2, y=data$dia3,color=data$grupo,mode="markers",colors = "Set1") %>%
+data %>%  plot_ly(x=data$dia2, y=data$dia3,color=data$condicao,mode="markers",colors = "Set1") %>%
   add_markers() %>%
   layout(title= 'Número de apertos: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
                       yaxis = list(title = 'Dia 3'))
@@ -200,14 +205,41 @@ fig2 <- layout(fig2,scene = list(xaxis = list(title = 'Dia 1'),
 fig2
 
 ## 2 x 2
-data_ %>%  plot_ly(x=data_$dia1, y=data_$dia2,color=data_$grupo,mode="markers",colors = "Set1") %>%
+
+dia1_ = da_spss %>% filter(dia==1) %>% select(condicao,media_pressao)
+dia2_ = da_spss %>% filter(dia==2) %>% select(media_pressao)
+dia3_ = da_spss %>% filter(dia==3) %>% select(media_pressao)
+data_ = data.frame(dia1_,dia2_,dia3_)
+colnames(data_) = c("condicao","dia1","dia2","dia3")
+data_ %>%  plot_ly(x=data_$dia1, y=data_$dia2,color=data_$condicao,mode="markers",colors = "Set1") %>%
   add_markers() %>%
   layout(title = 'Pressão: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
          yaxis = list(title = 'Dia 2'))
 
-data_ %>%  plot_ly(x=data_$dia2, y=data_$dia3,color=data_$grupo,mode="markers",colors = "Set1") %>%
+data_ %>%  plot_ly(x=data_$dia2, y=data_$dia3,color=data_$condicao,mode="markers",colors = "Set1") %>%
   add_markers() %>%
   layout(title= 'Pressão: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
+         yaxis = list(title = 'Dia 3'))
+
+
+## 2 x 2 - frequencia
+
+dia_1 = da_spss %>% filter(dia==1) %>% select(condicao,freq_apertos)
+dia_2 = da_spss %>% filter(dia==2) %>% select(freq_apertos)
+dia_3 = da_spss %>% filter(dia==3) %>% select(freq_apertos)
+dat = data.frame(dia_1,dia_2,dia_3) %>% dplyr::mutate(condicao = dplyr::case_when(condicao == "c" ~ "contingente",
+                                                                         condicao == "nc" ~ "não contingente",
+                                                                         condicao == "bas" ~ "basal1",
+                                                                         condicao == "pos" ~ "basal2"))
+colnames(dat) = c("condicao","dia1","dia2","dia3")
+dat %>%  plot_ly(x=dat$dia1, y=dat$dia2,color=dat$condicao,mode="markers",colors = "Set1") %>%
+  add_markers() %>%
+  layout(title = 'Frequência: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
+         yaxis = list(title = 'Dia 2'))
+
+dat %>%  plot_ly(x=dat$dia2, y=dat$dia3,color=dat$condicao,mode="markers",colors = "Set1") %>%
+  add_markers() %>%
+  layout(title= 'Frequência: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
          yaxis = list(title = 'Dia 3'))
 
 # Média de tempo de vídeo por grupo na condição contingente
