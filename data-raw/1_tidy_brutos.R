@@ -73,7 +73,7 @@ tbl_arquivos_brutos <- function(dir) {
 
 da_brutos_metadados <- tbl_arquivos_brutos(dir = "data-raw/copia_dados_brutos/")
 
-# nome ok (lembrar que tem 2 nicolas)
+# nome ok (total = 21; lembrar que tem 2 nicolas)
 da_brutos_metadados %>%
   dplyr::count(nome) %>%
   print(n = 40)
