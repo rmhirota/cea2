@@ -1,6 +1,7 @@
 # Análise descritiva dos dados brutos
 library(magrittr)
 library(patchwork)
+library(dplyr)
 
 # dados arrumados
 da <- readr::read_rds("data-raw/da_tidy.rds")
@@ -211,4 +212,21 @@ ggplot2::ggsave("analises/tempo_video_g3_d3.jpeg", purrr::reduce(t_g3_d3,`+`))
       axis.title.x= ggplot2::element_blank()
     ) + ggplot2::theme_minimal() +
     ggplot2::scale_fill_manual(values=c("#440154FF", "#21908CFF", "#FDE725FF"))
+
+#pressão média por segundo basal1 x basal2 por bebe por dia
+
+  da_basal <- da %>%
+    dplyr::filter(
+      condicao == "basal1"| condicao == "basal2", dia == d,
+      grupo == gr, nome == bebe
+    )
+
+  gganim1 = ggplot2::ggplot(da_basal,ggplot2::aes(x = tempo, y = pressao, color = condicao)) +
+    ggplot2::geom_line()+
+    gganimate::transition_time(tempo)+
+    labs(title = 'Pressão média no segundo {frame_time}', x = 'Segundos', y = 'Pressão média de aperto')+
+    ease_aes('linear')
+  gganimate::anim_save("analises/gganimado_eduarda_dia1.gif",gganim1)
+
+  animate(gganim1)
 
