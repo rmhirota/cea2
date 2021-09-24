@@ -91,7 +91,7 @@ tempo_video <- function(da, d, gr, b) {
     #ggplot2::xlab("Bebê") +
     #ggplot2::ylab("Tempo")+
     ggplot2::theme(
-      panel.grid.major.x = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_blank(),
       legend.position="none"
     ) +
     ggplot2::labs(
@@ -104,11 +104,11 @@ tempo_video <- function(da, d, gr, b) {
 }
 
 ## grupo 1
-t_g1_d1 = purrr::map(nomes_b1, ~tempo_video(da,1, "b1",.x))
+t_g1_d1 = purrr::map(nomes_b1, ~tempo_video(cea2::da_tidy,1, "b1",.x))
 purrr::reduce(t_g1_d1,`+`)
-t_g1_d2 = purrr::map(nomes_b1, ~tempo_video(da,2, "b1",.x))
+t_g1_d2 = purrr::map(nomes_b1, ~tempo_video(cea2::da_tidy,2, "b1",.x))
 purrr::reduce(t_g1_d2,`+`)
-t_g1_d3 = purrr::map(nomes_b1, ~tempo_video(da,3, "b1",.x))
+t_g1_d3 = purrr::map(nomes_b1, ~tempo_video(cea2::da_tidy,3, "b1",.x))
 purrr::reduce(t_g1_d3,`+`)
 
 ggplot2::ggsave("analises/tempo_video_g1_d1.jpeg", purrr::reduce(t_g1_d1,`+`))
@@ -117,11 +117,11 @@ ggplot2::ggsave("analises/tempo_video_g1_d3.jpeg", purrr::reduce(t_g1_d3,`+`))
 
 
 ## grupo 2
-t_g2_d1 = purrr::map(nomes_b2, ~tempo_video(da,1, "b2",.x))
+t_g2_d1 = purrr::map(nomes_b2, ~tempo_video(cea2::da_tidy,1, "b2",.x))
 purrr::reduce(t_g2_d1,`+`)
-t_g2_d2 = purrr::map(nomes_b2, ~tempo_video(da,2,"b2",.x))
+t_g2_d2 = purrr::map(nomes_b2, ~tempo_video(cea2::da_tidy,2,"b2",.x))
 purrr::reduce(t_g2_d2,`+`)
-t_g2_d3 = purrr::map(nomes_b2, ~tempo_video(da,3,"b2",.x))
+t_g2_d3 = purrr::map(nomes_b2, ~tempo_video(cea2::da_tidy,3,"b2",.x))
 purrr::reduce(t_g2_d3,`+`)
 
 ggplot2::ggsave("analises/tempo_video_g2_d1.jpeg", purrr::reduce(t_g2_d1,`+`))
@@ -129,11 +129,11 @@ ggplot2::ggsave("analises/tempo_video_g2_d2.jpeg", purrr::reduce(t_g2_d2,`+`))
 ggplot2::ggsave("analises/tempo_video_g2_d3.jpeg", purrr::reduce(t_g2_d3,`+`))
 
 ## grupo 3
-t_g3_d1 = purrr::map(nomes_b3, ~tempo_video(da,1, "b3",.x))
+t_g3_d1 = purrr::map(nomes_b3, ~tempo_video(cea2::da_tidy,1, "b3",.x))
 purrr::reduce(t_g3_d1,`/`)
-t_g3_d2 = purrr::map(nomes_b3, ~tempo_video(da,2,"b3",.x))
+t_g3_d2 = purrr::map(nomes_b3, ~tempo_video(cea2::da_tidy,2,"b3",.x))
 purrr::reduce(t_g3_d2,`+`)
-t_g3_d3 = purrr::map(nomes_b3, ~tempo_video(da,3,"b3",.x))
+t_g3_d3 = purrr::map(nomes_b3, ~tempo_video(cea2::da_tidy,3,"b3",.x))
 purrr::reduce(t_g3_d3,`+`)
 
 ggplot2::ggsave("analises/tempo_video_g3_d1.jpeg", purrr::reduce(t_g3_d1,`+`))
