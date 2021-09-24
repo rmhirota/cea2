@@ -71,31 +71,33 @@ tbl_arquivos_brutos <- function(dir) {
     )
 }
 
-da_brutos_metadados <- tbl_arquivos_brutos(dir = "data-raw/copia_dados_brutos/")
+da_metadados <- tbl_arquivos_brutos(dir = "data-raw/copia_dados_brutos/")
 
 # nome ok (total = 21; lembrar que tem 2 nicolas)
-da_brutos_metadados %>%
+da_metadados %>%
   dplyr::count(nome) %>%
   print(n = 40)
 
 # grupo ok
-da_brutos_metadados %>%
+da_metadados %>%
   dplyr::count(grupo) %>%
   print(n = 40)
 
 # condição
-da_brutos_metadados %>%
+da_metadados %>%
   dplyr::count(condicao) %>%
   print(n = 40)
 
 # dia ok
-da_brutos_metadados %>%
+da_metadados %>%
   dplyr::count(dia)
 
-da_brutos <- da_brutos %>%
-  dplyr::inner_join(da_brutos_metadados, "arq") %>%
+da_tidy <- da_brutos %>%
+  dplyr::inner_join(da_metadados, "arq") %>%
   dplyr::relocate(video, tempo, pressao, .after = condicao)
 
-readr::write_rds(da_brutos, "data-raw/da_tidy.rds", compress = "xz")
 
+# readr::write_rds(da_tidy, "data-raw/da_tidy.rds", compress = "xz")
+usethis::use_data(da_tidy, overwrite = TRUE, compress = "xz")
+usethis::use_data(da_metadados, overwrite = TRUE)
 
