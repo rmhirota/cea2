@@ -1,7 +1,5 @@
 library(magrittr)
 
-da_spss <- foreign::read.spss("data-raw/spss/Completo 3 dias variaveis base IME.sav") %>%
-  dplyr::as_tibble()
 da_spss <- haven::read_sav("data-raw/spss/Completo 3 dias variaveis base IME.sav")
 
 # da_spss <- readxl::read_excel("data-raw/spss/Dados-Completos_IME.xlsx")
@@ -34,8 +32,9 @@ da_spss_tidy <- da_spss %>%
 dplyr::glimpse(da_spss_tidy)
 View(da_spss_tidy)
 
-readr::write_rds(da_spss_tidy, "data-raw/da_spss_tidy.rds")
-
+da_spss <- da_spss_tidy
+# readr::write_rds(da_spss_tidy, "data-raw/da_spss_tidy.rds")
+usethis::use_data(da_spss, overwrite = TRUE)
 
 # Verificação de inconsistências ------------------------------------------
 

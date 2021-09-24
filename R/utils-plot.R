@@ -46,3 +46,19 @@ p_video_bebe <- function(da, bebe, d, gr) {
       x = ggplot2::element_blank()
     )
 }
+
+
+#' Filtra nomes de bebês que fizeram condição contingente para dado grupo e dia
+#'
+#' @param da dados [da_tidy]
+#' @param grupo grupo (b1, b2, b3)
+#' @param dia 1, 2 ou 3
+#'
+#' @export
+#'
+filtra_nomes <- function(da, grupo, dia) {
+  da %>%
+    dplyr::filter(grupo == grupo, condicao == "contingente", dia = dia) %>%
+    dplyr::pull(nome) %>%
+    unique()
+}
