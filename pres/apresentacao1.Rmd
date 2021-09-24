@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
   fig.showtext = TRUE,
   out.width = "100%",
   cache = FALSE,
-  echo = TRUE,
+  echo = FALSE,
   message = FALSE, 
   warning = FALSE,
   hiline = TRUE
@@ -223,9 +223,7 @@ name: analise
 
 # Análise descritiva
 ---
-
-## Análise descritiva
-
+class: middle
 ### Grupo
 
 .pull-left[
@@ -233,233 +231,113 @@ name: analise
 cea2::da_metadados %>% 
   dplyr::distinct(grupo, nome) %>% 
   dplyr::count(grupo) %>% 
+  dplyr::mutate(grupo = dplyr::case_when(
+    grupo == "b1" ~ "1 mês",
+    grupo == "b2" ~ "2 meses",
+    grupo == "b3" ~ "3 meses"
+  )) %>% 
+  dplyr::mutate(prop = formattable::percent(n/sum(n))) %>% 
   janitor::adorn_totals() %>% 
-  dplyr::mutate(prop = formattable::percent(n/sum(n)))
+  knitr::kable(col.names = c("Grupo", "N", "%"))
 ```
-
 ]
 
 .pull-right[
 - A influência da idade na pressão exercida é um dos fatores de possível interesse na análise;
 - Quantidade desbalanceada de bebês em cada categoria;
 - Alguns participantes não possuem registros para determinadas condições.
-
 ]
 ---
 
-### Code Blocks
+.left-column[
+### Pressão média
 
-#### R Code
-
-```{r eval=FALSE}
-ggplot(gapminder) +
-  aes(x = gdpPercap, y = lifeExp, size = pop, color = country) +
-  geom_point() +
-  facet_wrap(~year)
-```
-
-#### JavaScript
-
-```js
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
-
----
-
-### More R Code
-
-```{r eval=FALSE}
-dplyr::starwars %>% dplyr::slice_sample(n = 4)
-```
-
----
-
-```{r message=TRUE, eval=requireNamespace("cli", quietly = TRUE)}
-cli::cli_alert_success("It worked!")
-```
-
---
-
-```{r message=TRUE}
-message("Just a friendly message")
-```
-
---
-
-```{r warning=TRUE}
-warning("This could be bad...")
-```
-
---
-
-```{r error=TRUE}
-stop("I hope you're sitting down for this")
-```
-
-
----
-layout: true
-
-## Tables
-
----
-exclude: `r if (requireNamespace("tibble", quietly=TRUE)) "false" else "true"`
-
-```{r eval=requireNamespace("tibble", quietly=TRUE)}
-tibble::as_tibble(mtcars)
-```
-
----
-
-```{r}
-knitr::kable(head(mtcars), format = 'html')
-```
-
----
-exclude: `r if (requireNamespace("DT", quietly=TRUE)) "false" else "true"`
-
-```{r eval=requireNamespace("DT", quietly=TRUE)}
-DT::datatable(head(mtcars), fillContainer = FALSE, options = list(pageLength = 4))
-```
-
----
-layout: true
-
-## Lists
-
----
-
-.pull-left[
-#### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
+- Na condição Basal 1, percebe-se uma maior diferença na pressão média de acordo
+com a idade do bebê;
+- O comportamento da pressão média muda completamente no dia 2   da condição 
+Basal 1 e Basal 2.
 ]
 
-.pull-right[
+.right-column[
+```{r fig.height = 6}
+cea2::da_spss %>% 
+  dplyr::mutate(condicao = dplyr::case_when(
+    condicao == "bas" ~ "Basal 1",
+    condicao == "c" ~ "Contingente",
+    condicao == "nc" ~ "Não contingente",
+    condicao == "pos" ~ "Basal 2",
+  )) %>% 
+  dplyr::group_by(grupo, condicao, dia) %>%
+  dplyr::summarise(media = mean(media_pressao, na.rm = TRUE)) %>%
+  ggplot2::ggplot(ggplot2::aes(x = dia, y = media, fill = grupo)) +
+  ggplot2::geom_bar(stat = "identity", position = "dodge") +
+  ggplot2::facet_wrap(~condicao)+
+  ggplot2::labs(
+    x = "Dia",
+    y = "Pressão Média"
+  ) +
+  ggplot2::theme_minimal(14) +
+  ggplot2::scale_fill_manual(values = c("#440154FF", "#21908CFF", "#FDE725FF"))
 
-#### And an ordered list:
+```
+]
 
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
+
+---
+.left-column[
+### Pressão x tempo (grupo 1)
+
+- Antes da ativação do vídeo observamos o aumento gradual na pressão dos indivíduos;
+- Após a ativação do vídeo observamos uma queda na pressão dos indivíduos;
+]
+
+.right-column[
+<img src="plots/perfis_grupo1.png" width="750">
 ]
 
 ---
+.left-column[
+### Pressão x tempo (grupo 2)
 
-### And a nested list:
 
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
----
-
-### Nesting an ol in ul in an ol
-
-- level 1 item (ul)
-  1. level 2 item (ol)
-  1. level 2 item (ol)
-    - level 3 item (ul)
-    - level 3 item (ul)
-- level 1 item (ul)
-  1. level 2 item (ol)
-  1. level 2 item (ol)
-    - level 3 item (ul)
-    - level 3 item (ul)
-  1. level 4 item (ol)
-  1. level 4 item (ol)
-    - level 3 item (ul)
-    - level 3 item (ul)
-- level 1 item (ul)
-
----
-layout: true
-
-## Plots
-
----
-
-```{r plot-example, eval=requireNamespace("ggplot2", quietly=TRUE)}
-library(ggplot2)
-(g <- ggplot(mpg) + aes(hwy, cty, color = class) + geom_point())
-```
-
----
-
-```{r plot-example-themed, eval=requireNamespace("ggplot2", quietly=TRUE)}
-g + xaringanthemer::theme_xaringan(text_font_size = 16, title_font_size = 18) +
-  ggtitle("A Plot About Cars")
-```
-
----
-layout: false
-
-## Square image
-
-<center><img src="https://octodex.github.com/images/labtocat.png" height="400px" /></center>
-
-.footnote[GitHub Octocat]
-
----
-
-### Wide image
-
-![](https://guides.github.com/activities/hello-world/branching.png)
-
-.footnote[Wide images scale to 100% slide width]
-
----
-
-## Two images
-
-.pull-left[
-![](https://octodex.github.com/images/motherhubbertocat.png)
 ]
 
-.pull-right[
-![](https://octodex.github.com/images/dinotocat.png)
+.right-column[
+<img src="plots/perfis_grupo2.png" width="750" height = "600">
 ]
 
 ---
+.left-column[
+### Pressão x tempo (grupo 3)
 
-### Definition lists can be used with HTML syntax.
+- Comportamento heterogêneo entre bebês de um mesmo grupo;
+- Não foram obtidos dados de dois participantes nesse grupo e condição no primeiro dia.
 
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
+]
+
+.right-column[
+<img src="plots/perfis_grupo3.png" width="750" height = "600">
+]
+
+
+---
+class: inverse center middle
+name: conclusoes
+# Conclusões
+
+
+---
+class: inverse center middle
+name: proximos
+# Próximos passos
 
 ---
 class: center, middle
 
-# Thanks!
+# Obrigada!
 
-Slides created via the R packages:
+### Dúvidas?
 
-[**xaringan**](https://github.com/yihui/xaringan)<br>
-[gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
+[**slides**](https://rmhirota.github.io/cea2)<br>
+[**análises**](https://github.com/rmhirota/cea2)
 
-The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
