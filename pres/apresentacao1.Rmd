@@ -81,21 +81,35 @@ name: intro
 
 
  <br><br><br>
-- Comportamento de bebês ao nascer é **ativo** (voluntário) e não reflexo (involuntário);
-  
-  
 - Reflexos representam apenas uma pequena parte do comportamento motor inicial dos indivíduos;  
+  
+- Bebês já apresentam comportamento **ativo** (voluntário) desde o nascimento;
+  
+- Comportamento manual não é um reflexo;
 
-- Os movimentos espontâneos (voluntários) parecem ser influenciados por restrições ambientais.  
+- Os movimentos espontâneos (voluntários) são influenciados por restrições ambientais.  
 
 
 ]
 
 ???
-busca-se compreender se há efeito da idade e de aprendizagem no processo de manipulação voluntária dos participantes.
-
-
+_A plasticidade cerebral é a habilidade do cérebro de se recuperar e se reestruturar._
+???
+_Ou seja, a literatura hoje aponta a capacidade dos bebes de conrolar o próprio corpo e de interagir ativamente com o ambiente físico e social que o cerca_
+???
+_foram observadas diferenças na força de preensão frente a um mesmo estímulo ambiental (DIONISIO, 2012); comportamento antecipatório (GREDEBÄCK et al., 2009; HOFSTEN; RÖNNQVIST,
+1988) e ainda, atuação ativa com inibição de um comportamento estereotipado
+(MEER; WEEL; LEE, 1995_
 ---
+## Por quê é importante?
+
+- Esse tipo de estudo considera o protagonismo dos bebês no seu próprio processo de desenvolvimento motor;
+
+- Auxilia a pensar em novas formas de estimular o potencial ativo dos recém-nascidos em seus primeiros meses de vida;
+
+- Auxilia no entendimento do processo de aprendizado em recém-nascidos, e seu comportamento frente a percepção de alterações ambientais (percepção-ação)
+---
+
 ## Objetivos
 
 .left-column[
@@ -107,13 +121,14 @@ busca-se compreender se há efeito da idade e de aprendizagem no processo de man
 Investigar a emergência e desenvolvimento do comportamento voluntário das mãos 
 em bebês de até três meses de idade, com base em alguns cenários experimentais.
 <br><br><br>
--Descrever o comportamento de apertar ao longo dos três primeiros meses após o nascimento.
+- Descrever o comportamento de apertar ao longo dos três primeiros meses após o nascimento.
 
--Verificar se bebês de um a três meses são capazes de identificar a existência de um relacionamento entre o seu próprio comportamento de apertar e alterações no contexto ambiental.
+- Verificar se bebês de um a três meses são capazes de identificar a existência de um relacionamento entre o seu próprio comportamento de apertar e alterações no contexto ambiental. **O bebê identifica a relação entre a sua ação de apertar e um determinado acontecimento no ambiente?**
 
--Identificar se as relações do comportamento manual com os eventos ambientais se alteram ao longo de três sessões de prática na situação experimental.
-]
+- Identificar se as relações do comportamento manual com os eventos ambientais se alteram ao longo de três sessões de prática na situação experimental. **Há aprendizado ao longo dos dias de experimento?**.
 
+] 
+  
 ---
 class: inverse center middle
 name: desc
@@ -172,7 +187,7 @@ do experimento, foi estipulada a pressão gatilho de 0,2 mmHg.
 ]
 
 ???
-Condições Contingentes e Não Contingente foram apresentadas em ordem aleatório para cada bebê
+_Condições Contingentes e Não Contingente foram apresentadas em ordem aleatório para cada bebê_
 ---
 ## Sobre o experimento
 
@@ -198,8 +213,9 @@ Condições Contingentes e Não Contingente foram apresentadas em ordem aleatór
 - Processo de aleatorização das condições Contingente e Não Contingente
 
 ???
-O estado de alerta do bebê durante o procedimento pode ser um fator que influência sua responsividade a estímulos e o cenário "perfeito" para a execução do teste seria quando o indivíduo estivesse quieto e acordado.
-Como a ordem de apresentação de ambas não é a mesma para os bebês isso pode comprometer a caracterização de um padrão no comportamento de apertar.
+_O estado de alerta do bebê durante o procedimento pode ser um fator que influência sua responsividade a estímulos e o cenário "perfeito" para a execução do teste seria quando o indivíduo estivesse quieto e acordado._
+???
+_Como a ordem de apresentação de ambas não é a mesma para os bebês isso pode comprometer a caracterização de um padrão no comportamento de apertar._
 
 ---
 class: inverse center middle
@@ -215,19 +231,19 @@ name: variaveis
 Para cada condição e dia do experimento, foram coletados os valores de 
 pressão palmar realizada pelos participante ao longo do tempo.
 
-- Bebê  
+- *Bebê*  
 
-- Vídeo (0 = sem vídeo e 1 = com vídeo)  
+- *Vídeo* (0 = sem vídeo e 1 = com vídeo)  
 
-- Tempo (em milissegundos)  
+- *Tempo* (em milissegundos)  
 
-- Pressão (em mmHg)  
+- *Pressão* (em mmHg)  
 
-- Dia (1, 2 ou 3)  
+- *Dia* (1, 2 ou 3)  
 
-- Grupo (1, 2 ou 3 meses de idade)  
+- *Grupo* (1, 2 ou 3 meses de idade)  
 
-- Condição (c, nc, bas, bas2)
+- *Condição* (c, nc, bas, bas2)
 
 ---
 
@@ -235,18 +251,18 @@ pressão palmar realizada pelos participante ao longo do tempo.
 
 Calculadas pela pesquisadora através dos dados brutos do experimento. **Valores agrupados para cada dia-bebê-grupo-condição**. Após o tratamento das informações, obtivemos as seguintes variáveis:
 
-- N_apertos: número de apertos na sessão
+- *N_apertos*: número de apertos na sessão
   
   A iniciação do aperto foi identificada em qualquer momento em que a pressão exercida pelo bebê fosse maior que a pressão média dentro da tentativa mais 10% desse valor. A terminação de compressão foi definida quando a pressão caiu abaixo do limite  
   
-- Freq_apertos (apertos/min)
-- Media_pressao (mmHg)
-- Pico: pressão máxima (mmHg)  
+- *Freq_apertos* (apertos/min)
+- *Media_pressao* (mmHg)
+- *Pico*: pressão máxima (mmHg)  
   
-  A pressão de pico dentro de cada aperto foi definida como o valor máximo entre SI e ST  
+  A pressão do pico dentro de cada aperto foi definida como o valor máximo exercido entre o início e o término do aperto  
   
-- Media_pressao_pico
-- Media_duracao_pico (em milissegundos)
+- *Media_pressao_pico*
+- *Media_duracao_aperto* (em milissegundos)
 
 ---
 class: inverse center middle
@@ -317,6 +333,77 @@ cea2::da_spss %>%
 
 ```
 ]
+---
+##Pressão Média - Grupo
+
+.pull-left[
+### Grupo 1
+```{r}
+# grupo 1
+ cea2::da_tidy %>%
+  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "b1",pressao<4) %>%
+  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, Tempo) %>%
+  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.Tempo}<br>",
+      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+```
+]
+
+.pull-right[
+###Grupo 2
+```{r}
+# grupo 2
+cea2::da_tidy %>%
+  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "2",pressao<4) %>%
+  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, Tempo) %>%
+  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.Tempo}<br>",
+      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+```
+]
+
+---
+### Grupo 3
+```{r}
+# grupo 3
+cea2::da_tidy %>%
+  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "b3",pressao<2) %>%
+  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, Tempo) %>%
+  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.Tempo}<br>",
+      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+```
 
 
 ---
@@ -389,7 +476,7 @@ data %>%  plotly::plot_ly(x=data$dia2, y=data$dia3,color=data$condicao,mode="mar
 ]
 ---
 
-## Tempo de Vídeo 
+## Tempo entre disparo do vídeo 
 
 .pull-left[
 ### Dia 1 - Contingente - Grupo 1 
@@ -429,7 +516,10 @@ class: inverse center middle
 name: conclusoes
 # Conclusões
 
-- Parece existir uma diferença entre o padrão de apertar quando comparamos as tentativas sem estímulo (Basal e Basal 2) com a condição com estímulo (Contingente).
+---
+- Parece existir uma diferença entre o padrão de apertar quando comparamos as tentativas sem estímulo (Basal e Basal 2) com a condição com estímulo (Contingente);  
+  
+- O comportamento dos bebês de uma mesma faixa etária é é heterogêneo;
 
 ---
 class: inverse center middle
