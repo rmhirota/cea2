@@ -92,10 +92,6 @@ _A plasticidade cerebral é a habilidade do cérebro de se recuperar e se reestr
 
 _Ou seja, a literatura hoje aponta a capacidade dos bebes de conrolar o próprio corpo e de interagir ativamente com o ambiente físico e social que o cerca_
 
-_foram observadas diferenças na força de preensão frente a um mesmo estímulo ambiental (DIONISIO, 2012); comportamento antecipatório (GREDEBÄCK et al., 2009; HOFSTEN; RÖNNQVIST,
-1988) e ainda, atuação ativa com inibição de um comportamento estereotipado
-(MEER; WEEL; LEE, 1995_
-
 ---
 ## Por que é importante?
  
@@ -109,6 +105,10 @@ _foram observadas diferenças na força de preensão frente a um mesmo estímulo
 --
 
 - Auxilia no entendimento do processo de aprendizado em recém-nascidos, e seu comportamento frente a percepção de alterações ambientais (percepção-ação)
+
+.pull-down[
+<center><img src="imagens/baby.png" height="400"></center>
+]
 
 ---
 
@@ -173,7 +173,7 @@ palmar (duração = 4 min);
 - **Não Contingente**: um vídeo aparecia de forma automática e aleatória, sem 
 que o bebê atingisse o valor de pressão estipulado (duração = 4 min);  
 
-- **Condição Basal 2**: segunda condição sem estímulo visual (duração = 4 min)
+- **Condição Basal 2**: segunda condição sem estímulo visual (duração = 2 min)
 ]
 
 --
@@ -221,7 +221,7 @@ _Condições Contingentes e Não Contingente foram apresentadas em ordem aleató
 
 ???
 _O estado de alerta do bebê durante o procedimento pode ser um fator que influencia sua responsividade a estímulos e o cenário "perfeito" para a execução do teste seria quando o indivíduo estivesse quieto e acordado._
-???
+
 _Como a ordem de apresentação de ambas não é a mesma para os bebês isso pode comprometer a caracterização de um padrão no comportamento de apertar._
 
 ---
@@ -243,7 +243,7 @@ pressão palmar realizada pelos participante ao longo do tempo.
 
 - *Vídeo* (0 = sem vídeo e 1 = com vídeo)  
 
-- *Tempo* (em milissegundos)  
+- *Tempo* (em segundos)  
 
 - *Pressão* (em mmHg)  
 
@@ -262,20 +262,20 @@ pressão palmar realizada pelos participante ao longo do tempo.
 
 ### Variáveis agrupadas
 
-Calculadas pela pesquisadora através dos dados brutos do experimento. **Valores agrupados para cada dia-bebê-grupo-condição**. Após o tratamento das informações, obtivemos as seguintes variáveis:
+Calculadas pela pesquisadora através dos dados brutos do experimento. **Valores agrupados para cada bebê-dia-condição**. Após o tratamento das informações, obtivemos as seguintes variáveis:
 
-- *N_apertos*: número de apertos na sessão
+- *N_apertos*
   
-  A iniciação do aperto foi identificada em qualquer momento em que a pressão exercida pelo bebê fosse maior que a pressão média dentro da tentativa mais 10% desse valor. A terminação de compressão foi definida quando a pressão caiu abaixo do limite  
+  A iniciação do aperto foi identificada em qualquer momento em que a pressão exercida pelo bebê fosse maior que a pressão média dentro da tentativa mais 10% desse valor. 
   
 - *Freq_apertos* (apertos/min)
 - *Media_pressao* (mmHg)
 - *Pico*: pressão máxima (mmHg)  
   
-  A pressão do pico dentro de cada aperto foi definida como o valor máximo exercido entre o início e o término do aperto  
+  O pico foi definido como a pressão máxima exercida dentro de cada um dos apertos  
   
-- *Media_pressao_pico*
-- *Media_duracao_aperto* (em milissegundos)
+- *Media_pressao_pico* (mmHg)
+- *Media_duracao_aperto* (milissegundos)
 
 ---
 class: inverse center middle
@@ -509,66 +509,58 @@ cea2::da_tidy %>%
 
 .right-column[
 .top-column[
-```{r fig.weight = 4}
-dia1 = cea2::da_spss %>% dplyr::filter(dia==1) %>% dplyr::select(condicao, grupo, n_apertos)
-dia2 = cea2::da_spss %>% dplyr::filter(dia==2) %>% dplyr::select(n_apertos)
-dia3 = cea2::da_spss %>% dplyr::filter(dia==3) %>% dplyr::select(n_apertos)
-data = data.frame(dia1,dia2,dia3) %>% 
-  dplyr::filter(condicao %in% c("bas", "pos")) %>% 
-  dplyr::mutate(condicao = dplyr::case_when(condicao == "c" ~ "Contingente",
-                                            condicao == "nc" ~ "Não contingente",
-                                            condicao == "bas" ~ "Basal 1",
-                                            condicao == "pos" ~ "Basal 2"))
-colnames(data) = c("condicao","dia1","dia2","dia3")
-d12 <- data %>% 
-  ggplot2::ggplot(ggplot2::aes(x = dia1, y = dia2, colour = grupo, shape = condicao)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_abline(slope = 1, intercept = 0)
-d23 <- data %>% 
-  ggplot2::ggplot(ggplot2::aes(x = dia2, y = dia3, colour = grupo, shape = condicao)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_abline(slope = 1, intercept = 0)
-d13 <- data %>% 
-  ggplot2::ggplot(ggplot2::aes(x = dia1, y = dia3, colour = condicao)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_abline(slope = 1, intercept = 0)
-
-plotly::ggplotly(d12)
-plotly::ggplotly(d23)
-plotly::ggplotly(d13)
-
-data %>%  plotly::plot_ly(x=data$dia1, y=data$dia2,color=data$condicao,mode="markers",colors = "Set1") %>%
-  plotly::add_markers() %>%
-  plotly::layout(title = 'Número de apertos: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
-                               yaxis = list(title = 'Dia 2'))
-
-
+```{r}
 da_dia <- cea2::da_spss %>% 
   dplyr::filter(condicao %in% c("bas", "pos")) %>% 
   dplyr::mutate(condicao = ifelse(condicao == "pos", "Basal 2", "Basal 1")) %>% 
-  dplyr::select(condicao, grupo, dia, n_apertos) %>% 
+  dplyr::select(nome,condicao, grupo, dia, n_apertos) %>% 
   dplyr::mutate(dia = dplyr::case_when(
     dia == 1 ~ "dia_1",
     dia == 2 ~ "dia_2",
     TRUE ~ "dia_3"
   )) %>% 
-  tidyr::pivot_wider(dia)
-
-
-grupo1 <- da_dia %>% 
-  dplyr::filter(grupo == 1) %>% 
+  #dplyr::filter(grupo == 1) %>% 
   tidyr::pivot_wider(names_from = dia, values_from = n_apertos)
 
+#Dia 1 e Dia 2
+d12 = da_dia %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia_1, y = dia_2, colour = condicao, shape = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_abline(slope = 1, intercept = 0)
+
+plotly::ggplotly(d12)  %>%
+  plotly::layout(title = 'Número de apertos: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
+                 yaxis = list(title = 'Dia 2')) 
 
 ```
 ]
 
-.down-column[
-```{r fig.weight = 4}
-data %>%  plotly::plot_ly(x=data$dia2, y=data$dia3,color=data$condicao,mode="markers",colors = "Set1") %>%
-  plotly::add_markers() %>%
-  plotly::layout(title= 'Número de apertos: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
-                      yaxis = list(title = 'Dia 3'))
+.middle-column[
+```{r height 10}
+#Dia 2 e Dia 3
+d23 <- da_dia %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia_2, y = dia_3, colour = condicao, shape = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_abline(slope = 1, intercept = 0)
+
+plotly::ggplotly(d23)  %>%
+  plotly::layout(title = 'Número de apertos: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
+                 yaxis = list(title = 'Dia 3'))
+```
+]
+
+.bottom-column[
+```{r}
+# Dia 1 e Dia 3
+d13 <- da_dia %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia_1, y = dia_3, colour = condicao, shape = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_abline(slope = 1, intercept = 0)
+
+plotly::ggplotly(d13)  %>%
+  plotly::layout(title = 'Número de apertos: Dia 1 x Dia 3',xaxis = list(title = 'Dia 1'),
+                 yaxis = list(title = 'Dia 3')) 
+
 
 ```
 ]
@@ -653,6 +645,8 @@ name: conclusoes
 # Conclusões
 
 ---
+
+## Conclusões
 - Parece existir uma diferença entre o padrão de apertar quando comparamos as tentativas sem estímulo (Basal e Basal 2) com a condição com estímulo (Contingente);  
   
 - O comportamento dos bebês de uma mesma faixa etária é é heterogêneo;
@@ -661,6 +655,17 @@ name: conclusoes
 class: inverse center middle
 name: proximos
 # Próximos passos
+---
+
+## Próximos passos
+
+- Alinhamento com a pesquisadora acerca de possíveis inconsistências na base;  
+  
+- Definição das variáveis a serem utilizadas na modelagem (varias opções);  
+  
+- Definição de um modelo adequado a estrutura dos dados;  
+  
+- Aceitamos sugestões
 
 ---
 class: center, middle
