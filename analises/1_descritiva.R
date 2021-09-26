@@ -26,10 +26,12 @@ boxplot_uni <- function(da, variavel, grupo) {
   da %>%
     ggplot2::ggplot(ggplot2::aes(x = {{grupo}}, y = {{variavel}})) +
     ggplot2::geom_boxplot() +
-    ggplot2::theme_light() +
+    ggplot2::theme_minimal() +
     ggplot2::labs(title = glue::glue(
       "Boxplot de {rlang::enexpr(variavel)} por {rlang::enexpr(grupo)}"
     ))
+
+
 }
 
 col_dia_grupo_cond <- function(da, variavel) {
@@ -48,6 +50,36 @@ col_dia_grupo_cond <- function(da, variavel) {
 boxplot_uni(da_spss, n_apertos, dia) # n_apertos por dia
 boxplot_uni(da_spss, n_apertos, grupo) # n_apertos por grupo
 boxplot_uni(da_spss, n_apertos, condicao) # n_apertos por condicao
+
+da_spss %>%
+  ggplot2::ggplot(ggplot2::aes(x = dia, y = n_apertos)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(title = "Número de apertos por dia")+
+  ggplot2::xlab("Dia")+
+  ggplot2::ylab("Número de apertos")
+
+da_spss %>%
+  ggplot2::ggplot(ggplot2::aes(x = grupo, y = n_apertos)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(title = "Número de apertos por grupo")+
+  ggplot2::xlab("Grupo")+
+  ggplot2::ylab("Número de apertos")
+
+n = c("Basal","Contingente","Não Contingente","Basal 2")
+da_spss %>% dplyr::mutate(condicao = dplyr::case_when(condicao == "bas" ~ "Basal",
+                                                       condicao == "c" ~ "Contingente",
+                                                       condicao == "nc" ~ "Não Contingente",
+                                                       condicao == "pos" ~ "Basal 2")) %>%
+  ggplot2::ggplot(ggplot2::aes(x = condicao, y = n_apertos)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(title = "Número de apertos por condição")+
+  ggplot2::xlab("Condição")+
+  ggplot2::ylab("Número de apertos")
+
+
 
 # Média por grupo, condição e dia
 da_spss %>%
@@ -320,20 +352,20 @@ p_video_bebe <- function(da, bebe, d, gr) {
     )
 }
 
-nomes_b1 <- da %>%
+nomes_b1 <- cea2::da_tidy %>%
   dplyr::filter(grupo == "b1") %>%
   dplyr::pull(nome) %>% unique()
-nomes_b2 <- da %>%
+nomes_b2 <- cea2::da_tidy%>%
   dplyr::filter(grupo == "b2") %>%
   dplyr::pull(nome) %>% unique()
-nomes_b3 <- da %>%
+nomes_b3 <- cea2::da_tidy %>%
   dplyr::filter(grupo == "b3") %>%
   dplyr::pull(nome) %>% unique()
 
 # dia 1
-p1 = purrr::map(nomes_b1, ~p_video_bebe(da, .x, 1, "b1"))
-p2 = purrr::map(nomes_b2, ~p_video_bebe(da, .x, 1, "b2"))
-p3 = purrr::map(nomes_b3, ~p_video_bebe(da, .x, 1, "b3"))
+p1 = purrr::map(nomes_b1, ~p_video_bebe(cea2::da_tidy, .x, 1, "b1"))
+p2 = purrr::map(nomes_b2, ~p_video_bebe(cea2::da_tidy, .x, 1, "b2"))
+p3 = purrr::map(nomes_b3, ~p_video_bebe(cea2::da_tidy, .x, 1, "b3"))
 
 p1[[1]]+p1[[2]]+p1[[3]]+p1[[4]]+p1[[5]]+p1[[6]]
 p2[[1]]+p2[[2]]+p2[[3]]+p2[[4]]+p2[[5]]+p2[[6]]
@@ -545,7 +577,7 @@ da %>%
 # variavel tempo entre disparo do video
 
 tempo_video <- function(da, d, gr, b) {
-  da %>%
+  cea2::da_tidy %>%
     dplyr::filter(condicao == "contingente", dia == d, grupo == gr, nome == b) %>%
     dplyr::mutate(ate_video = dplyr::case_when(video == FALSE ~ 0,
                                                video == TRUE ~ dplyr::lag(tempo))) %>%

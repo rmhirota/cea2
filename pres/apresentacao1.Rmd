@@ -1,0 +1,538 @@
+---
+title: "Emergência e Desenvolvimento da Ação Manipulativa de Apertar<br>em bebês de 1 a 3 meses de idade"
+# date: '`r Sys.Date()`'
+# subtitle: "28-09-2021"  
+  
+  
+author: 
+  - "Pesquisadora: Priscilla A. M. Ferronato"
+  - "Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel"
+  - "Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota"
+  - "Orientador: Prof. Dr. Luis Gustavo Esteves"
+
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  fig.showtext = TRUE,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+# library(xaringanthemer)
+# style_mono_accent(
+#   base_color = "#1c5253",
+#   header_font_google = google_font("Josefin Sans"),
+#   text_font_google   = google_font("Montserrat", "300", "300i"),
+#   code_font_google   = google_font("Fira Mono")
+# )
+```
+
+```{r dados, include=FALSE}
+library(magrittr)
+```
+
+
+## Sumário
+
+### 1. [Introdução e Objetivos](#intro)
+### 2. [Descrição do Estudo](#desc)
+### 3. [Descrição das Variáveis](#variaveis)
+### 4. [Análise Descritiva](#analise)
+### 5. [Conclusões](#conclusoes)
+### 6. [Próximos Passos](#proximos)
+
+
+---
+class: inverse center middle
+name: intro
+# Introdução
+
+---
+## Introdução
+
+.left-column[
+### Desenvolvimento infantil
+<br><br><br><br>
+### Premissa
+]
+
+.right-column[
+>O desenvolvimento infantil e a plasticidade cerebral são maiores nos primeiros anos de vida. Sendo assim, quaisquer perturbações no ambiente ou no indivíduo impactam substancialmente na aquisição das habilidades motoras e cognitivas".  
+
+<p style='text-align: right;'>-- Fundação Oswaldo Cruz</p>
+
+
+ <br><br><br>
+- Reflexos representam apenas uma pequena parte do comportamento motor inicial dos indivíduos;  
+  
+- Bebês já apresentam comportamento **ativo** (voluntário) desde o nascimento;
+  
+- Comportamento manual não é um reflexo;
+
+- Os movimentos espontâneos (voluntários) são influenciados por restrições ambientais.  
+
+
+]
+
+???
+_A plasticidade cerebral é a habilidade do cérebro de se recuperar e se reestruturar._
+???
+_Ou seja, a literatura hoje aponta a capacidade dos bebes de conrolar o próprio corpo e de interagir ativamente com o ambiente físico e social que o cerca_
+???
+_foram observadas diferenças na força de preensão frente a um mesmo estímulo ambiental (DIONISIO, 2012); comportamento antecipatório (GREDEBÄCK et al., 2009; HOFSTEN; RÖNNQVIST,
+1988) e ainda, atuação ativa com inibição de um comportamento estereotipado
+(MEER; WEEL; LEE, 1995_
+---
+## Por quê é importante?
+
+- Esse tipo de estudo considera o protagonismo dos bebês no seu próprio processo de desenvolvimento motor;
+
+- Auxilia a pensar em novas formas de estimular o potencial ativo dos recém-nascidos em seus primeiros meses de vida;
+
+- Auxilia no entendimento do processo de aprendizado em recém-nascidos, e seu comportamento frente a percepção de alterações ambientais (percepção-ação)
+---
+
+## Objetivos
+
+.left-column[
+### Geral<br><br><br>
+### Pontuais
+]
+
+.right-column[
+Investigar a emergência e desenvolvimento do comportamento voluntário das mãos 
+em bebês de até três meses de idade, com base em alguns cenários experimentais.
+<br><br><br>
+- Descrever o comportamento de apertar ao longo dos três primeiros meses após o nascimento.
+
+- Verificar se bebês de um a três meses são capazes de identificar a existência de um relacionamento entre o seu próprio comportamento de apertar e alterações no contexto ambiental. **O bebê identifica a relação entre a sua ação de apertar e um determinado acontecimento no ambiente?**
+
+- Identificar se as relações do comportamento manual com os eventos ambientais se alteram ao longo de três sessões de prática na situação experimental. **Há aprendizado ao longo dos dias de experimento?**.
+
+] 
+  
+---
+class: inverse center middle
+name: desc
+
+# Descrição do estudo
+
+---
+## Sobre o experimento
+
+.pull-left[
+Os bebês foram colocados sentados em uma cadeira em frente a um monitor, em uma
+posição estável. Um sensor de pressão foi posicionado na mão do bebê, para 
+captar os apertos durante o experimento.
+
+O estudo foi realizado de maneira presencial em três sessões individuais, dentro
+de um período de 7 dias e consistiu em apresentar aos bebês **quatro condições 
+experimentais**
+
+Para cada condição, eram registrados os dados de pressão palmar relacionados aos
+apertos que os bebês realizaram sobre o equipamento.
+]
+
+.pull-right[
+<center><img src="imagens/experimento1.png" width="300"></center>
+<center><img src="imagens/experimento2.png" width="300" height="320"></center>
+]
+
+---
+## Sobre o experimento
+
+.pull-left[
+### Condições experimentais
+
+- **Condição Basal**: sem nenhuma variação ambiental (duração = 2 min);  
+
+- **Contingente**: um vídeo aparecia se o bebê atingisse determinada pressão 
+palmar (duração = 4 min);  
+
+- **Não Contingente**: um vídeo aparecia de forma automática e aleatória, sem 
+que o bebê atingisse o valor de pressão estipulado (duração = 4 min);  
+
+- **Condição Basal 2**: segunda condição sem estímulo visual (duração = 4 min)
+]
+
+--
+.pull-right[
+### Gatilho para o disparo do vídeo 
+
+- Correspondia à pressão exercida pelo bebê durante 70% do tempo de coleta na 
+primeira tentativa Basal;  
+
+- O valor varia de criança para criança e se altera em cada dia de sessão;  
+
+- Caso o participante não tenha atingido a frequência de 70% em algum dos dias 
+do experimento, foi estipulada a pressão gatilho de 0,2 mmHg.
+]
+
+???
+_Condições Contingentes e Não Contingente foram apresentadas em ordem aleatório para cada bebê_
+---
+## Sobre o experimento
+
+### Participantes
+
+- 22 bebês ao todo  
+
+**Pré-requisitos**: 
+  - nascimento entre 38 a 42 semanas de gestação sem nenhuma complicação médica no parto;  
+  
+  - ser considerado saudável por seus médicos de acompanhamento;  
+  
+  - estar na faixa etária de 1 a 3 meses de vida
+
+### Limitações
+
+- Interrupção de alguns processos de coleta de dados por causa da condição comportamental dos participantes;  
+  
+- Tempo de observação cortado para alguns bebês;  
+
+- Número pequeno de participantes no estudo e quantidade diferente de participantes em cada faixa etária;  
+
+- Processo de aleatorização das condições Contingente e Não Contingente
+
+???
+_O estado de alerta do bebê durante o procedimento pode ser um fator que influência sua responsividade a estímulos e o cenário "perfeito" para a execução do teste seria quando o indivíduo estivesse quieto e acordado._
+???
+_Como a ordem de apresentação de ambas não é a mesma para os bebês isso pode comprometer a caracterização de um padrão no comportamento de apertar._
+
+---
+class: inverse center middle
+name: variaveis
+
+# Descrição das variáveis
+
+---
+## Descrição das variáveis
+
+### Variáveis originais
+
+Para cada condição e dia do experimento, foram coletados os valores de 
+pressão palmar realizada pelos participante ao longo do tempo.
+
+- *Bebê*  
+
+- *Vídeo* (0 = sem vídeo e 1 = com vídeo)  
+
+- *Tempo* (em milissegundos)  
+
+- *Pressão* (em mmHg)  
+
+- *Dia* (1, 2 ou 3)  
+
+- *Grupo* (1, 2 ou 3 meses de idade)  
+
+- *Condição* (c, nc, bas, bas2)
+
+---
+
+### Variáveis agrupadas
+
+Calculadas pela pesquisadora através dos dados brutos do experimento. **Valores agrupados para cada dia-bebê-grupo-condição**. Após o tratamento das informações, obtivemos as seguintes variáveis:
+
+- *N_apertos*: número de apertos na sessão
+  
+  A iniciação do aperto foi identificada em qualquer momento em que a pressão exercida pelo bebê fosse maior que a pressão média dentro da tentativa mais 10% desse valor. A terminação de compressão foi definida quando a pressão caiu abaixo do limite  
+  
+- *Freq_apertos* (apertos/min)
+- *Media_pressao* (mmHg)
+- *Pico*: pressão máxima (mmHg)  
+  
+  A pressão do pico dentro de cada aperto foi definida como o valor máximo exercido entre o início e o término do aperto  
+  
+- *Media_pressao_pico*
+- *Media_duracao_aperto* (em milissegundos)
+
+---
+class: inverse center middle
+name: analise
+
+# Análise descritiva
+---
+class: middle
+### Grupo
+
+.pull-left[
+```{r}
+cea2::da_metadados %>% 
+  dplyr::distinct(grupo, nome) %>% 
+  dplyr::count(grupo) %>% 
+  dplyr::mutate(grupo = dplyr::case_when(
+    grupo == "b1" ~ "1 mês",
+    grupo == "b2" ~ "2 meses",
+    grupo == "b3" ~ "3 meses"
+  )) %>% 
+  dplyr::mutate(prop = formattable::percent(n/sum(n))) %>% 
+  janitor::adorn_totals() %>% 
+  knitr::kable(col.names = c("Grupo", "N", "%"))
+```
+]
+
+.pull-right[
+- A influência da idade na pressão exercida é um dos fatores de possível interesse na análise;  
+
+- Quantidade desbalanceada de bebês em cada categoria;  
+
+- Alguns participantes não possuem registros para determinadas condições.
+]
+
+---
+
+.left-column[
+### Pressão média
+
+- Na condição **Basal 1**, percebe-se uma maior diferença na pressão média de acordo
+com a idade do bebê;  
+  
+- As diferenças de pressão média diminuem ao longo dos dias de coleta;  
+
+- Já na condição Basal 2 a pressão média é um pouco mais equilibrada entre as faixas etárias nos dois primeiros dias de experimento.
+]
+
+.right-column[
+```{r fig.height = 6}
+cea2::da_spss %>% 
+  dplyr::mutate(condicao = dplyr::case_when(
+    condicao == "bas" ~ "Basal 1",
+    condicao == "c" ~ "Contingente",
+    condicao == "nc" ~ "Não contingente",
+    condicao == "pos" ~ "Basal 2",
+  )) %>% 
+  dplyr::group_by(grupo, condicao, dia) %>%
+  dplyr::summarise(media = mean(media_pressao, na.rm = TRUE)) %>%
+  ggplot2::ggplot(ggplot2::aes(x = dia, y = media, fill = grupo)) +
+  ggplot2::geom_bar(stat = "identity", position = "dodge") +
+  ggplot2::facet_wrap(~condicao)+
+  ggplot2::labs(
+    x = "Dia",
+    y = "Pressão Média"
+  ) +
+  ggplot2::theme_minimal(14) +
+  ggplot2::scale_fill_manual(values = c("#440154FF", "#21908CFF", "#FDE725FF"))
+
+```
+]
+---
+##Pressão Média - Grupo
+
+.pull-left[
+### Grupo 1
+```{r}
+# grupo 1
+ cea2::da_tidy %>%
+  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "b1",pressao<4) %>%
+  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, Tempo) %>%
+  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.Tempo}<br>",
+      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+```
+]
+
+.pull-right[
+###Grupo 2
+```{r}
+# grupo 2
+cea2::da_tidy %>%
+  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "2",pressao<4) %>%
+  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, Tempo) %>%
+  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.Tempo}<br>",
+      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+```
+]
+
+---
+### Grupo 3
+```{r}
+# grupo 3
+cea2::da_tidy %>%
+  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "b3",pressao<2) %>%
+  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
+  dplyr::group_by(condicao, Tempo) %>%
+  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
+  highcharter::hchart(
+    "line",
+    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
+  ) %>%
+  highcharter::hc_tooltip(
+    pointFormat = paste0(
+      "<b>Tempo</b>: {point.Tempo}<br>",
+      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
+      "<b>Condição</b>: {point.condicao}<br>"
+    )
+  )
+
+```
+
+
+---
+
+###Número de Apertos
+
+.top-column[
+```{r fig.weight = 4}
+dia1 = cea2::da_spss %>% dplyr::filter(dia==1) %>% dplyr::select(condicao,n_apertos)
+dia2 = cea2::da_spss %>% dplyr::filter(dia==2) %>% dplyr::select(n_apertos)
+dia3 = cea2::da_spss %>% dplyr::filter(dia==3) %>% dplyr::select(n_apertos)
+data = data.frame(dia1,dia2,dia3) %>% 
+  dplyr::mutate(condicao = dplyr::case_when(condicao == "c" ~ "Contingente",
+                                            condicao == "nc" ~ "Não contingente",
+                                            condicao == "bas" ~ "Basal 1",
+                                            condicao == "pos" ~ "Basal 2"))
+colnames(data) = c("condicao","dia1","dia2","dia3")
+data %>%  plotly::plot_ly(x=data$dia1, y=data$dia2,color=data$condicao,mode="markers",colors = "Set1") %>%
+  plotly::add_markers() %>%
+  plotly::layout(title = 'Número de apertos: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
+                               yaxis = list(title = 'Dia 2'))
+
+```
+]
+
+.down-column[
+```{r fig.weight = 4}
+data %>%  plotly::plot_ly(x=data$dia2, y=data$dia3,color=data$condicao,mode="markers",colors = "Set1") %>%
+  plotly::add_markers() %>%
+  plotly::layout(title= 'Número de apertos: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
+                      yaxis = list(title = 'Dia 3'))
+
+```
+]
+
+---
+.left-column[
+### Pressão x Tempo (Grupo 1 - Contingente)
+
+- Observamos que o comportamento entre indivíduos de um mesmo grupo é heterogêneo;  
+
+- Presença de valores de pressão outliers que posssivelmente devem ser cortados da amostra;
+]
+
+.right-column[
+<img src="plots/perfis_grupo1.png" width="750">
+]
+
+---
+.left-column[
+### Pressão x Tempo (Grupo 2 - Contingente)
+
+
+]
+
+.right-column[
+<img src="plots/perfis_grupo2.png" width="750" height = "600">
+]
+
+---
+.left-column[
+### Pressão x Tempo (Grupo 3 - Contingente)
+
+- Não foram obtidos dados no primeiro dia de dois participantes nesse grupo.
+
+]
+
+.right-column[
+<img src="plots/perfis_grupo3.png" width="750" height = "600">
+]
+---
+
+## Tempo entre disparo do vídeo 
+
+.pull-left[
+### Dia 1 - Contingente - Grupo 1 
+<img src="plots/tempo_video_g1_d1.jpeg" width="500" height = "400">
+]
+
+.pull-right[
+### Dia 3 - Contingente - Grupo 1 
+<img src="plots/tempo_video_g1_d2.jpeg" width="500" height = "400">
+]
+
+---
+
+.pull-left[
+### Dia 1 - Contingente - Grupo 2 
+<img src="plots/tempo_video_g2_d1.jpeg" width="500" height = "400">
+]
+
+.pull-right[
+### Dia 3 - Contingente - Grupo 2
+<img src="plots/tempo_video_g2_d2.jpeg" width="500" height = "400">
+]
+
+---
+
+.pull-left[
+### Dia 1 - Contingente - Grupo 3 
+<img src="plots/tempo_video_g3_d1.jpeg" width="500" height = "400">
+]
+
+.pull-right[
+### Dia 3 - Contingente - Grupo 3
+<img src="plots/tempo_video_g3_d2.jpeg" width="500" height = "400">
+]
+---
+class: inverse center middle
+name: conclusoes
+# Conclusões
+
+---
+- Parece existir uma diferença entre o padrão de apertar quando comparamos as tentativas sem estímulo (Basal e Basal 2) com a condição com estímulo (Contingente);  
+  
+- O comportamento dos bebês de uma mesma faixa etária é é heterogêneo;
+
+---
+class: inverse center middle
+name: proximos
+# Próximos passos
+
+---
+class: center, middle
+
+# Obrigada!
+
+### Dúvidas?
+
+[**slides**](https://rmhirota.github.io/cea2)<br>
+[**análises**](https://github.com/rmhirota/cea2)
+
