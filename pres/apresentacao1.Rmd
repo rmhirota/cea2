@@ -43,6 +43,14 @@ knitr::opts_chunk$set(
 # )
 ```
 
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo("imagens/ime.png")
+```
+
 ```{r dados, include=FALSE}
 library(magrittr)
 ```
@@ -106,9 +114,8 @@ _Ou seja, a literatura hoje aponta a capacidade dos bebes de conrolar o próprio
 
 - Auxilia no entendimento do processo de aprendizado em recém-nascidos, e seu comportamento frente a percepção de alterações ambientais (percepção-ação)
 
-.pull-down[
-<center><img src="imagens/baby.png" height="400"></center>
-]
+<center><img src="imagens/baby.png" height="300"></center>
+
 
 ---
 
@@ -312,8 +319,8 @@ cea2::da_metadados %>%
 ]
 
 ---
-
 .left-column[
+
 ### Pressão média
 
 - Na condição **Basal 1**, percebe-se uma relação direta da pressão média com a idade do bebê;  
@@ -387,191 +394,85 @@ cea2::da_tidy %>%
 ]
 
 ---
-##Pressão Média - Grupo
+.left-column[
+#### Grupo 1
 
-### Grupo 1
+- Contingente: a média parece se manter mais estável em comparação com a basal
+- Pressão média aumenta gradualmente no início e se mantém num patamar elevado 
+- Na basal, a pressão média oscila muito mais no final da sessão
+]
+
+.right-column[
 ```{r}
-# grupo 1
- cea2::da_tidy %>%
-  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "b1",pressao<4) %>%
-  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
-  dplyr::group_by(condicao, Tempo) %>%
-  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
-  highcharter::hchart(
-    "line",
-    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
-  ) %>%
-  # highcharter::hc_size()
-  highcharter::hc_tooltip(
-    pointFormat = paste0(
-      "<b>Tempo</b>: {point.Tempo}<br>",
-      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
-      "<b>Condição</b>: {point.condicao}<br>"
-    )
-  )
- cea2::da_tidy %>%
-  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "b2",pressao<4) %>%
-  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
-  dplyr::group_by(condicao, Tempo) %>%
-  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
-  highcharter::hchart(
-    "line",
-    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
-  ) %>%
-  # highcharter::hc_size()
-  highcharter::hc_tooltip(
-    pointFormat = paste0(
-      "<b>Tempo</b>: {point.Tempo}<br>",
-      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
-      "<b>Condição</b>: {point.condicao}<br>"
-    )
-  )
-  
-```
-
-
-.pull-right[
-###Grupo 2
-```{r}
-# grupo 2
-cea2::da_tidy %>%
-  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "b2",pressao<4) %>%
-  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
-  dplyr::group_by(condicao, Tempo) %>%
-  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
-  highcharter::hchart(
-    "line",
-    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
-  ) %>%
-  highcharter::hc_tooltip(
-    pointFormat = paste0(
-      "<b>Tempo</b>: {point.Tempo}<br>",
-      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
-      "<b>Condição</b>: {point.condicao}<br>"
-    )
-  )
+cea2::hc_grupo("b1")
 ```
 ]
 
-
 ???
-### Grupo 1
-
 - Algumas observações de pressão (outliers) foram retiradas pois puxavam a média para cima em determinados momentos
-- Na contingente, a média parece se manter relativamente estável ao longo do tempo **em comparação com a basal**
+- Na contingente, a média parece se manter mais estável ao longo do tempo em comparação com a basal
 - Na contingente, a pressão média aumenta gradualmente no início e se mantém num patamar elevado 
 - Na basal, a pressão média oscila muito mais no último terço da sessão e não apresenta o crescimento gradual da contingente
 
-### Grupo 2
+---
+.left-column[
+#### Grupo 2
 
+- Diferentemente do grupo 1, a basal também apresenta crescimento gradual no início, com decaimento no final
+- Esse comportamento pode indicar uma maior diferença entre idades na condição basal, mas não na contingente
+- A pressão média na condição basal é mais alta que na contingente
+]
+
+.right-column[
+```{r}
+cea2::hc_grupo("b2")
+```
+]
+
+???
 - A contingente tem um crescimento gradual, mas, diferentemente do grupo 1, a basal também apresenta esse comportamento no início, com decaimento no final
 - Esse comportamento condiz com o gráfico da pressão média por grupo, pois parece indicar uma maior diferença entre idades na condição basal, mas não na contingente
-- No grupo 2, observamos que, de fato, a pressão média na condição basal é mais alta que na contingente
+- No grupo 2 observamos que, de fato, a pressão média na condição basal é mais alta que na contingente
 
-### Grupo 3
+---
+.left-column[
+#### Grupo 3
 
+- Assim como nos outros grupos, a pressão média na condição basal oscila mais que na contingente
+- Semelhança com o grupo 2: de início, tanto na basal quanto na contingente, há um aumento gradual da pressão média, com a pressão média da basal sempre superior à da contingente
+]
+
+.right-column[
+```{r}
+cea2::hc_grupo("b3")
+```
+]
+
+???
 - Semelhanças com os outros grupos: a pressão média na condição basal oscila mais que na contingente
 - Semelhança com o grupo 2: de início, tanto na basal quanto na contingente, há um aumento gradual da pressão média, com a pressão média da basal sempre superior à da contingente
 - Devemos olhar esse gráfico com cautela, pois neste grupo não temos os dados de dois bebês para um dos dias (dias diferentes)
 
 ---
-### Grupo 3
-```{r}
-# grupo 3
-cea2::da_tidy %>%
-  dplyr::filter(condicao=="basal1"|condicao=="contingente",grupo == "b3",pressao<2) %>%
-  dplyr::mutate(Tempo = floor(tempo*10)/10) %>%
-  dplyr::group_by(condicao, Tempo) %>%
-  dplyr::summarise(`Média Pressão` = mean(pressao), .groups = "drop") %>%
-  highcharter::hchart(
-    "line",
-    highcharter::hcaes(Tempo, `Média Pressão`, group = condicao)
-  ) %>%
-  highcharter::hc_tooltip(
-    pointFormat = paste0(
-      "<b>Tempo</b>: {point.Tempo}<br>",
-      "<b>Pressão</b>: {point.`Média Pressão`}<br>",
-      "<b>Condição</b>: {point.condicao}<br>"
-    )
-  )
-
-```
-
-
----
-
-###Número de Apertos
 
 .left-column[
-- A diferença do dia 2 para o dia 3 é menos expressiva  
-- 
-]
+### Pressão média por grupo
 
+Comparações entre a pressão média na primeira condição basal e na condição contingente
+]
 .right-column[
-.top-column[
 ```{r}
-da_dia <- cea2::da_spss %>% 
-  dplyr::filter(condicao %in% c("bas", "pos")) %>% 
-  dplyr::mutate(condicao = ifelse(condicao == "pos", "Basal 2", "Basal 1")) %>% 
-  dplyr::select(nome,condicao, grupo, dia, n_apertos) %>% 
-  dplyr::mutate(dia = dplyr::case_when(
-    dia == 1 ~ "dia_1",
-    dia == 2 ~ "dia_2",
-    TRUE ~ "dia_3"
-  )) %>% 
-  #dplyr::filter(grupo == 1) %>% 
-  tidyr::pivot_wider(names_from = dia, values_from = n_apertos)
-
-#Dia 1 e Dia 2
-d12 = da_dia %>% 
-  ggplot2::ggplot(ggplot2::aes(x = dia_1, y = dia_2, colour = condicao, shape = grupo)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_abline(slope = 1, intercept = 0)
-
-plotly::ggplotly(d12)  %>%
-  plotly::layout(title = 'Número de apertos: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
-                 yaxis = list(title = 'Dia 2')) 
-
+cea2::hc_grupo("b1") %>% highcharter::hc_size(height = 200)  
+cea2::hc_grupo("b2") %>% highcharter::hc_size(height = 200)  
+cea2::hc_grupo("b3") %>% highcharter::hc_size(height = 200) 
 ```
 ]
-
-.middle-column[
-```{r height 10}
-#Dia 2 e Dia 3
-d23 <- da_dia %>% 
-  ggplot2::ggplot(ggplot2::aes(x = dia_2, y = dia_3, colour = condicao, shape = grupo)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_abline(slope = 1, intercept = 0)
-
-plotly::ggplotly(d23)  %>%
-  plotly::layout(title = 'Número de apertos: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
-                 yaxis = list(title = 'Dia 3'))
-```
-]
-
-.bottom-column[
-```{r}
-# Dia 1 e Dia 3
-d13 <- da_dia %>% 
-  ggplot2::ggplot(ggplot2::aes(x = dia_1, y = dia_3, colour = condicao, shape = grupo)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_abline(slope = 1, intercept = 0)
-
-plotly::ggplotly(d13)  %>%
-  plotly::layout(title = 'Número de apertos: Dia 1 x Dia 3',xaxis = list(title = 'Dia 1'),
-                 yaxis = list(title = 'Dia 3')) 
-
-
-```
-]
-]
-
 
 ---
 .left-column[
 ### Pressão x Tempo (Grupo 1 - Contingente)
 
-- Observamos que o comportamento entre indivíduos de um mesmo grupo é heterogêneo;  
+- Comportamento entre indivíduos de um mesmo grupo é heterogêneo;  
 
 - Presença de valores de pressão outliers que posssivelmente devem ser cortados da amostra;
 ]
@@ -595,13 +496,122 @@ plotly::ggplotly(d13)  %>%
 .left-column[
 ### Pressão x Tempo (Grupo 3 - Contingente)
 
-- Não foram obtidos dados no primeiro dia de dois participantes nesse grupo.
+- Não foram obtidos dados de dois bebês nesse grupo no segundo e no terceiro dia
 
 ]
 
 .right-column[
 <img src="plots/perfis_grupo3.png" width="750" height = "600">
 ]
+
+---
+
+.left-column[
+### Número de apertos
+
+- A diferença do dia 2 para o dia 3 é menos expressiva  
+- Não há uma diferença clara do dia 1 para o dia 3
+
+]
+
+.right-column[
+.panelset[
+.panel[.panel-name[Dias 1 e 2]
+```{r}
+da_apertos <- cea2::da_spss %>% 
+  dplyr::filter(condicao == "pos") %>% 
+  dplyr::transmute(nome, grupo, dia = stringr::str_c("dia", dia), n_apertos) %>% 
+  tidyr::pivot_wider(names_from = dia, values_from = n_apertos)
+
+d12 <- da_apertos %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia1, y = dia2, colour = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Apertos no dia 1", y = "Apertos no dia 2") +
+  ggplot2::scale_colour_viridis_d() +
+  ggplot2::geom_abline(slope = 1, intercept = 0)
+
+plotly::ggplotly(d12, height = 420)
+```
+]
+.panel[.panel-name[Dias 2 e 3]
+```{r}
+d23 <- da_apertos %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia2, y = dia3, colour = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Apertos no dia 2", y = "Apertos no dia 3") +
+  ggplot2::scale_colour_viridis_d() +
+  ggplot2::geom_abline(slope = 1, intercept = 0)
+
+plotly::ggplotly(d23, height = 420)
+```
+]
+
+.panel[.panel-name[Dias 1 e 3]
+```{r}
+d13 <- da_apertos %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia1, y = dia3, colour = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Apertos no dia 1", y = "Apertos no dia 3") +
+  ggplot2::scale_colour_viridis_d() +
+  ggplot2::geom_abline(slope = 1, intercept = 0)
+
+plotly::ggplotly(d13, height = 420)
+```
+]
+]]
+
+```{r}
+# da_dia <- cea2::da_spss %>%
+#   dplyr::filter(condicao %in% c("bas", "pos")) %>%
+#   dplyr::mutate(condicao = ifelse(condicao == "pos", "Basal 2", "Basal 1")) %>%
+#   dplyr::select(nome,condicao, grupo, dia, n_apertos) %>%
+#   dplyr::mutate(dia = dplyr::case_when(
+#     dia == 1 ~ "dia_1",
+#     dia == 2 ~ "dia_2",
+#     TRUE ~ "dia_3"
+#   )) %>%
+#   #dplyr::filter(grupo == 1) %>%
+#   tidyr::pivot_wider(names_from = dia, values_from = n_apertos)
+# 
+# #Dia 1 e Dia 2
+# d12 = da_dia %>%
+#   ggplot2::ggplot(ggplot2::aes(x = dia_1, y = dia_2, colour = condicao, shape = grupo)) +
+#   ggplot2::geom_point() +
+#   ggplot2::geom_abline(slope = 1, intercept = 0)
+# 
+# plotly::ggplotly(d12)  %>%
+#   plotly::layout(title = 'Número de apertos: Dia 1 x Dia 2',xaxis = list(title = 'Dia 1'),
+#                  yaxis = list(title = 'Dia 2'))
+```
+
+```{r height 10}
+#Dia 2 e Dia 3
+# d23 <- da_dia %>%
+#   ggplot2::ggplot(ggplot2::aes(x = dia_2, y = dia_3, colour = condicao, shape = grupo)) +
+#   ggplot2::geom_point() +
+#   ggplot2::geom_abline(slope = 1, intercept = 0)
+# 
+# plotly::ggplotly(d23)  %>%
+#   plotly::layout(title = 'Número de apertos: Dia 2 x Dia 3',xaxis = list(title = 'Dia 2'),
+#                  yaxis = list(title = 'Dia 3'))
+```
+
+```{r}
+# Dia 1 e Dia 3
+# d13 <- da_dia %>%
+#   ggplot2::ggplot(ggplot2::aes(x = dia_1, y = dia_3, colour = condicao, shape = grupo)) +
+#   ggplot2::geom_point() +
+#   ggplot2::geom_abline(slope = 1, intercept = 0)
+# 
+# plotly::ggplotly(d13)  %>%
+#   plotly::layout(title = 'Número de apertos: Dia 1 x Dia 3',xaxis = list(title = 'Dia 1'),
+#                  yaxis = list(title = 'Dia 3'))
+
+```
+
 ---
 
 ## Tempo entre disparo do vídeo 
@@ -647,9 +657,18 @@ name: conclusoes
 ---
 
 ## Conclusões
+
+--
+
 - Parece existir uma diferença entre o padrão de apertar quando comparamos as tentativas sem estímulo (Basal e Basal 2) com a condição com estímulo (Contingente);  
   
-- O comportamento dos bebês de uma mesma faixa etária é é heterogêneo;
+--
+
+- Há uma diferença muito grande no comportamento dos bebês de uma mesma faixa etária;
+
+--
+
+- 
 
 ---
 class: inverse center middle
@@ -659,12 +678,20 @@ name: proximos
 
 ## Próximos passos
 
+--
+
 - Alinhamento com a pesquisadora acerca de possíveis inconsistências na base;  
   
+--
+
 - Definição das variáveis a serem utilizadas na modelagem (varias opções);  
   
+--
+
 - Definição de um modelo adequado a estrutura dos dados;  
   
+--
+
 - Aceitamos sugestões
 
 ---
@@ -674,6 +701,6 @@ class: center, middle
 
 ### Dúvidas?
 
-[**slides**](https://rmhirota.github.io/cea2)<br>
+[**slides**](https://rmhirota.github.io/cea2/pres/apresentacao1.html)<br>
 [**análises**](https://github.com/rmhirota/cea2)
 
