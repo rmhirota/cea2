@@ -13,13 +13,14 @@ media_grupo <- function(da, variavel, ...) {
     dplyr::summarise(
       "media_{{variavel}}" := mean({{variavel}}),
       "dp_{{variavel}}" := sd({{variavel}}),
+      "mediana_{{variavel}}" := median({{variavel}}),
       .groups = "drop"
     )
 }
-media_grupo(da_spss, freq_apertos, dia, grupo)
-media_grupo(da_spss, n_apertos, dia)
-media_grupo(da_spss, n_apertos, grupo)
-media_grupo(da_spss, n_apertos, grupo)
+media_grupo(cea2::da_tidy, pressao, dia, grupo, condicao)  %>% knitr::kable()
+media_grupo(cea2::da_tidy, pressao, dia)
+media_grupo(cea2::da_tidy, pressao, grupo)
+media_grupo(cea2::da_tidy, pressao, condicao)
 
 # boxplot
 boxplot_uni <- function(da, variavel, grupo) {
