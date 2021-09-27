@@ -496,7 +496,6 @@ cea2::hc_grupo("b3") %>% highcharter::hc_size(height = 200)
 .left-column[
 ### Pressão x Tempo (Grupo 3 - Contingente)
 
-- Não foram obtidos dados de dois bebês nesse grupo no segundo e no terceiro dia
 
 ]
 
@@ -668,7 +667,7 @@ name: conclusoes
 
 --
 
-- 
+- A pressão média na condição basal oscila mais que na condição contingente
 
 ---
 class: inverse center middle
