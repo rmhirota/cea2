@@ -2,5 +2,6 @@
 
 export("%>%")
 export(filtra_nomes)
+export(hc_grupo)
 export(p_video_bebe)
 importFrom(magrittr,"%>%")

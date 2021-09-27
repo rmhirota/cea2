@@ -6,7 +6,6 @@
 #' @param gr grupo (b1, b2, b3)
 #'
 #' @export
-#'
 p_video_bebe <- function(da, bebe, d, gr) {
   da_bebe <- da %>%
     dplyr::filter(
@@ -47,7 +46,6 @@ p_video_bebe <- function(da, bebe, d, gr) {
     )
 }
 
-
 #' Filtra nomes de bebês que fizeram condição contingente para dado grupo e dia
 #'
 #' @param da dados [da_tidy]
@@ -55,10 +53,41 @@ p_video_bebe <- function(da, bebe, d, gr) {
 #' @param dia 1, 2 ou 3
 #'
 #' @export
-#'
 filtra_nomes <- function(da, grupo, dia) {
   da %>%
     dplyr::filter(grupo == grupo, condicao == "contingente", dia = dia) %>%
     dplyr::pull(nome) %>%
     unique()
+}
+
+
+#' Gráfico de pressão média por condição basal e contingente
+#'
+#' @param g grupo (b1, b2, b3)
+#'
+#' @export
+hc_grupo <- function(g) {
+  cea2::da_tidy %>%
+    dplyr::filter(
+      condicao %in% c("basal1", "contingente"),
+      grupo == g, pressao < 2
+    ) %>%
+    dplyr::mutate(tempo = floor(tempo*10)/10) %>%
+    dplyr::group_by(condicao, tempo) %>%
+    dplyr::summarise(
+      pressao_media = mean(pressao, na.rm= TRUE),
+      .groups = "drop"
+    ) %>%
+    highcharter::hchart(
+      "line",
+      highcharter::hcaes(tempo, pressao_media, group = condicao)
+    ) %>%
+    highcharter:: hc_xAxis(title = list(text = "Tempo"), crosshair=TRUE) %>%
+    highcharter::hc_yAxis(title = list(text = "Pressão média"), crosshair = TRUE) %>%
+    highcharter::hc_tooltip(
+      pointFormat = paste0(
+        "<b>Pressão</b>: {point.Média Pressão}<br>",
+        "<b>Condição</b>: {point.condicao}<br>"
+      )
+    )
 }

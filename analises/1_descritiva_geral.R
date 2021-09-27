@@ -10,13 +10,13 @@ da <- readr::read_rds("data-raw/da_tidy.rds")
 # Perfis ------------------------------------------------------------------
 # Perfil de todos os bebês por grupo/dia para condição contingente
 
-nomes_b1 <- da %>%
+nomes_b1 <- cea2::da_tidy %>%
   dplyr::filter(grupo == "b1", condicao == "contingente") %>%
   dplyr::pull(nome) %>% unique()
-nomes_b2 <- da %>%
+nomes_b2 <- cea2::da_tidy %>%
   dplyr::filter(grupo == "b2", condicao == "contingente") %>%
   dplyr::pull(nome) %>% unique()
-nomes_b3 <- da %>%
+nomes_b3 <- cea2::da_tidy %>%
   dplyr::filter(grupo == "b3", condicao == "contingente") %>%
   dplyr::pull(nome) %>% unique()
 

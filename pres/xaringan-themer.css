@@ -64,6 +64,7 @@
 
 html {
   font-size: var(--base-font-size);
+  cursor: url('pointer.png'), auto;
 }
 
 body {
