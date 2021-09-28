@@ -51,6 +51,10 @@ xaringanExtra::use_panelset()
 xaringanExtra::use_logo("imagens/ime.png")
 ```
 
+```{r xaringan-scribble, echo=FALSE}
+xaringanExtra::use_scribble()
+```
+
 ```{r dados, include=FALSE}
 library(magrittr)
 ```
@@ -319,20 +323,17 @@ cea2::da_metadados %>%
 ]
 
 ---
-### Medidas Resumos
+### Medidas Resumo
 
-.left-column[
+.pull-left[
 - pressão por **Dia**: não há grande diferença entre as pressões médias e medianas;
 
 - Pressão por **Grupo**: indica uma maior diferenciação nas medidas resumos do Grupo 3;  
 
 - Pressão por **Condição**: indica que a pressão média nas condições Basal 1 e Não Contingente são mais altas, enquanto a mediana do Não Contingente é a maior entre as condições
 
-???
-Distruição dos dados simétrica
-
 ]
-.right-column[
+.pull-right[
 .panelset[
 .panel[.panel-name[Dia]
 ```{r}
@@ -352,6 +353,7 @@ media_grupo <- function(da, variavel, ...) {
 
 media_grupo(cea2::da_tidy, pressao, dia) %>% 
   #janitor::adorn_totals() %>% 
+  dplyr::mutate(dplyr::across(2:4, ~round(.x, 3))) %>% 
   knitr::kable(col.names = c("Dia", "Pressão Média", "Desvio Padrão", "Pressão Mediana")) %>% 
   kableExtra::kable_styling(full_width = TRUE)
 ```
@@ -360,6 +362,7 @@ media_grupo(cea2::da_tidy, pressao, dia) %>%
 ```{r}
 media_grupo(cea2::da_tidy, pressao, grupo)  %>% 
   #janitor::adorn_totals() %>% 
+  dplyr::mutate(dplyr::across(2:4, ~round(.x, 3))) %>% 
   knitr::kable(col.names = c("Grupo", "Pressão Média", "Desvio Padrão", "Pressão Mediana")) %>% 
   kableExtra::kable_styling(full_width = TRUE)
 ```
@@ -368,6 +371,7 @@ media_grupo(cea2::da_tidy, pressao, grupo)  %>%
 ```{r}
 media_grupo(cea2::da_tidy, pressao, condicao)  %>% 
   #janitor::adorn_totals() %>% 
+  dplyr::mutate(dplyr::across(2:4, ~round(.x, 3))) %>% 
   knitr::kable(col.names = c("Condição", "Pressão Média", "Desvio Padrão", "Pressão Mediana")) %>% 
   kableExtra::kable_styling(full_width = TRUE)
 
@@ -376,6 +380,8 @@ media_grupo(cea2::da_tidy, pressao, condicao)  %>%
 ]]
 
 ???
+Distruição dos dados simétrica
+
 Geral: Pressão Média = 0.18, Desvio Padrão = 0.13, Pressão Mediana = 0.17
 ---
 .left-column[
@@ -429,7 +435,7 @@ cea2::da_tidy %>%
 
 - Não parece existir relação entre a pressão e a idade;
 
-- Esse equilíbrio entre grupos pode indicar uma resposta parecida ao estímulo, independentemente da idade
+- Pode indicar uma resposta parecida ao estímulo, independentemente da idade.
 ]
 
 .right-column[
@@ -461,8 +467,8 @@ cea2::da_tidy %>%
 ]
 
 ---
+### Pressão média ao longo do tempo
 .left-column[
-#### Grupo 1
 
 - **Contingente:** a média parece se manter mais estável em comparação com a Basal;  
   
@@ -473,7 +479,8 @@ cea2::da_tidy %>%
 
 .right-column[
 ```{r}
-cea2::hc_grupo("b1")
+cea2::hc_grupo("b1") %>% 
+  highcharter::hc_title(text = "Pressão média por segundo - Grupo 1")
 ```
 ]
 
@@ -484,19 +491,20 @@ cea2::hc_grupo("b1")
 - Na basal, a pressão média oscila muito mais no último terço da sessão e não apresenta o crescimento gradual da contingente
 
 ---
+### Pressão média ao longo do tempo
 .left-column[
-#### Grupo 2
 
 - Diferentemente do Grupo 1, a Basal também apresenta crescimento gradual no início, com decaimento no final;  
   
 - Esse comportamento pode indicar uma maior diferença entre idades na condição Basal, mas não na Contingente;  
   
-- A pressão média na condição Basal é mais alta que na Contingente
+- A pressão média na condição Basal é mais alta
 ]
 
 .right-column[
 ```{r}
-cea2::hc_grupo("b2")
+cea2::hc_grupo("b2") %>% 
+  highcharter::hc_title(text = "Pressão média por segundo - Grupo 2")
 ```
 ]
 
@@ -506,9 +514,8 @@ cea2::hc_grupo("b2")
 - No grupo 2 observamos que, de fato, a pressão média na condição basal é mais alta que na contingente
 
 ---
+### Pressão média ao longo do tempo
 .left-column[
-#### Grupo 3
-
 - Assim como nos outros grupos, a pressão média na condição Basal oscila mais que na Contingente;  
   
 - Semelhança com o grupo 2: de início, tanto na Basal quanto na Contingente, há um aumento gradual da pressão média, com a pressão média da Basal sempre superior à da Contingente
@@ -516,7 +523,8 @@ cea2::hc_grupo("b2")
 
 .right-column[
 ```{r}
-cea2::hc_grupo("b3")
+cea2::hc_grupo("b3") %>% 
+  highcharter::hc_title(text = "Pressão média por segundo - Grupo 3")
 ```
 ]
 
@@ -528,7 +536,7 @@ cea2::hc_grupo("b3")
 ---
 
 .left-column[
-### Pressão média por grupo
+### Pressão média ao longo do tempo: grupos 1, 2 e 3
 
 Comparações entre a pressão média na primeira condição Basal e na condição Contingente
 ]
@@ -544,9 +552,9 @@ cea2::hc_grupo("b3") %>% highcharter::hc_size(height = 200)
 .left-column[
 ### Pressão x Tempo (Grupo 1 - Contingente)
 
-- Comportamento entre indivíduos de um mesmo grupo é heterogêneo;  
+- Comportamento entre indivíduos de um mesmo grupo é heterogêneo
 
-- Presença de valores de pressão outliers que posssivelmente devem ser cortados da amostra;
+- Presença de valores de pressão outliers que posssivelmente devem ser cortados da amostra
 ]
 
 .right-column[
@@ -557,6 +565,9 @@ cea2::hc_grupo("b3") %>% highcharter::hc_size(height = 200)
 .left-column[
 ### Pressão x Tempo (Grupo 2 - Contingente)
 
+- Alguns bebês ativam mais o vídeo ao final da sessão, o que pode indicar que houve "aprendizado" do mecanismo do experimento
+
+- Comportamento diferente não só entre bebês, mas também entre dias para o mesmo bebê
 
 ]
 
@@ -568,7 +579,9 @@ cea2::hc_grupo("b3") %>% highcharter::hc_size(height = 200)
 .left-column[
 ### Pressão x Tempo (Grupo 3 - Contingente)
 
+- Também não há um padrão aparente para o comportamento ao longo dos dias
 
+- Para alguns bebês, houve mais ativações do vídeo no último dia, enquanto outros tiveram mais sucesso no primeiro dia
 ]
 
 .right-column[
@@ -583,9 +596,6 @@ cea2::hc_grupo("b3") %>% highcharter::hc_size(height = 200)
 - **Grupo 1**: número de apertos maior no dia 1 em comparação aos demais dias;    
 - **Grupo 2**: número de apertos maior no dia 1 quando comparados com o dia 2 e o dia 3;  
 - **Grupo 3**: apresenta um aumento no número de apertos do dia 3 em relação aos dias anteriores;  
-
-
-
 ]
 
 .right-column[
@@ -603,8 +613,17 @@ d12 <- da_apertos %>%
   ggplot2::theme_minimal() +
   ggplot2::labs(x = "Apertos no dia 1", y = "Apertos no dia 2") +
   ggplot2::scale_colour_viridis_d() +
-  ggplot2::geom_abline(slope = 1, intercept = 0) 
-
+  ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
+  ggplot2::geom_hline(ggplot2::aes(
+    linetype = "mediana", 
+    yintercept = median(dia2, na.rm = TRUE)
+  ), alpha = .3) +
+  ggplot2::geom_vline(ggplot2::aes(
+    linetype = "mediana", 
+    xintercept = median(dia1, na.rm = TRUE)
+  ), alpha = .3) +
+  ggplot2::scale_linetype_manual(name = "", values = 3)
+  
 plotly::ggplotly(d12, height = 420)
 ```
 ]
@@ -616,7 +635,16 @@ d23 <- da_apertos %>%
   ggplot2::theme_minimal() +
   ggplot2::labs(x = "Apertos no dia 2", y = "Apertos no dia 3") +
   ggplot2::scale_colour_viridis_d() +
-  ggplot2::geom_abline(slope = 1, intercept = 0)
+  ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
+  ggplot2::geom_hline(ggplot2::aes(
+    linetype = "mediana", 
+    yintercept = median(dia3, na.rm = TRUE)
+  ), alpha = .3) +
+  ggplot2::geom_vline(ggplot2::aes(
+    linetype = "mediana", 
+    xintercept = median(dia2, na.rm = TRUE)
+  ), alpha = .3) +
+  ggplot2::scale_linetype_manual(name = "", values = 3)
 
 plotly::ggplotly(d23, height = 420)
 ```
@@ -630,7 +658,16 @@ d13 <- da_apertos %>%
   ggplot2::theme_minimal() +
   ggplot2::labs(x = "Apertos no dia 1", y = "Apertos no dia 3") +
   ggplot2::scale_colour_viridis_d() +
-  ggplot2::geom_abline(slope = 1, intercept = 0)
+  ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
+  ggplot2::geom_hline(ggplot2::aes(
+    linetype = "mediana", 
+    yintercept = median(dia3, na.rm = TRUE)
+  ), alpha = .3) +
+  ggplot2::geom_vline(ggplot2::aes(
+    linetype = "mediana", 
+    xintercept = median(dia1, na.rm = TRUE)
+  ), alpha = .3) +
+  ggplot2::scale_linetype_manual(name = "", values = 3)
 
 plotly::ggplotly(d13, height = 420)
 ```
