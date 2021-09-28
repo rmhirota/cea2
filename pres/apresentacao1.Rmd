@@ -722,9 +722,15 @@ plotly::ggplotly(d13, height = 420)
 
 ```
 
+---
+
+.left-column[
+### Número de apertos - Basal 1 x Basal 2
+]
+
 .right-column[
 .panelset[
-.panel[.panel-name[Dias 1]
+.panel[.panel-name[Dia 1]
 
 ```{r}
 da_dia <- cea2::da_spss %>%
@@ -751,7 +757,7 @@ d1 = da_dia %>%
  plotly::ggplotly(d1, height = 420) 
 ```
 ]
-.panel[.panel-name[Dias 2]
+.panel[.panel-name[Dia 2]
 ```{r}
  #Dia 2
  d2 = da_dia %>%
@@ -766,7 +772,7 @@ d1 = da_dia %>%
  plotly::ggplotly(d2, height = 420) 
 ```
 ]
-.panel[.panel-name[Dias 3]
+.panel[.panel-name[Dia 3]
 ```{r}
 #Dia 3
  d3 = da_dia %>%
