@@ -52,7 +52,7 @@ xaringanExtra::use_logo("imagens/ime.png")
 ```
 
 ```{r xaringan-scribble, echo=FALSE}
-xaringanExtra::use_scribble()
+# xaringanExtra::use_scribble()
 ```
 
 ```{r dados, include=FALSE}
