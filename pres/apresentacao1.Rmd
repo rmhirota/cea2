@@ -722,6 +722,68 @@ plotly::ggplotly(d13, height = 420)
 
 ```
 
+.right-column[
+.panelset[
+.panel[.panel-name[Dias 1]
+
+```{r}
+da_dia <- cea2::da_spss %>%
+   dplyr::filter(condicao %in% c("bas", "pos")) %>%
+   dplyr::mutate(condicao = ifelse(condicao == "pos", "Basal 2", "Basal 1")) %>%
+   dplyr::select(nome,condicao, grupo, dia, n_apertos) %>%
+  dplyr::mutate(condicao = dplyr::case_when(
+    condicao == "Basal 1" ~ "Basal_1",
+    TRUE ~ "Basal_2"
+  )) %>%
+   #dplyr::filter(grupo == 1) %>%
+   tidyr::pivot_wider(names_from = condicao, values_from = n_apertos)
+ 
+ #Dia 1
+d1 = da_dia %>%
+  dplyr::filter(dia == 1)%>%
+   ggplot2::ggplot(ggplot2::aes(x = Basal_1, y = Basal_2, colour = grupo)) +
+   ggplot2::geom_point() +   
+  ggplot2::theme_minimal() +
+   ggplot2::geom_abline(slope = 1, intercept = 0)+
+  ggplot2::labs(x = "Apertos na Basal 1", y = "Apertos na Basal 2") +
+  ggplot2::scale_colour_viridis_d() 
+ 
+ plotly::ggplotly(d1, height = 420) 
+```
+]
+.panel[.panel-name[Dias 2]
+```{r}
+ #Dia 2
+ d2 = da_dia %>%
+   dplyr::filter(dia == 2)%>%
+   ggplot2::ggplot(ggplot2::aes(x = Basal_1, y = Basal_2, colour = grupo)) +
+   ggplot2::geom_point() +   
+   ggplot2::theme_minimal() +
+   ggplot2::geom_abline(slope = 1, intercept = 0)+
+   ggplot2::labs(x = "Apertos na Basal 1", y = "Apertos na Basal 2") +
+   ggplot2::scale_colour_viridis_d() 
+ 
+ plotly::ggplotly(d2, height = 420) 
+```
+]
+.panel[.panel-name[Dias 3]
+```{r}
+#Dia 3
+ d3 = da_dia %>%
+   dplyr::filter(dia == 3)%>%
+   ggplot2::ggplot(ggplot2::aes(x = Basal_1, y = Basal_2, colour = grupo)) +
+   ggplot2::geom_point() +   
+   ggplot2::theme_minimal() +
+   ggplot2::geom_abline(slope = 1, intercept = 0)+
+   ggplot2::labs(x = "Apertos na Basal 1", y = "Apertos na Basal 2") +
+   ggplot2::scale_colour_viridis_d() 
+ 
+ plotly::ggplotly(d3, height = 420) 
+ 
+```
+]
+]]
+
 ---
 
 ## Tempo entre disparo do vídeo 
