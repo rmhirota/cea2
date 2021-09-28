@@ -85,21 +85,21 @@ tempo_video <- function(da, d, gr, b) {
                                                   video == TRUE & dplyr::lag(video) == TRUE ~ "meio")) %>%
     dplyr::filter(status_video %in% c("inicio","fim")) %>%
     dplyr::mutate(diff_video = dplyr::case_when(status_video == "inicio" &
-                                                  dplyr::lag(status_video) == "fim" ~ (tempo-dplyr::lag(tempo)))) %>%
+                                                  dplyr::lag(status_video) == "fim" ~ (tempo - dplyr::lag(tempo)))) %>%
     ggplot2::ggplot(ggplot2::aes(
       x = nome, y = diff_video)) +
     ggplot2::geom_boxplot(color=cor) +
     #ggplot2::xlab("Bebê") +
     #ggplot2::ylab("Tempo")+
     ggplot2::theme(
-      axis.text.x = ggplot2::element_blank(),
+      #axis.text.x = ggplot2::element_blank(),
       legend.position="none"
     ) +
     ggplot2::labs(
       #   title = "Pressão ao longo do tempo",
       #   subtitle = glue::glue("Grupo {gr} / Dia {d}"),
       y = ggplot2::element_blank(),
-      x = ggplot2::element_blank(),
+      #x = ggplot2::element_blank(),
       axis.title.x= ggplot2::element_blank()
     )
 }
