@@ -604,7 +604,10 @@ cea2::hc_grupo("b3") %>% highcharter::hc_size(height = 200)
 ```{r}
 da_apertos <- cea2::da_spss %>% 
   dplyr::filter(condicao == "pos") %>% 
-  dplyr::transmute(nome, grupo, dia = stringr::str_c("dia", dia), n_apertos) %>% 
+  dplyr::transmute(
+    nome, grupo = as.character(grupo), 
+    dia = stringr::str_c("dia", dia), n_apertos
+  ) %>% 
   tidyr::pivot_wider(names_from = dia, values_from = n_apertos)
 
 d12 <- da_apertos %>% 
@@ -614,15 +617,14 @@ d12 <- da_apertos %>%
   ggplot2::labs(x = "Apertos no dia 1", y = "Apertos no dia 2") +
   ggplot2::scale_colour_viridis_d() +
   ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
-  ggplot2::geom_hline(ggplot2::aes(
-    linetype = "mediana", 
-    yintercept = median(dia2, na.rm = TRUE)
-  ), alpha = .3) +
-  ggplot2::geom_vline(ggplot2::aes(
-    linetype = "mediana", 
-    xintercept = median(dia1, na.rm = TRUE)
-  ), alpha = .3) +
-  ggplot2::scale_linetype_manual(name = "", values = 3)
+  ggplot2::geom_hline(
+    linetype = "dotted", alpha = .3,
+    yintercept = median(da_apertos$dia2, na.rm = TRUE)
+  ) +
+  ggplot2::geom_vline(
+    linetype = "dotted", alpha = .3, 
+    xintercept = median(da_apertos$dia1, na.rm = TRUE)
+  ) 
   
 plotly::ggplotly(d12, height = 420)
 ```
@@ -636,15 +638,14 @@ d23 <- da_apertos %>%
   ggplot2::labs(x = "Apertos no dia 2", y = "Apertos no dia 3") +
   ggplot2::scale_colour_viridis_d() +
   ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
-  ggplot2::geom_hline(ggplot2::aes(
-    linetype = "mediana", 
-    yintercept = median(dia3, na.rm = TRUE)
-  ), alpha = .3) +
-  ggplot2::geom_vline(ggplot2::aes(
-    linetype = "mediana", 
-    xintercept = median(dia2, na.rm = TRUE)
-  ), alpha = .3) +
-  ggplot2::scale_linetype_manual(name = "", values = 3)
+  ggplot2::geom_hline(
+    linetype = "dotted", alpha = .3,
+    yintercept = median(da_apertos$dia3, na.rm = TRUE)
+  ) +
+  ggplot2::geom_vline(
+    linetype = "dotted", alpha = .3, 
+    xintercept = median(da_apertos$dia2, na.rm = TRUE)
+  ) 
 
 plotly::ggplotly(d23, height = 420)
 ```
@@ -659,16 +660,14 @@ d13 <- da_apertos %>%
   ggplot2::labs(x = "Apertos no dia 1", y = "Apertos no dia 3") +
   ggplot2::scale_colour_viridis_d() +
   ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
-  ggplot2::geom_hline(ggplot2::aes(
-    linetype = "mediana", 
-    yintercept = median(dia3, na.rm = TRUE)
-  ), alpha = .3) +
-  ggplot2::geom_vline(ggplot2::aes(
-    linetype = "mediana", 
-    xintercept = median(dia1, na.rm = TRUE)
-  ), alpha = .3) +
-  ggplot2::scale_linetype_manual(name = "", values = 3)
-
+  ggplot2::geom_hline(
+    linetype = "dotted", alpha = .3,
+    yintercept = median(da_apertos$dia3, na.rm = TRUE)
+  ) +
+  ggplot2::geom_vline(
+    linetype = "dotted", alpha = .3, 
+    xintercept = median(da_apertos$dia1, na.rm = TRUE)
+  ) 
 plotly::ggplotly(d13, height = 420)
 ```
 ]
