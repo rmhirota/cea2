@@ -1,0 +1,167 @@
+---
+title: "Graficos de perfil - Contingente"
+#author: "Mariana Almeida"
+date: "29/09/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE}
+library(magrittr)
+# por bebê com vídeo (contingente)
+p_video_bebe <- function(da, bebe, d, gr) {
+  da_bebe <- da %>%
+    dplyr::filter(
+      condicao == "contingente", dia == d,
+      grupo == gr, nome == bebe
+    )
+  video <- da_bebe %>%
+    dplyr::mutate(id = dplyr::row_number()) %>%
+    dplyr::select(id, video, tempo, pressao) %>%
+    dplyr::filter(video)
+  # pressao_min <- min(video$id)
+  # gatilho <- da_bebe %>%
+  #   dplyr::mutate(id = dplyr::row_number()) %>%
+  #   dplyr::filter(id < pressao_min) %>%
+  #   dplyr::slice_max(id) %>%
+  #   dplyr::pull(pressao)
+  da_bebe %>%
+    ggplot2::ggplot(ggplot2::aes(x = tempo, y = pressao)) +
+    ggplot2::geom_line() +
+    ggplot2::geom_vline(
+      data = video, ggplot2::aes(xintercept = tempo),
+      alpha = .01, colour = "blue"
+    ) +
+    # ggplot2::geom_hline(yintercept = gatilho, colour = "red") +
+    ggplot2::theme_bw() +
+    ggplot2::theme(
+      #panel.grid.major.x = ggplot2::element_blank() ,
+      panel.grid.major.y = ggplot2::element_line(size=.1, color="black"),
+      #panel.grid.minor.x = ggplot2::element_blank() ,
+      panel.grid.minor.y = ggplot2::element_line(size=.01, color="black")
+    ) +
+    ggplot2::labs(subtitle = glue::glue("Grupo {gr} / Dia {d}/Bebe {bebe}"))
+    
+}
+
+nomes_b1 <- cea2::da_tidy %>%
+  dplyr::filter(grupo == "b1") %>%
+  dplyr::pull(nome) %>% unique()
+nomes_b2 <- cea2::da_tidy%>%
+  dplyr::filter(grupo == "b2") %>%
+  dplyr::pull(nome) %>% unique()
+nomes_b3 <- cea2::da_tidy %>%
+  dplyr::filter(grupo == "b3") %>%
+  dplyr::pull(nome) %>% unique()
+
+# dia 1
+p1 = purrr::map(nomes_b1, ~p_video_bebe(cea2::da_tidy, .x, 1, "b1"))
+p2 = purrr::map(nomes_b2, ~p_video_bebe(cea2::da_tidy, .x, 1, "b2"))
+p3 = purrr::map(nomes_b3, ~p_video_bebe(cea2::da_tidy, .x, 1, "b3"))
+
+
+# dia 2
+
+p21 = purrr::map(nomes_b1, ~p_video_bebe(cea2::da_tidy, .x, 2, "b1"))
+p22 = purrr::map(nomes_b2, ~p_video_bebe(cea2::da_tidy, .x, 2, "b2"))
+p23 = purrr::map(nomes_b3, ~p_video_bebe(cea2::da_tidy, .x, 2, "b3"))
+
+# dia 3
+
+p31 = purrr::map(nomes_b1, ~p_video_bebe(cea2::da_tidy, .x, 3, "b1"))
+p32 = purrr::map(nomes_b2, ~p_video_bebe(cea2::da_tidy, .x, 3, "b2"))
+p33 = purrr::map(nomes_b3, ~p_video_bebe(cea2::da_tidy, .x, 3, "b3"))
+
+```
+
+# Grupo 1
+```{r}
+p1[1]
+p1[2]
+p1[3]
+p1[4]
+p1[5]
+p1[6]
+
+p21[1]
+p21[2]
+p21[3]
+p21[4]
+p21[5]
+p21[6]
+
+p31[1]
+p31[2]
+p31[3]
+p31[4]
+p31[5]
+p31[6]
+
+
+```
+
+#Grupo 2
+
+```{r}
+p2[1]
+p2[2]
+p2[3]
+p2[4]
+p2[5]
+p2[6]
+p2[7]
+p2[8]
+
+p22[1]
+p22[2]
+p22[3]
+p22[4]
+p22[5]
+p22[6]
+p22[7]
+p22[8]
+
+p32[1]
+p32[2]
+p32[3]
+p32[4]
+p32[5]
+p32[6]
+p32[7]
+p32[8]
+```
+
+#Grupo 3
+
+```{r}
+p3[1]
+p3[2]
+p3[3]
+p3[4]
+p3[5]
+p3[6]
+p3[7]
+p3[8]
+
+p23[1]
+p23[2]
+p23[3]
+p23[4]
+p23[5]
+p23[6]
+p23[7]
+p23[8]
+
+p33[1]
+p33[2]
+p33[3]
+p33[4]
+p33[5]
+p33[6]
+p33[7]
+p33[8]
+```
+
