@@ -5,7 +5,7 @@
 \alias{da_tidy}
 \title{da_tidy}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2522293 rows and 9 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2522293 rows and 13 columns.
 }
 \usage{
 da_tidy

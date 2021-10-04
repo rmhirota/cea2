@@ -92,12 +92,48 @@ da_metadados %>%
 da_metadados %>%
   dplyr::count(dia)
 
+
+# Junta dados de pressão com metadados ------------------------------------
+
 da_tidy <- da_brutos %>%
   dplyr::inner_join(da_metadados, "arq") %>%
   dplyr::relocate(video, tempo, pressao, .after = condicao)
 
 
+# Calcula n_apertos -------------------------------------------------------
+
+gatilho_aperto <- da_tidy %>%
+  dplyr::group_by(grupo, nome, dia, condicao) %>%
+  dplyr::summarise(
+    gatilho_aperto = mean(pressao)*1.1,
+    tempo_sessao = max(tempo),
+    .groups = "drop"
+  )
+
+da_tidy <- da_tidy %>%
+  dplyr::left_join(gatilho_aperto, by = c("grupo", "nome", "dia", "condicao")) %>%
+  dplyr::mutate(aperto = ifelse(pressao >= gatilho_aperto, TRUE, FALSE)) %>%
+  dplyr::group_by(grupo, nome, dia, condicao) %>%
+  dplyr::arrange(grupo, nome, dia, condicao, tempo) %>%
+  dplyr::mutate(status_aperto = dplyr::case_when(
+    aperto == TRUE & dplyr::lag(aperto) == FALSE ~ "inicio",
+    aperto == FALSE & dplyr::lag(aperto) == TRUE ~ "fim",
+    aperto == TRUE & dplyr::lag(aperto) == TRUE ~ "durante",
+    aperto == FALSE & dplyr::lag(aperto) == FALSE ~ "sem aperto"
+  )) %>%
+  dplyr::ungroup()
+
+n_apertos <- da_tidy %>%
+  dplyr::filter(status_aperto == "inicio") %>%
+  dplyr::count(grupo, nome, dia, condicao, name = "n_apertos")
+
+da_agrupado <- da_tidy %>%
+  dplyr::distinct(grupo, nome, dia, condicao, tempo_sessao) %>%
+  dplyr::left_join(n_apertos, c("grupo", "nome", "dia", "condicao")) %>%
+  dplyr::mutate(freq_apertos = n_apertos/tempo_sessao*60)
+
 # readr::write_rds(da_tidy, "data-raw/da_tidy.rds", compress = "xz")
 usethis::use_data(da_tidy, overwrite = TRUE, compress = "xz")
 usethis::use_data(da_metadados, overwrite = TRUE)
+usethis::use_data(da_agrupado, overwrite = TRUE)
 

@@ -6,3 +6,6 @@
 
 #' da_spss
 "da_spss"
+
+#' da_agrupado
+"da_agrupado"
