@@ -4,7 +4,7 @@ library(patchwork)
 library(dplyr)
 
 # dados arrumados
-da <- readr::read_rds("data-raw/da_tidy.rds")
+da <- cea2::da_tidy
 
 
 # Perfis ------------------------------------------------------------------
@@ -27,7 +27,7 @@ b2_d1 <- purrr::map(cea2::filtra_nomes(da, "b2", 1), ~cea2::p_video_bebe(da, .x,
 b2_d2 <- purrr::map(cea2::filtra_nomes(da, "b2", 2), ~cea2::p_video_bebe(da, .x, 2, "b2"))
 b2_d3 <- purrr::map(cea2::filtra_nomes(da, "b2", 3), ~cea2::p_video_bebe(da, .x, 3, "b2"))
 b3_d1 <- purrr::map(cea2::filtra_nomes(da, "b3", 1), ~cea2::p_video_bebe(da, .x, 1, "b3"))
-b3_d2 <- purrr::map(cea2::filtra_nomes(da, "b2", 2), ~cea2::p_video_bebe(da, .x, 2, "b3"))
+b3_d2 <- purrr::map(cea2::filtra_nomes(da, "b3", 2), ~cea2::p_video_bebe(da, .x, 2, "b3"))
 b3_d3 <- purrr::map(cea2::filtra_nomes(da, "b3", 3), ~cea2::p_video_bebe(da, .x, 3, "b3"))
 
 # grupo 1

@@ -4,14 +4,14 @@
 \alias{filtra_nomes}
 \title{Filtra nomes de bebês que fizeram condição contingente para dado grupo e dia}
 \usage{
-filtra_nomes(da, grupo, dia)
+filtra_nomes(da, gr, d)
 }
 \arguments{
 \item{da}{dados \link{da_tidy}}
 
-\item{grupo}{grupo (b1, b2, b3)}
+\item{gr}{grupo (b1, b2, b3)}
 
-\item{dia}{1, 2 ou 3}
+\item{d}{1, 2 ou 3}
 }
 \description{
 Filtra nomes de bebês que fizeram condição contingente para dado grupo e dia

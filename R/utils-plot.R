@@ -49,13 +49,13 @@ p_video_bebe <- function(da, bebe, d, gr) {
 #' Filtra nomes de bebês que fizeram condição contingente para dado grupo e dia
 #'
 #' @param da dados [da_tidy]
-#' @param grupo grupo (b1, b2, b3)
-#' @param dia 1, 2 ou 3
+#' @param gr grupo (b1, b2, b3)
+#' @param d 1, 2 ou 3
 #'
 #' @export
-filtra_nomes <- function(da, grupo, dia) {
+filtra_nomes <- function(da, gr, d) {
   da %>%
-    dplyr::filter(grupo == grupo, condicao == "contingente", dia = dia) %>%
+    dplyr::filter(grupo == gr, condicao == "contingente", dia == d) %>%
     dplyr::pull(nome) %>%
     unique()
 }
@@ -83,11 +83,11 @@ hc_grupo <- function(g) {
       highcharter::hcaes(tempo, pressao_media, group = condicao)
     ) %>%
     highcharter:: hc_xAxis(title = list(text = "Tempo"), crosshair=TRUE) %>%
-    highcharter::hc_yAxis(title = list(text = "Pressão média"), crosshair = TRUE) %>%
+    highcharter::hc_yAxis(title = list(text = "Press\u00e3o m\u00e9dia"), crosshair = TRUE) %>%
     highcharter::hc_tooltip(
       pointFormat = paste0(
-        "<b>Pressão</b>: {point.Média Pressão}<br>",
-        "<b>Condição</b>: {point.condicao}<br>"
+        "<b>Press\u00e3o</b>: {point.M\u00e9dia Press\u00e3o}<br>",
+        "<b>Condi\u00e7\u00e3o</b>: {point.condicao}<br>"
       )
     )
 }

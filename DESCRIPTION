@@ -23,4 +23,5 @@ Depends:
 Imports: 
     ggplot2,
     dplyr,
-    magrittr
+    magrittr,
+    highcharter
