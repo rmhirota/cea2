@@ -1,0 +1,231 @@
+---
+title: "Relatório de Análise Estatística sobre o Projeto:"
+subtitle: "\"Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade\""
+author: 
+  - name: "Mariana Almeida<br>Luís Gustavo Esteves<br>Renata Massami Hirota<br>Giovanna Vendeiro Vilar"
+pesquisadora: "Priscilla A. M. Ferronato"
+colaboradores: "Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel"
+instituicao: "Faculdade de Filosofia e Ciências Humanas da Universidade de São Paulo"
+finalidade: "Publicação"
+date: "São Paulo, `r format(Sys.Date(), '%B de %Y')`"
+referencia: "ALMEIDA, M.C.; ESTEVES, L.G.; HIROTA, R.M.; VILAR, G.V. <b>Relatório de análise estatística sobre o projeto: \"Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade\"</b>. São Paulo, IME-USP, 2021. (RAE–CEA-21P27)"
+knit: "bookdown::render_book"
+documentclass: report
+bibliography: [assets/bib/book.bib, assets/bib/packages.bib]
+biblio-style: apalike
+toc-title: "Sumário"
+link-citations: yes
+fontsize: '12pt'
+colorlinks: yes 
+lot: false
+lof: false
+site: bookdown::bookdown_site
+description: "Relatório de pesquisa da disciplina MAE0433."
+include-before: "RAE-CEA–21P27"
+sign_page: true
+preface: "<br>"
+  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  message = FALSE, 
+  comment = FALSE, 
+  warning = FALSE, 
+  fig.height = 6, 
+  fig.width = 9
+)
+
+library(patchwork)
+library(magrittr)
+participantes <- pseudopalavras::dados %>% 
+  dplyr::distinct(informante, .keep_all = TRUE) 
+```
+
+<!-- # Sobre este documento {-} -->
+
+<!-- Este relatório foi produzido em *RMarkdown*, utilizando o software estatístico R na versão `r paste(version$major, version$minor, sep = ".")`. -->
+
+<!--chapter:end:index.Rmd-->
+
+# Resumo {#resumo}
+
+
+
+<!--chapter:end:00-resumo.Rmd-->
+
+# Introdução {#introducao}
+
+O estudo da ação manipulativa em bebês é uma forma de entender o desenvolvimento humano durante os primeiros meses de vida. Esse processo está relacionado ao descobrimento do próprio corpo pelo sujeito, bem como à influência do ambiente ao seu redor.
+De acordo com a Fundação Oswaldo Cruz (Fiocruz, 2019)
+“ O desenvolvimento infantil e a plasticidade cerebral são maiores nos primeiros anos de vida. Sendo assim, quaisquer perturbações no ambiente ou no indivíduo impactam substancialmente na aquisição das habilidades motoras e cognitivas”.
+Portanto, um projeto descrito no presente relatório conjuntamente com as análises que serão realizados contribuem na caracterização do desenvolvimento infantil, auxiliando no processo de entender novas formas de estimular o potencial ativo dos recém-nascidos em seus primeiros meses de vida.
+Salienta-se que o estudo tem como premissa a definição de que o comportamento de bebês ao nascer é ativo (voluntário) e não reflexo (involuntário). Conforme apontado pelas estudiosas (Haywood;Getchell, 2004), os reflexos representam apenas uma pequena parte do comportamento motor inicial dos indivíduos. Além disso, a literatura também aponta (Kawai, Savelsbergh, Wimmers, 1999) que os movimentos expontâneos (voluntários) parecem ser influenciados por restrições ambientais.
+De modo geral, o intuito do trabalho é investigar a emergência e desenvolvimento do comportamento voluntário das mãos em bebês de até três meses de idade, com base em alguns cenários experimentais.
+
+<!--chapter:end:01-introducao.Rmd-->
+
+# Objetivo(s)
+
+O objetivo principal do trabalho é entender a emergência e desenvolvimento do comportamento voluntário das mãos em bebês de até três meses de idade, com base em alguns cenários experimentais. 
+A finalidade da análise estatística pode ser resumida nos seguintes tópicos:
+
+a) Descrever o comportamento de apertar ao longo dos três primeiros meses após o nascimento;
+b) verificar se bebês de um a três meses são capazes de identificar a existência de um relacionamento entre o seu próprio comportamento de apertar e alterações no contexto ambiental. Em outras palavras, o bebê identifica a relação entre a sua ação de apertar e um determinado acontecimento no ambiente?; 
+c) Identificar se as relações do comportamento manual com os eventos ambientais se alteram ao longo de três sessões de prática na situação experimental. Ou seja, há indicíos de que há aprendizado ao longo dos dias de experimento?
+
+<!--chapter:end:02-objetivo.Rmd-->
+
+# Descrição do estudo {#descricao-estudo}
+
+## Participantes
+
+O estudo foi realizado de maneira presencial em três sessões individuais, dentro de um período de 7 dias, entre a pesquisadora e cada um dos participantes. Consistiu em apresentar aos bebês quatro condições experimentais e registrar, para cada uma, dados de pressão palmar relacionados aos apertos que os bebês realizaram sobre um equipamento com sensor de pressão colocado na palma de suas mãos. 
+A coleta dos dados foi realizada em 2018 com 22 indivíduos recrutados pelos pesquisadores através de conhecidos e da divulgação em redes sociais. Os voluntários tiveram como pré-requisitos nascimento entre 38 a 42 semanas de gestação (9 meses) sem nenhuma complicação médica no parto, ser considerado saúdavel por seus médicos de acompanhamento e estar na faixa etária de 1 a 3 meses de vida. 
+
+
+##	Condições Experimentais
+
+Os bebês foram colocados sentados em uma cadeira em frente a um monitor, em uma posição estável. Logo após, um sensor de pressão foi posicionado na mão do bebê, para captar os apertos durante o experimento. Em um período de, aproximadamente, 12 minutos foram apresentadas a cada um dos participantes quatro condições experimentais diferentes. Durante cada condição eram coletados as informações de pressão palmar exercidas por segundo pelos bebês.
+Primeiramente, a pesquisadora apresentava a Condição Basal (sem nenhuma variação ambiental), na qual não era apresentado aos bebês nenhum estímulo visual. Em seguida, apresentavam em ordem aleatória duas outras condições: Contingente, na qual um vídeo aparecia se o sujeito atingisse determinada pressão palmar, e Não Contingente, na qual um vídeo aparecia de forma automâtica sem que o bebê atingisse o valor de pressão estipulado. Posteriormente, foi concedida uma segunda Condição Basal (Basal 2) para finalização da coleta. 
+Em resumo, cada bebê realizou três sessões de testes compostas destas quatro condições dentro de um período de 7 dias e o vídeo aparecia de maneira Contingente (como consequência do aperto), Não Contingente (automaticamente programado) ou ainda Basal (sem o vídeo).
+
+
+## Detalhamento do estímulo visual
+
+Na condição Contingente, o valor utilizado como gatilho para o disparo do vídeo correspondia à pressão exercida pelo bebê durante 70% do tempo de coleta na tentativa Basal. Ou seja, o número varia de criança para criança e se altera em cada dia. Caso o participante não tenha atingido a frequência de 70% em algum dos dias do experimento, foi estipulado a pressão gatilho de 0,2 mmHg.
+Já na condição Não Contingente, o vídeo era apresentado independente da pressão dos apertos realizados pelo sujeito.
+Destacamos que o mesmo vídeo foi utilizado com todos os participantes do estudo.
+
+## Limitações do estudo
+
+Identificamos dois eventuais problemas -um de caráter técnico e outro de aleatorização- na coleta de dados que tentaremos contornar nas análises. Ambos são descritos a seguir.
+
+Problemas técnicos e de caráter comportamental
+
+Houve a interrupção de alguns processos de coleta de dados por causa da condição comportamental dos participantes. O estado de alerta do bebê durante o procedimento pode ser um fator que influência sua responsividade a estímulos e o cenário "perfeito" para a execução do teste seria quando o indivíduo estivesse quieto e acordado.
+Em consequência desse fator, destaca-se que alguns bebês não possuem dados de pressão para todas condições em determinado dia. Após a coleta de dados, a pesquisadora também realizou cortes no tempo de observação de alguns participantes, devido a valores outliers relacionados a esses momentos de estresse da criança.
+Além disso, há o número pequeno de participantes no estudo que dificulta  modelagens mais robustas. 
+
+Problemas de aleatorização
+
+Outro ponto de atenção foi o processo de aleatorização das condições Contingente e Não Contigente. Como a ordem de apresentação de ambas não é a mesma para os bebês isso pode comprometer a caracterização de um padrão no comportamento de apertar.
+
+
+<!--chapter:end:03-descricao.Rmd-->
+
+# Descrição das variáveis {#descricao-variaveis}
+
+Para cada condição e dia do experimento foram coletados os valores de pressão palmar realizada pelos participante ao longo do tempo. A partir deles, a pesquisadora identificou os picos de pressão e os apertos ao longo da série temporal. 
+A seguir, listamos as variáveis que de fato foram consideradas na análise.
+
+## Variáveis Dados Brutos
+
+Variáveis brutas do experimento, ou seja, os valores coletados diretamente pelo software conectado ao aparelho de pressão. Foram enviados um arquivo por bebê o qual continha as informações separadas por dia e condição do experimento. Após o tratamento das informações, obtivemos as seguintes variáveis:
+
+- Participante: 1 a 20;
+- Dia: 1, 2 ou 3;
+- Grupo: 1= 1 mês, 2= 2 meses, 3= 3 meses;
+- Condicao:  c = Contingente, nc = Não Contigente, bas = Basal, pos = Basal 2;
+- Tempo (segundos);
+- Pressao (mmHg);
+- Video: 0 = sem vídeo e 1 = com vídeo;
+
+Para a condição contingente, criamos a variável Tempo entre disparo do vídeo (segundos), que defini o tempo entre o fim de um vídeo e o início do próximo
+
+## Variáveis Dados Agrupados
+
+Variáveis calculadas pela pesquisadora através dos dados brutos do experimento. Valores agrupados para cada bebê-dia-condição. Após o tratamento das informações, obtivemos as seguintes variáveis:
+
+- Participante: 1 a 20;
+- Grupo: 	1= 1 mês, 2= 2 meses, 3= 3 meses;
+- Dia: 1, 2 ou 3;
+- Condicao: c = Contingente, nc = Não Contigente, bas = Basal, pos = Basal 2;
+- N_apertos: número de apertos
+
+A iniciação do aperto foi identificada em qualquer momento em que a pressão exercida pelo bebê fosse maior que a pressão média dentro da tentativa mais 10% desse valor.
+
+- Freq_apertos: apertos/min;
+- Media_pressao: pressão média (mmHg);
+- Pico: pressçao máxima na tentativa (mmHg)
+
+O pico foi definido como a pressão máxima exercida dentro de cada um dos apertos
+
+- Media_pressao_pico (mmHg);
+- Media_duracao_pico: média de duração do aperto (milissegundo)
+
+
+
+
+
+
+
+
+
+<!--chapter:end:04-variaveis.Rmd-->
+
+# Análise descritiva {#descritiva}
+
+
+
+
+<!--chapter:end:05-descritiva.Rmd-->
+
+# Metodologia {#metodologia}
+
+
+<!--chapter:end:06-metodologia.Rmd-->
+
+# Conclusão
+
+
+
+
+\newpage
+
+<!--chapter:end:07-conclusao.Rmd-->
+
+# FICHA TÉCNICA {-}
+
+## REFERÊNCIAS BIBLIOGRÁFICAS {-}
+
+## PROGRAMAS COMPUTACIONAIS UTILIZADOS {-}
+
+Software R (versão 4.1.1)
+
+## TÉCNICAS ESTATÍSTICAS UTILIZADAS
+
+<!-- Análise Descritiva Unidimensional (03:010) -->
+<!-- Análise de Dados Categorizados (06:030) -->
+<!-- Outros (07:990) -->
+
+
+## ÁREA DE APLICAÇÃO {-}
+
+Outros (14:990)
+
+
+<div id="refs"></div>
+
+<!--chapter:end:08-referencias.Rmd-->
+
+# (APPENDIX) Apêndices {-} 
+# Tabelas {#tabelas}
+
+
+
+\newpage
+
+
+
+<!--chapter:end:A-tabelas.Rmd-->
+
+# Gráficos {#graficos}
+
+
+
+
+
+<!--chapter:end:B-graficos.Rmd-->
+

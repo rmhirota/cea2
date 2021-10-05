@@ -1,37 +1,44 @@
 # Descrição das variáveis {#descricao-variaveis}
 
-Para cada condição definida e dia do experimento foram coletados os valores de pressão palmar realizada pelos participante ao longo do tempo. A partir deles, a pesquisadora identificou os picos de pressão e os apertos ao longo da série temporal. 
+Para cada condição e dia do experimento foram coletados os valores de pressão palmar realizada pelos participante ao longo do tempo. A partir deles, a pesquisadora identificou os picos de pressão e os apertos ao longo da série temporal. 
 A seguir, listamos as variáveis que de fato foram consideradas na análise.
 
 ## Variáveis Dados Brutos
 
 Variáveis brutas do experimento, ou seja, os valores coletados diretamente pelo software conectado ao aparelho de pressão. Foram enviados um arquivo por bebê o qual continha as informações separadas por dia e condição do experimento. Após o tratamento das informações, obtivemos as seguintes variáveis:
 
-- Participante: 1 a 20
-- Video: 0 = sem vídeo e 1 = com vídeo
-- Tempo: tempo observado (segundos)
-- Pressao: pressão medida no tempo observado (mmHg)
-- Dia: 1, 2 ou 3
-- Grupo: 1= 1 mês, 2= 2 meses, 3= 3 meses (ou B1, B2, B3)
-- Condicao:  c = Contingente, nc = Não Contigente, bas = Basal, pos = Basal 2
+- Participante: 1 a 20;
+- Dia: 1, 2 ou 3;
+- Grupo: 1= 1 mês, 2= 2 meses, 3= 3 meses;
+- Condicao:  c = Contingente, nc = Não Contigente, bas = Basal, pos = Basal 2;
+- Tempo (segundos);
+- Pressao (mmHg);
+- Video: 0 = sem vídeo e 1 = com vídeo;
+
+Para a condição contingente, criamos a variável Tempo entre disparo do vídeo (segundos), que defini o tempo entre o fim de um vídeo e o início do próximo
 
 ## Variáveis Dados Agrupados
 
-Variáveis calculadas pela pesquisadora através dos dados brutos do experimento. Após o tratamento das informações, obtivemos as seguintes variáveis:
+Variáveis calculadas pela pesquisadora através dos dados brutos do experimento. Valores agrupados para cada bebê-dia-condição. Após o tratamento das informações, obtivemos as seguintes variáveis:
 
-- Participante: 1 a 20 (ou nome?)
-- Grupo: 	1= 1 mês, 2= 2 meses, 3= 3 meses
-- Dia: 1, 2 ou 3
-- Condicao: c = Contingente, nc = Não Contigente, bas = Basal, pos = Basal 2
+- Participante: 1 a 20;
+- Grupo: 	1= 1 mês, 2= 2 meses, 3= 3 meses;
+- Dia: 1, 2 ou 3;
+- Condicao: c = Contingente, nc = Não Contigente, bas = Basal, pos = Basal 2;
 - N_apertos: número de apertos
-- Freq_apertos: apertos/min
-- Media_pressao: pressão média na tentativa completa (mmHg)
-- Sd_pressao: desvio padrão da pressão media (mmHg)
-- Pico: pico máximo de pressão (mmHg)
-- Media_pressao_pico:  média de picos de pressão(?)
-- Sd_pressao_pico: desvio padrão do pico médio (?)
+
+A iniciação do aperto foi identificada em qualquer momento em que a pressão exercida pelo bebê fosse maior que a pressão média dentro da tentativa mais 10% desse valor.
+
+- Freq_apertos: apertos/min;
+- Media_pressao: pressão média (mmHg);
+- Pico: pressçao máxima na tentativa (mmHg)
+
+O pico foi definido como a pressão máxima exercida dentro de cada um dos apertos
+
+- Media_pressao_pico (mmHg);
 - Media_duracao_pico: média de duração do aperto (milissegundo)
-- Sd_duracao_pico: 	desvio padrão da duração média do pico (milissegundo)
+
+
 
 
 
