@@ -57,7 +57,7 @@ ggplot2::ggsave("pres/plots/perfis_grupo3.png", grupo3)
 
 # Pressão média por condição ----------------------------------------------
 
-p_media = da %>%
+p_media <- da %>%
   dplyr::group_by(grupo, condicao, dia) %>%
   dplyr::summarise(media = mean(pressao)) %>%
   ggplot2::ggplot(ggplot2::aes(
@@ -69,77 +69,90 @@ p_media = da %>%
   ggplot2::labs(x = "Dia")+
   ggplot2::labs(y = "Pressão Média")+
   ggplot2::theme_minimal()+
-  ggplot2::scale_fill_manual(values=c("#440154FF", "#21908CFF", "#FDE725FF"))
+  ggplot2::scale_fill_manual(values = c("#440154FF", "#21908CFF", "#FDE725FF"))
 
 ggplot2::ggsave("analises/pressao_media.jpeg", p_media)
 
-# variavel tempo entre disparo do video
 
-tempo_video <- function(da, d, gr, b) {
-  cor <- switch(d, `1` = "#440154FF", `2` = "#21908CFF", `3` = "#FDE725FF")
+# Tempo entre vídeos ------------------------------------------------------
+
+da_diff_tempo <- da_tidy %>%
+  dplyr::group_by(grupo, nome, dia, condicao) %>%
+  dplyr::arrange(grupo, nome, dia, condicao, tempo) %>%
+  dplyr::filter(status_video %in% c("inicio", "fim")) %>%
+  dplyr::mutate(diff_video = dplyr::case_when(
+    status_video == "inicio" & dplyr::lag(status_video) == "fim"
+    ~ (tempo - dplyr::lag(tempo))
+  )) %>%
+  dplyr::ungroup()
+
+tempo_video <- function(da, gr) {
   da %>%
-    dplyr::filter(condicao == "contingente", dia == d, grupo == gr, nome == b) %>%
-    dplyr::arrange(tempo) %>%
-    dplyr::mutate(status_video = dplyr::case_when(video == FALSE & dplyr::lag(video) == TRUE  ~ "fim",
-                                                  video == TRUE & dplyr::lag(video) == FALSE ~ "inicio",
-                                                  video == TRUE & dplyr::lag(video) == TRUE ~ "meio")) %>%
-    dplyr::filter(status_video %in% c("inicio","fim")) %>%
-    dplyr::mutate(diff_video = dplyr::case_when(status_video == "inicio" &
-                                                  dplyr::lag(status_video) == "fim" ~ (tempo - dplyr::lag(tempo)))) %>%
-    ggplot2::ggplot(ggplot2::aes(
-      x = nome, y = diff_video)) +
-    ggplot2::geom_boxplot(color=cor) +
-    #ggplot2::xlab("Bebê") +
-    #ggplot2::ylab("Tempo")+
+    dplyr::filter(grupo == gr) %>%
+    dplyr::mutate(
+      nome = as.factor(nome),
+      label = stringr::str_c("bebê ", as.numeric(nome))
+    ) %>%
+    ggplot2::ggplot(ggplot2::aes(x = dia, y = diff_video, fill = dia)) +
+    ggplot2::geom_boxplot() +
+    ggplot2::scale_fill_viridis_d(alpha = .4) +
+    ggplot2::facet_wrap(~label) +
+    ggplot2::theme_bw(14) +
     ggplot2::theme(
-      #axis.text.x = ggplot2::element_blank(),
-      legend.position="none"
+      legend.position = "none"
     ) +
     ggplot2::labs(
-      #   title = "Pressão ao longo do tempo",
-      #   subtitle = glue::glue("Grupo {gr} / Dia {d}"),
-      y = ggplot2::element_blank(),
-      #x = ggplot2::element_blank(),
-      axis.title.x= ggplot2::element_blank()
+      y = "Tempo entre vídeos",
+      x = "Dia"
     )
 }
 
+# grupo 1
+tempo_grupo1 <- tempo_video(da_diff_tempo, "b1")
+ggplot2::ggsave("analises/tempo_video_g1.jpeg", tempo_grupo1)
+# grupo 2
+tempo_grupo2 <- tempo_video(da_diff_tempo, "b2")
+ggplot2::ggsave("analises/tempo_video_g2.jpeg", tempo_grupo2)
+# grupo 3
+tempo_grupo3 <- tempo_video(da_diff_tempo, "b3")
+ggplot2::ggsave("analises/tempo_video_g3.jpeg", tempo_grupo3)
+
 ## grupo 1
-t_g1_d1 = purrr::map(nomes_b1, ~tempo_video(cea2::da_tidy,1, "b1",.x))
-purrr::reduce(t_g1_d1,`+`)
-t_g1_d2 = purrr::map(nomes_b1, ~tempo_video(cea2::da_tidy,2, "b1",.x))
-purrr::reduce(t_g1_d2,`+`)
-t_g1_d3 = purrr::map(nomes_b1, ~tempo_video(cea2::da_tidy,3, "b1",.x))
-purrr::reduce(t_g1_d3,`+`)
-
-ggplot2::ggsave("analises/tempo_video_g1_d1.jpeg", purrr::reduce(t_g1_d1,`+`))
-ggplot2::ggsave("analises/tempo_video_g1_d2.jpeg", purrr::reduce(t_g1_d2,`+`))
-ggplot2::ggsave("analises/tempo_video_g1_d3.jpeg", purrr::reduce(t_g1_d3,`+`))
-
-
-## grupo 2
-t_g2_d1 = purrr::map(nomes_b2, ~tempo_video(cea2::da_tidy,1, "b2",.x))
-purrr::reduce(t_g2_d1,`+`)
-t_g2_d2 = purrr::map(nomes_b2, ~tempo_video(cea2::da_tidy,2,"b2",.x))
-purrr::reduce(t_g2_d2,`+`)
-t_g2_d3 = purrr::map(nomes_b2, ~tempo_video(cea2::da_tidy,3,"b2",.x))
-purrr::reduce(t_g2_d3,`+`)
-
-ggplot2::ggsave("analises/tempo_video_g2_d1.jpeg", purrr::reduce(t_g2_d1,`+`))
-ggplot2::ggsave("analises/tempo_video_g2_d2.jpeg", purrr::reduce(t_g2_d2,`+`))
-ggplot2::ggsave("analises/tempo_video_g2_d3.jpeg", purrr::reduce(t_g2_d3,`+`))
-
-## grupo 3
-t_g3_d1 = purrr::map(nomes_b3, ~tempo_video(cea2::da_tidy,1, "b3",.x))
-purrr::reduce(t_g3_d1,`/`)
-t_g3_d2 = purrr::map(nomes_b3, ~tempo_video(cea2::da_tidy,2,"b3",.x))
-purrr::reduce(t_g3_d2,`+`)
-t_g3_d3 = purrr::map(nomes_b3, ~tempo_video(cea2::da_tidy,3,"b3",.x))
-purrr::reduce(t_g3_d3,`+`)
-
-ggplot2::ggsave("analises/tempo_video_g3_d1.jpeg", purrr::reduce(t_g3_d1,`+`))
-ggplot2::ggsave("analises/tempo_video_g3_d2.jpeg", purrr::reduce(t_g3_d2,`+`))
-ggplot2::ggsave("analises/tempo_video_g3_d3.jpeg", purrr::reduce(t_g3_d3,`+`))
+# t_g1_d1 = purrr::map(nomes_b1, ~tempo_video(cea2::da_tidy,1, "b1",.x))
+# purrr::reduce(t_g1_d1,`+`)
+# t_g1_d2 = purrr::map(nomes_b1, ~tempo_video(cea2::da_tidy,2, "b1",.x))
+# purrr::reduce(t_g1_d2,`+`)
+# t_g1_d3 = purrr::map(nomes_b1, ~tempo_video(cea2::da_tidy,3, "b1",.x))
+# purrr::reduce(t_g1_d3,`+`)
+#
+# ggplot2::ggsave("analises/tempo_video_g1_d1.jpeg", purrr::reduce(t_g1_d1,`+`))
+# ggplot2::ggsave("analises/tempo_video_g1_d2.jpeg", purrr::reduce(t_g1_d2,`+`))
+# ggplot2::ggsave("analises/tempo_video_g1_d3.jpeg", purrr::reduce(t_g1_d3,`+`))
+#
+#
+# ## grupo 2
+# t_g2_d1 = purrr::map(nomes_b2, ~tempo_video(cea2::da_tidy,1, "b2",.x))
+# purrr::reduce(t_g2_d1,`+`)
+# t_g2_d2 = purrr::map(nomes_b2, ~tempo_video(cea2::da_tidy,2,"b2",.x))
+# purrr::reduce(t_g2_d2,`+`)
+# t_g2_d3 = purrr::map(nomes_b2, ~tempo_video(cea2::da_tidy,3,"b2",.x))
+# purrr::reduce(t_g2_d3,`+`)
+#
+# ggplot2::ggsave("analises/tempo_video_g2_d1.jpeg", purrr::reduce(t_g2_d1,`+`))
+# ggplot2::ggsave("analises/tempo_video_g2_d2.jpeg", purrr::reduce(t_g2_d2,`+`))
+# ggplot2::ggsave("analises/tempo_video_g2_d3.jpeg", purrr::reduce(t_g2_d3,`+`))
+#
+# ## grupo 3
+# t_g3_d1 = purrr::map(nomes_b3, ~tempo_video(cea2::da_tidy,1, "b3",.x))
+# purrr::reduce(t_g3_d1,`/`)
+# t_g3_d2 = purrr::map(nomes_b3, ~tempo_video(cea2::da_tidy,2,"b3",.x))
+# purrr::reduce(t_g3_d2,`+`)
+# t_g3_d3 = purrr::map(nomes_b3, ~tempo_video(cea2::da_tidy,3,"b3",.x))
+# purrr::reduce(t_g3_d3,`+`)
+#
+# ggplot2::ggsave("analises/tempo_video_g3_d1.jpeg", purrr::reduce(t_g3_d1,`+`))
+# ggplot2::ggsave("analises/tempo_video_g3_d2.jpeg", purrr::reduce(t_g3_d2,`+`))
+# ggplot2::ggsave("analises/tempo_video_g3_d3.jpeg", purrr::reduce(t_g3_d3,`+`))
 
 # variavel tempo entre disparo do video - por dia
 

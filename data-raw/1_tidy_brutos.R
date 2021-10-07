@@ -132,6 +132,22 @@ da_agrupado <- da_tidy %>%
   dplyr::left_join(n_apertos, c("grupo", "nome", "dia", "condicao")) %>%
   dplyr::mutate(freq_apertos = n_apertos/tempo_sessao*60)
 
+
+# Calcula tempo entre vídeos ----------------------------------------------
+
+da_tidy <- da_tidy %>%
+  dplyr::group_by(grupo, nome, dia, condicao) %>%
+  dplyr::arrange(grupo, nome, dia, condicao, tempo) %>%
+  dplyr::mutate(status_video = dplyr::case_when(
+    video == FALSE & dplyr::lag(video) == TRUE  ~ "fim",
+    video == TRUE & dplyr::lag(video) == FALSE ~ "inicio",
+    video == TRUE & dplyr::lag(video) == TRUE ~ "meio"
+  )) %>%
+  dplyr::ungroup()
+
+
+# Export ------------------------------------------------------------------
+
 # readr::write_rds(da_tidy, "data-raw/da_tidy.rds", compress = "xz")
 usethis::use_data(da_tidy, overwrite = TRUE, compress = "xz")
 usethis::use_data(da_metadados, overwrite = TRUE)
