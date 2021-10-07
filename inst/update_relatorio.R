@@ -20,7 +20,7 @@ pagedown::chrome_print(
 # adiciona capa
 qpdf::pdf_combine(
   c("inst/book/assets/capa.pdf", "inst/book/relatorio/relatorio.pdf"),
-  "inst/book/relatorio/cea2.pdf"
+  "inst/book/cea2.pdf"
 )
 
 
