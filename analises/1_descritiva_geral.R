@@ -35,24 +35,24 @@ dia1 <- purrr::reduce(b1_d1, `/`)
 dia2 <- purrr::reduce(b1_d2, `/`)
 dia3 <- purrr::reduce(b1_d3, `/`)
 grupo1 <- dia1 | dia2 | dia3
-ggplot2::ggsave("analises/perfis_grupo1.png", grupo1)
-ggplot2::ggsave("pres/plots/perfis_grupo1.png", grupo1)
+ggplot2::ggsave("analises/perfis_grupo1.png", grupo1,width = 7, height = 7)
+ggplot2::ggsave("pres/plots/perfis_grupo1.png", grupo1,width = 7, height = 7)
 
 # grupo 2
 dia1 <- purrr::reduce(b2_d1, `/`)
 dia2 <- purrr::reduce(b2_d2, `/`)
 dia3 <- purrr::reduce(b2_d3, `/`)
 grupo2 <- dia1 | dia2 | dia3
-ggplot2::ggsave("analises/perfis_grupo2.png", grupo2)
-ggplot2::ggsave("pres/plots/perfis_grupo2.png", grupo2)
+ggplot2::ggsave("analises/perfis_grupo2.png", grupo2,width = 7, height = 7)
+ggplot2::ggsave("pres/plots/perfis_grupo2.png", grupo2,width = 7, height = 7)
 
 # grupo 3
 dia1 <- purrr::reduce(b3_d1, `/`)
 dia2 <- purrr::reduce(b3_d2, `/`)
 dia3 <- purrr::reduce(b3_d3, `/`)
 grupo3 <- dia1 | dia2 | dia3
-ggplot2::ggsave("analises/perfis_grupo3.png", grupo3)
-ggplot2::ggsave("pres/plots/perfis_grupo3.png", grupo3)
+ggplot2::ggsave("analises/perfis_grupo3.png", grupo3,width = 7, height = 7)
+ggplot2::ggsave("pres/plots/perfis_grupo3.png", grupo3,width = 7, height = 7)
 
 
 # Pressão média por condição ----------------------------------------------
@@ -73,7 +73,49 @@ p_media <- da %>%
 
 ggplot2::ggsave("analises/pressao_media.jpeg", p_media)
 
+# Pressão Média Resumos ---------------------------------------------------
+# Média por agrupamento
+media_grupo <- function(da, variavel, ...) {
+  da %>%  dplyr::mutate(grupo = dplyr::case_when(grupo == 'b1' ~ 1,
+                                                 grupo == 'b2' ~ 2,
+                                                 grupo == 'b3' ~ 3)) %>%
+    dplyr::group_by(...) %>%
+    dplyr::summarise(
+      "media_{{variavel}}" := mean({{variavel}}),
+      "dp_{{variavel}}" := sd({{variavel}}),
+      "mediana_{{variavel}}" := median({{variavel}}),
+      .groups = "drop"
+    )
+}
 
+media_dia = media_grupo(cea2::da_tidy, pressao, dia) %>%
+  #janitor::adorn_totals() %>%
+  dplyr::mutate(dplyr::across(2:4, ~round(.x, 3))) %>%
+  knitr::kable(col.names = c("Dia", "Pressão Média", "Desvio Padrão", "Pressão Mediana"))
+
+media_grupo = media_grupo(cea2::da_tidy, pressao, grupo)  %>%
+  #janitor::adorn_totals() %>%
+  dplyr::mutate(dplyr::across(2:4, ~round(.x, 3))) %>%
+  knitr::kable(col.names = c("Grupo", "Pressão Média", "Desvio Padrão", "Pressão Mediana"))
+
+media_condicao = media_grupo(cea2::da_tidy, pressao, condicao)  %>%
+  #janitor::adorn_totals() %>%
+  dplyr::mutate(dplyr::across(2:4, ~round(.x, 3))) %>%
+  knitr::kable(col.names = c("Condição", "Pressão Média", "Desvio Padrão", "Pressão Mediana"))
+
+# Pressão media ao longo do tempo -----------------------------------------
+
+cea2::da_tidy %>% dplyr::filter(condicao == 'basal1'| condicao =='contingente',grupo=='b1') %>%
+  ggplot2::ggplot( ggplot2::aes(x=tempo, y=pressao, group=condicao, color=condicao)) +
+  ggplot2::geom_line()
+
+cea2::da_tidy %>% dplyr::filter(condicao == 'basal1'| condicao =='contingente',grupo=='b2') %>%
+  ggplot2::ggplot( ggplot2::aes(x=tempo, y=pressao, group=condicao, color=condicao)) +
+  ggplot2::geom_line()
+
+cea2::da_tidy %>% dplyr::filter(condicao == 'basal1'| condicao =='contingente',grupo=='b3') %>%
+  ggplot2::ggplot( ggplot2::aes(x=tempo, y=pressao, group=condicao, color=condicao)) +
+  ggplot2::geom_line()
 # Tempo entre vídeos ------------------------------------------------------
 
 da_diff_tempo <- da_tidy %>%
