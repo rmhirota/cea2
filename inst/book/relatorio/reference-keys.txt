@@ -1,0 +1,17 @@
+resumo
+introducao
+objetivos
+descricao-estudo
+participantes
+condições-experimentais
+detalhamento-do-estímulo-visual
+limitações-do-estudo
+descricao-variaveis
+variáveis-dados-brutos
+variáveis-dados-agrupados
+descritiva
+metodologia
+conclusão
+técnicas-estatísticas-utilizadas
+tabelas
+graficos

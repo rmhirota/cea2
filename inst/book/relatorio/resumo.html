@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Relatório de Análise Estatística sobre o Projeto:</title>
   <meta name="description" content="Relatório de pesquisa da disciplina MAE0433." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Relatório de Análise Estatística sobre o Projeto:" />
   <meta property="og:type" content="book" />
@@ -31,7 +31,9 @@
   
 
 <link rel="next" href="introducao.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -47,13 +49,33 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="assets/css/bookdown.css" type="text/css" />
 </head>
@@ -68,26 +90,29 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Pseudopalavras</a></li>
+<li><a href="./">Emergência e Desenvolvimento da Ação Manipulativa</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="resumo.html"><a href="resumo.html"><i class="fa fa-check"></i><b>1</b> Resumo</a></li>
 <li class="chapter" data-level="2" data-path="introducao.html"><a href="introducao.html"><i class="fa fa-check"></i><b>2</b> Introdução</a></li>
 <li class="chapter" data-level="3" data-path="objetivos.html"><a href="objetivos.html"><i class="fa fa-check"></i><b>3</b> Objetivo(s)</a></li>
-<li class="chapter" data-level="4" data-path="descricao-estudo.html"><a href="descricao-estudo.html"><i class="fa fa-check"></i><b>4</b> Descrição do estudo</a><ul>
+<li class="chapter" data-level="4" data-path="descricao-estudo.html"><a href="descricao-estudo.html"><i class="fa fa-check"></i><b>4</b> Descrição do estudo</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="descricao-estudo.html"><a href="descricao-estudo.html#participantes"><i class="fa fa-check"></i><b>4.1</b> Participantes</a></li>
 <li class="chapter" data-level="4.2" data-path="descricao-estudo.html"><a href="descricao-estudo.html#condições-experimentais"><i class="fa fa-check"></i><b>4.2</b> Condições Experimentais</a></li>
 <li class="chapter" data-level="4.3" data-path="descricao-estudo.html"><a href="descricao-estudo.html#detalhamento-do-estímulo-visual"><i class="fa fa-check"></i><b>4.3</b> Detalhamento do estímulo visual</a></li>
 <li class="chapter" data-level="4.4" data-path="descricao-estudo.html"><a href="descricao-estudo.html#limitações-do-estudo"><i class="fa fa-check"></i><b>4.4</b> Limitações do estudo</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="descricao-variaveis.html"><a href="descricao-variaveis.html"><i class="fa fa-check"></i><b>5</b> Descrição das variáveis</a><ul>
+<li class="chapter" data-level="5" data-path="descricao-variaveis.html"><a href="descricao-variaveis.html"><i class="fa fa-check"></i><b>5</b> Descrição das variáveis</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="descricao-variaveis.html"><a href="descricao-variaveis.html#variáveis-dados-brutos"><i class="fa fa-check"></i><b>5.1</b> Variáveis Dados Brutos</a></li>
 <li class="chapter" data-level="5.2" data-path="descricao-variaveis.html"><a href="descricao-variaveis.html#variáveis-dados-agrupados"><i class="fa fa-check"></i><b>5.2</b> Variáveis Dados Agrupados</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="descritiva.html"><a href="descritiva.html"><i class="fa fa-check"></i><b>6</b> Análise descritiva</a></li>
 <li class="chapter" data-level="7" data-path="metodologia.html"><a href="metodologia.html"><i class="fa fa-check"></i><b>7</b> Metodologia</a></li>
 <li class="chapter" data-level="8" data-path="conclusão.html"><a href="conclusão.html"><i class="fa fa-check"></i><b>8</b> Conclusão</a></li>
-<li class="chapter" data-level="" data-path="ficha-técnica.html"><a href="ficha-técnica.html"><i class="fa fa-check"></i>FICHA TÉCNICA</a><ul>
+<li class="chapter" data-level="" data-path="ficha-técnica.html"><a href="ficha-técnica.html"><i class="fa fa-check"></i>FICHA TÉCNICA</a>
+<ul>
 <li class="chapter" data-level="" data-path="ficha-técnica.html"><a href="ficha-técnica.html#referências-bibliográficas"><i class="fa fa-check"></i>REFERÊNCIAS BIBLIOGRÁFICAS</a></li>
 <li class="chapter" data-level="" data-path="ficha-técnica.html"><a href="ficha-técnica.html#programas-computacionais-utilizados"><i class="fa fa-check"></i>PROGRAMAS COMPUTACIONAIS UTILIZADOS</a></li>
 <li class="chapter" data-level="8.1" data-path="ficha-técnica.html"><a href="ficha-técnica.html#técnicas-estatísticas-utilizadas"><i class="fa fa-check"></i><b>8.1</b> TÉCNICAS ESTATÍSTICAS UTILIZADAS</a></li>
@@ -120,10 +145,10 @@ RAE-CEA–21P27
 <div id="header">
 <h1 class="title">Relatório de Análise Estatística sobre o Projeto:</h1>
 <h2 class="subtitle"><em>“Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade”</em></h2>
-<p class="author" style="margin: 0.5em 0 -0.5em 0;"><em>Mariana Almeida<br>Luís Gustavo Esteves<br>Renata Massami Hirota<br>Giovanna Vendeiro Vilar</em></p>
-<p class="date" style="margin-top: 1.5em;"><em>São Paulo, outubro de 2021</em></p>
+<p class="author multi-author"><em>Mariana Almeida<br>Luís Gustavo Esteves<br>Renata Massami Hirota<br>Giovanna Vendeiro Vilar</em></p>
+<p class="date"><em>São Paulo, outubro de 2021</em></p>
 </div>
-<div id="resumo" class="section level1">
+<div id="resumo" class="section level1" number="1">
 <h1><span class="header-section-number">Capítulo 1</span> Resumo</h1>
 
 </div>
@@ -137,7 +162,6 @@ RAE-CEA–21P27
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -176,7 +200,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["pseudopalavras.pdf"],
+"download": ["cea2.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "none"
 }

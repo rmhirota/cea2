@@ -39,8 +39,7 @@ knitr::opts_chunk$set(
 
 library(patchwork)
 library(magrittr)
-participantes <- pseudopalavras::dados %>% 
-  dplyr::distinct(informante, .keep_all = TRUE) 
+
 ```
 
 <!-- # Sobre este documento {-} -->
