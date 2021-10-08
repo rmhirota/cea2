@@ -4,7 +4,7 @@ library(patchwork)
 library(dplyr)
 
 # dados arrumados
-da <- cea2::da_tidy
+da <- cea2::da_tidy %>% filter(condicao=='contingente')
 
 
 # Perfis ------------------------------------------------------------------
@@ -26,9 +26,9 @@ b1_d3 <- purrr::map(cea2::filtra_nomes(da, "b1", 3), ~cea2::p_video_bebe(da, .x,
 b2_d1 <- purrr::map(cea2::filtra_nomes(da, "b2", 1), ~cea2::p_video_bebe(da, .x, 1, "b2"))
 b2_d2 <- purrr::map(cea2::filtra_nomes(da, "b2", 2), ~cea2::p_video_bebe(da, .x, 2, "b2"))
 b2_d3 <- purrr::map(cea2::filtra_nomes(da, "b2", 3), ~cea2::p_video_bebe(da, .x, 3, "b2"))
-b3_d1 <- purrr::map(cea2::filtra_nomes(da, "b3", 1), ~cea2::p_video_bebe(da, .x, 1, "b3"))
-b3_d2 <- purrr::map(cea2::filtra_nomes(da, "b3", 2), ~cea2::p_video_bebe(da, .x, 2, "b3"))
-b3_d3 <- purrr::map(cea2::filtra_nomes(da, "b3", 3), ~cea2::p_video_bebe(da, .x, 3, "b3"))
+b3_d1 <- purrr::map(nomes_b3, ~cea2::p_video_bebe(da, .x, 1, "b3"))
+b3_d2 <- purrr::map(nomes_b3, ~cea2::p_video_bebe(da, .x, 2, "b3"))
+b3_d3 <- purrr::map(nomes_b3, ~cea2::p_video_bebe(da, .x, 3, "b3"))
 
 # grupo 1
 dia1 <- purrr::reduce(b1_d1, `/`)
@@ -105,17 +105,24 @@ media_condicao = media_grupo(cea2::da_tidy, pressao, condicao)  %>%
 
 # Pressão media ao longo do tempo -----------------------------------------
 
-cea2::da_tidy %>% dplyr::filter(condicao == 'basal1'| condicao =='contingente',grupo=='b1') %>%
-  ggplot2::ggplot( ggplot2::aes(x=tempo, y=pressao, group=condicao, color=condicao)) +
-  ggplot2::geom_line()
+g1 = cea2::hc_grupo("b1") %>%
+  highcharter::hc_title(text = "Pressão média por segundo - Grupo 1")
 
-cea2::da_tidy %>% dplyr::filter(condicao == 'basal1'| condicao =='contingente',grupo=='b2') %>%
-  ggplot2::ggplot( ggplot2::aes(x=tempo, y=pressao, group=condicao, color=condicao)) +
-  ggplot2::geom_line()
+htmlwidgets::saveWidget(widget=g1,file="analises/bas_c_interativo_g1.html")
+webshot::webshot(url="analises/bas_c_interativo_g1.html",file="analises/grafico.png")
 
-cea2::da_tidy %>% dplyr::filter(condicao == 'basal1'| condicao =='contingente',grupo=='b3') %>%
-  ggplot2::ggplot( ggplot2::aes(x=tempo, y=pressao, group=condicao, color=condicao)) +
-  ggplot2::geom_line()
+g2 = cea2::hc_grupo("b2") %>%
+  highcharter::hc_title(text = "Pressão média por segundo - Grupo 2")
+
+htmlwidgets::saveWidget(widget=g2,file="analises/bas_c_interativo_g2.html")
+webshot::webshot(url="analises/bas_c_interativo_g2.html",file="analises/grafico2.png")
+
+g3 = cea2::hc_grupo("b3") %>%
+  highcharter::hc_title(text = "Pressão média por segundo - Grupo 3")
+
+htmlwidgets::saveWidget(widget=g3,file="analises/bas_c_interativo_g3.html")
+webshot::webshot(url="analises/bas_c_interativo_g3.html",file="analises/grafico3.png")
+
 # Tempo entre vídeos ------------------------------------------------------
 
 da_diff_tempo <- da_tidy %>%
