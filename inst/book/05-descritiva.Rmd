@@ -1,4 +1,240 @@
 # Análise descritiva {#descritiva}
 
+## Grupo
+
+Os participantes do estudo foram classificados em 3 grupos distintos, de acordo com suas idades. A influência dessa característica na pressão exercida é um dos fatores de possível interesse na análise. A Tabela 1 mostra a quantidade desbalanceada de bebês em cada categoria.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(knitr)
+cea2::da_metadados %>% 
+  dplyr::distinct(grupo, nome) %>% 
+  dplyr::count(grupo) %>% 
+  dplyr::mutate(grupo = dplyr::case_when(
+    grupo == "b1" ~ "1 mês",
+    grupo == "b2" ~ "2 meses",
+    grupo == "b3" ~ "3 meses"
+  )) %>% dplyr::mutate(prop = formattable::percent(n/sum(n))) %>% 
+  janitor::adorn_totals() %>% 
+  knitr::kable(col.names = c("Grupo", "N", "%"))
+```
+
+## Pressão Média 
+
+Ao analisarmos algumas medidas resumos - média, mediana e desvio padrão - da variável Pressão, observa-se pela Tabela 2 que não há grande diferença entre as pressões médias e medianas quando agrupamos pelo Dia da sessão. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+media_grupo <- function(da, variavel, ...) {
+  da %>%  dplyr::mutate(grupo = dplyr::case_when(grupo == 'b1' ~ 1,
+                                                 grupo == 'b2' ~ 2,
+                                                 grupo == 'b3' ~ 3)) %>%
+    dplyr::group_by(...) %>%
+    dplyr::summarise(
+      "media_{{variavel}}" := mean({{variavel}}),
+      "dp_{{variavel}}" := sd({{variavel}}),
+      "mediana_{{variavel}}" := median({{variavel}}),
+      .groups = "drop"
+    )
+}
+
+media_grupo(cea2::da_tidy, pressao, dia) %>%
+  #janitor::adorn_totals() %>%
+  dplyr::mutate(dplyr::across(2:4, ~round(.x, 3))) %>%
+  knitr::kable(col.names = c("Dia", "Pressão Média", "Desvio Padrão", "Pressão Mediana"))
+
+```
 
 
+Porém, o agrupamento por Grupo (Tabela 3) indica uma maior diferenciação nas medidas resumos do Grupo 3, cuja pressão média é superior as duas outras. Outro ponto interessante é o desvio padrão no Grupo q muito menor do que os desvios nos demais Grupos, indicando uma menor variação na pressão dos bebês de 1 mês.
+Por fim, um aprofundamenta na visão por Condição (Tabela 4) indica que a pressão média nas condições Basal 1 e Não Contingente são mais altas, enquanto a mediana do Não Contingente é a maior entre as condições.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+media_grupo(cea2::da_tidy, pressao, grupo)  %>%
+  #janitor::adorn_totals() %>%
+  dplyr::mutate(dplyr::across(2:4, ~round(.x, 3))) %>%
+  knitr::kable(col.names = c("Grupo", "Pressão Média", "Desvio Padrão", "Pressão Mediana"))
+
+media_grupo(cea2::da_tidy, pressao, condicao)  %>%
+  #janitor::adorn_totals() %>%
+  dplyr::mutate(dplyr::across(2:4, ~round(.x, 3))) %>%
+  knitr::kable(col.names = c("Condição", "Pressão Média", "Desvio Padrão", "Pressão Mediana"))
+```
+
+Através do Gráfico 1 é possível perceber que, na Condição Basal 1, há uma relação direta da pressão média com a idade do bebê, pois conforme o mês do bebê aumenta, as pressões média de cada grupo vão se igualando. Além disso, as diferenças de pressão média diminuem ao longo dos dias.Já na Condição Basal 2, essa relação não se observa, chegando a se inverter no segundo dia.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+cea2::da_tidy %>% 
+  dplyr::mutate(condicao = dplyr::case_when(
+    condicao == "basal1" ~ "Basal 1",
+    condicao == "contingente" ~ "Contingente",
+    condicao == "não contingente" ~ "Não contingente",
+    condicao == "basal2" ~ "Basal 2"),
+    grupo = dplyr::case_when(
+      grupo == 'b1' ~ '1',
+      grupo == 'b2' ~ '2',
+      grupo == 'b3' ~ '3'
+    )) %>% 
+  dplyr::group_by(grupo, condicao, dia) %>%
+  dplyr::summarise(media = mean(pressao, na.rm = TRUE)) %>%
+  ggplot2::ggplot(ggplot2::aes(x = dia, y = media, fill = grupo)) +
+  ggplot2::geom_bar(stat = "identity", position = "dodge") +
+  ggplot2::facet_wrap(~condicao)+
+  ggplot2::labs(
+    x = "Dia",
+    y = "Pressão Média"
+  ) +
+  ggplot2::theme_minimal(14) +
+  ggplot2::scale_fill_manual(values = c("#440154FF", "#21908CFF", "#FDE725FF"))
+```
+
+Nas condições Contingente e Não Contingente, nas quais existe um estímulo visual, a pressão média é um pouco menor do que nas Basais e não parece existir relação entre a Pressão e a Grupo (idade), porque não observamos nenhum padrão de crescimento ou queda nas imagens. Isso pode indicar uma resposta parecida ao estímulo, independentemente da idade.
+
+## Pressão x Tempo 
+
+Ao compararmos a pressão média ao longo do tempo no primeiro Grupo (Gráfico x) temos que em ambas as condições analisadas a pressão média aumenta gradualmente conforme o tempo passa, atingindo os maiores valores no final das sessões. O comportamento esepecífico de cada Condição pode ser visto no Apêndica B (Gráfico B.1 e Gráfico B.2)
+
+<img src="analises/grupo.png" width="750">
+
+Diferentemente do Grupo 1, no Grupo 2 a Basal também apresenta crescimento gradual no início, com decaimento no final (Gráfico x). Esse comportamento pode indicar uma maior diferença entre idades na condição Basal (Gráfico B.3), mas não na Contingente que mantem-se constante ao longo do tempo (Gráfico B.4). Outro destaque é o fato da pressão média na condição Basal em relação a Condição com estímulo visual.
+
+<img src="analises/grupo2.png" width="750">
+
+Assim como nos outros grupos, a pressão média na Condição Basal oscila mais que na Contingente (Gráfico x). Semelhança com o Grupo 2 observa-se que no início, tanto na Basal quanto na Contingente, há um aumento gradual da pressão média, com a pressão média da Basal sempre superior à da Contingente. O comportamento esepecífico de cada Condição pode ser visto no Apêndica B (Gráfico B.5 e Gráfico B.6)
+
+<img src="analises/grupo3.png" width="750">
+
+
+## Perfil dos participantes na Condição Contingente
+
+O Grafico x representa a Pressão ao longo do Tempo dos indivíduos do Grupo 1 na Condição Contingente. Observa-se que o comportamento entre indivíduos de um mesmo grupo é heterogêneo
+
+<img src="analises/perfis_grupo1.png" width="750">
+ 
+O mesmo ocorre quando analisamos a Pressão ao longo do Tempo dos indivíduos do Grupo 2, porém, nesse caso alguns bebês ativam mais o vídeo ao final da sessão, o que pode indicar que houve "aprendizado" do mecanismo do experimento. Além disso, o comportamento diferente não ocorre apenas entre bebês, mas também entre dias para o mesmo bebê
+
+<img src="analises/perfis_grupo2.png" width="750">
+
+Por fim, para o Grupo 3 também não parece existir um padrão aparente para o comportamento ao longo dos dias. Alguns bebês, ativaram mais o vídeo no último dia, enquanto outros tiveram mais sucesso no primeiro dia do experimento.
+
+<img src="analises/perfis_grupo3.png" width="750">
+
+## Frequência de apertos
+
+No geral, observamos no Gráfico x que para o Grupo 1 na Condião Basal 2 a frequência de apertos é menor no Dia 1 em comparação aos demais dias. Já o Grupo 2 possue uma distribuição dos valores próxima da reta, indicando que não parece existir uma alteração expressiva na frequência de apertos de um Dia para o outro nesse Grupo.
+Por fim, o Grupo 3 apresenta um aumento na frequência de apertos do Dia 3 em relação aos dias anteriores.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+da_apertos <- cea2::da_agrupado %>% 
+  dplyr::filter(condicao == "basal2") %>% 
+  dplyr::mutate(grupo=case_when(grupo=='b1'~'1',
+                          grupo=='b2'~'2',
+                          grupo=='b3'~'3')) %>% 
+  dplyr::transmute(
+    nome, grupo = as.character(grupo), 
+    dia = stringr::str_c("dia", dia), freq_apertos
+  ) %>% 
+  tidyr::pivot_wider(names_from = dia, values_from = freq_apertos)
+
+d12 = da_apertos %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia1, y = dia2, colour = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Frequência de apertos no dia 1", y = "Frequência de apertos no dia 2") +
+  ggplot2::scale_colour_viridis_d() +
+  ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
+  ggplot2::geom_hline(
+    linetype = "dotted", alpha = .3,
+    yintercept = median(da_apertos$dia2, na.rm = TRUE)
+  ) +
+  ggplot2::geom_vline(
+    linetype = "dotted", alpha = .3, 
+    xintercept = median(da_apertos$dia1, na.rm = TRUE)
+  ) 
+
+d23 = da_apertos %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia2, y = dia3, colour = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Frequência de apertos no dia 2", y = "Frequência de apertos no dia 3") +
+  ggplot2::scale_colour_viridis_d() +
+  ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
+  ggplot2::geom_hline(
+    linetype = "dotted", alpha = .3,
+    yintercept = median(da_apertos$dia2, na.rm = TRUE)
+  ) +
+  ggplot2::geom_vline(
+    linetype = "dotted", alpha = .3, 
+    xintercept = median(da_apertos$dia1, na.rm = TRUE)
+  ) 
+
+d13 = da_apertos %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia1, y = dia3, colour = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Frequência de apertos no dia 1", y = "Frequência de apertos no dia 3") +
+  ggplot2::scale_colour_viridis_d() +
+  ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
+  ggplot2::geom_hline(
+    linetype = "dotted", alpha = .3,
+    yintercept = median(da_apertos$dia2, na.rm = TRUE)
+  ) +
+  ggplot2::geom_vline(
+    linetype = "dotted", alpha = .3, 
+    xintercept = median(da_apertos$dia1, na.rm = TRUE)
+  ) 
+
+d12+d23+d13+plot_layout(ncol=1)
+  
+```
+Quando comparamos a Frequência de apertos nas Condições Basal 1 e Basal 2 (Gráfico x)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+da_dia <- cea2::da_agrupado %>%
+   dplyr::filter(condicao %in% c("basal1", "basal2")) %>%
+  dplyr::mutate(grupo=case_when(grupo=='b1'~'1',
+                          grupo=='b2'~'2',
+                          grupo=='b3'~'3')) %>% 
+   dplyr::mutate(condicao = ifelse(condicao == "basal2", "Basal 2", "Basal 1")) %>%
+   dplyr::select(nome,condicao, grupo, dia, freq_apertos) %>%
+  dplyr::mutate(condicao = dplyr::case_when(
+    condicao == "Basal 1" ~ "Basal_1",
+    TRUE ~ "Basal_2"
+  )) %>%
+   #dplyr::filter(grupo == 1) %>%
+   tidyr::pivot_wider(names_from = condicao, values_from = freq_apertos)
+ 
+ #Dia 1
+d1 = da_dia %>%
+  dplyr::filter(dia == 1)%>%
+   ggplot2::ggplot(ggplot2::aes(x = Basal_1, y = Basal_2, colour = grupo)) +
+   ggplot2::geom_point() +   
+  ggplot2::theme_minimal() +
+   ggplot2::geom_abline(slope = 1, intercept = 0)+
+  ggplot2::labs(x = "Frequência de apertos na Basal 1", y = "Frequência de apertos na Basal 2") +
+  ggplot2::scale_colour_viridis_d() 
+
+#Dia 2
+ d2 = da_dia %>%
+   dplyr::filter(dia == 2)%>%
+   ggplot2::ggplot(ggplot2::aes(x = Basal_1, y = Basal_2, colour = grupo)) +
+   ggplot2::geom_point() +   
+   ggplot2::theme_minimal() +
+   ggplot2::geom_abline(slope = 1, intercept = 0)+
+   ggplot2::labs(x = "Frequência de apertos na Basal 1", y = "Frequência de apertos na Basal 2") +
+   ggplot2::scale_colour_viridis_d() 
+ 
+ #Dia 3
+ d3 = da_dia %>%
+   dplyr::filter(dia == 3)%>%
+   ggplot2::ggplot(ggplot2::aes(x = Basal_1, y = Basal_2, colour = grupo)) +
+   ggplot2::geom_point() +   
+   ggplot2::theme_minimal() +
+   ggplot2::geom_abline(slope = 1, intercept = 0)+
+   ggplot2::labs(x = "Frequência de apertos na Basal 1", y = "Frequência de apertos na Basal 2") +
+   ggplot2::scale_colour_viridis_d() 
+ 
+ d1+d2+d3+plot_layout(ncol=1)
+  
+```
