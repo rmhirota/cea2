@@ -7,6 +7,7 @@ Os participantes do estudo foram classificados em 3 grupos distintos, de acordo 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
 library(knitr)
+library(patchwork)
 cea2::da_metadados %>% 
   dplyr::distinct(grupo, nome) %>% 
   dplyr::count(grupo) %>% 
@@ -45,8 +46,8 @@ media_grupo(cea2::da_tidy, pressao, dia) %>%
 ```
 
 
-Porém, o agrupamento por Grupo (Tabela 3) indica uma maior diferenciação nas medidas resumos do Grupo 3, cuja pressão média é superior as duas outras. Outro ponto interessante é o desvio padrão no Grupo q muito menor do que os desvios nos demais Grupos, indicando uma menor variação na pressão dos bebês de 1 mês.
-Por fim, um aprofundamenta na visão por Condição (Tabela 4) indica que a pressão média nas condições Basal 1 e Não Contingente são mais altas, enquanto a mediana do Não Contingente é a maior entre as condições.
+Porém, o agrupamento por Grupo (Tabela 3) indica uma maior diferenciação nas medidas resumos do Grupo 3, cuja pressão média é superior as duas outras. Outro ponto interessante é o desvio padrão no Grupo muito menor do que os desvios nos demais Grupos, indicando uma menor variação na pressão dos bebês de 1 mês.
+Por fim, um aprofundamenta na visão por Condição (Tabela 4) indica que a pressão média nas condições Basal 1 e Não Contingente são mais altas, enquanto a mediana do Não Contingente destaca-se entre as condições.
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
