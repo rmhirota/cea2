@@ -109,19 +109,19 @@ g1 = cea2::hc_grupo("b1") %>%
   highcharter::hc_title(text = "Pressão média por segundo - Grupo 1")
 
 htmlwidgets::saveWidget(widget=g1,file="analises/bas_c_interativo_g1.html")
-webshot::webshot(url="analises/bas_c_interativo_g1.html",file="analises/grafico.png")
+webshot::webshot(url="analises/bas_c_interativo_g1.html",file="analises/grafico.png",delay=20)
 
 g2 = cea2::hc_grupo("b2") %>%
   highcharter::hc_title(text = "Pressão média por segundo - Grupo 2")
 
 htmlwidgets::saveWidget(widget=g2,file="analises/bas_c_interativo_g2.html")
-webshot::webshot(url="analises/bas_c_interativo_g2.html",file="analises/grafico2.png")
+webshot::webshot(url="analises/bas_c_interativo_g2.html",file="analises/grafico2.png",delay=20)
 
 g3 = cea2::hc_grupo("b3") %>%
   highcharter::hc_title(text = "Pressão média por segundo - Grupo 3")
 
 htmlwidgets::saveWidget(widget=g3,file="analises/bas_c_interativo_g3.html")
-webshot::webshot(url="analises/bas_c_interativo_g3.html",file="analises/grafico3.png")
+webshot::webshot(url="analises/bas_c_interativo_g3.html",file="analises/grafico3.png",delay=20)
 
 # Tempo entre vídeos ------------------------------------------------------
 

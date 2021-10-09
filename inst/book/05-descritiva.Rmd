@@ -119,3 +119,122 @@ O mesmo ocorre quando analisamos a Pressão ao longo do Tempo dos indivíduos do
 Por fim, para o Grupo 3 também não parece existir um padrão aparente para o comportamento ao longo dos dias. Alguns bebês, ativaram mais o vídeo no último dia, enquanto outros tiveram mais sucesso no primeiro dia do experimento.
 
 <img src="analises/perfis_grupo3.png" width="750">
+
+## Frequência de apertos
+
+No geral, observamos no Gráfico x que para o Grupo 1 na Condião Basal 2 a frequência de apertos é menor no Dia 1 em comparação aos demais dias. Já o Grupo 2 possue uma distribuição dos valores próxima da reta, indicando que não parece existir uma alteração expressiva na frequência de apertos de um Dia para o outro nesse Grupo.
+Por fim, o Grupo 3 apresenta um aumento na frequência de apertos do Dia 3 em relação aos dias anteriores.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+da_apertos <- cea2::da_agrupado %>% 
+  dplyr::filter(condicao == "basal2") %>% 
+  dplyr::mutate(grupo=case_when(grupo=='b1'~'1',
+                          grupo=='b2'~'2',
+                          grupo=='b3'~'3')) %>% 
+  dplyr::transmute(
+    nome, grupo = as.character(grupo), 
+    dia = stringr::str_c("dia", dia), freq_apertos
+  ) %>% 
+  tidyr::pivot_wider(names_from = dia, values_from = freq_apertos)
+
+d12 = da_apertos %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia1, y = dia2, colour = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Frequência de apertos no dia 1", y = "Frequência de apertos no dia 2") +
+  ggplot2::scale_colour_viridis_d() +
+  ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
+  ggplot2::geom_hline(
+    linetype = "dotted", alpha = .3,
+    yintercept = median(da_apertos$dia2, na.rm = TRUE)
+  ) +
+  ggplot2::geom_vline(
+    linetype = "dotted", alpha = .3, 
+    xintercept = median(da_apertos$dia1, na.rm = TRUE)
+  ) 
+
+d23 = da_apertos %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia2, y = dia3, colour = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Frequência de apertos no dia 2", y = "Frequência de apertos no dia 3") +
+  ggplot2::scale_colour_viridis_d() +
+  ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
+  ggplot2::geom_hline(
+    linetype = "dotted", alpha = .3,
+    yintercept = median(da_apertos$dia2, na.rm = TRUE)
+  ) +
+  ggplot2::geom_vline(
+    linetype = "dotted", alpha = .3, 
+    xintercept = median(da_apertos$dia1, na.rm = TRUE)
+  ) 
+
+d13 = da_apertos %>% 
+  ggplot2::ggplot(ggplot2::aes(x = dia1, y = dia3, colour = grupo)) +
+  ggplot2::geom_point() +
+  ggplot2::theme_minimal() +
+  ggplot2::labs(x = "Frequência de apertos no dia 1", y = "Frequência de apertos no dia 3") +
+  ggplot2::scale_colour_viridis_d() +
+  ggplot2::geom_abline(slope = 1, intercept = 0, alpha = .5) +
+  ggplot2::geom_hline(
+    linetype = "dotted", alpha = .3,
+    yintercept = median(da_apertos$dia2, na.rm = TRUE)
+  ) +
+  ggplot2::geom_vline(
+    linetype = "dotted", alpha = .3, 
+    xintercept = median(da_apertos$dia1, na.rm = TRUE)
+  ) 
+
+d12+d23+d13+plot_layout(ncol=1)
+  
+```
+Quando comparamos a Frequência de apertos nas Condições Basal 1 e Basal 2 (Gráfico x)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+da_dia <- cea2::da_agrupado %>%
+   dplyr::filter(condicao %in% c("basal1", "basal2")) %>%
+  dplyr::mutate(grupo=case_when(grupo=='b1'~'1',
+                          grupo=='b2'~'2',
+                          grupo=='b3'~'3')) %>% 
+   dplyr::mutate(condicao = ifelse(condicao == "basal2", "Basal 2", "Basal 1")) %>%
+   dplyr::select(nome,condicao, grupo, dia, freq_apertos) %>%
+  dplyr::mutate(condicao = dplyr::case_when(
+    condicao == "Basal 1" ~ "Basal_1",
+    TRUE ~ "Basal_2"
+  )) %>%
+   #dplyr::filter(grupo == 1) %>%
+   tidyr::pivot_wider(names_from = condicao, values_from = freq_apertos)
+ 
+ #Dia 1
+d1 = da_dia %>%
+  dplyr::filter(dia == 1)%>%
+   ggplot2::ggplot(ggplot2::aes(x = Basal_1, y = Basal_2, colour = grupo)) +
+   ggplot2::geom_point() +   
+  ggplot2::theme_minimal() +
+   ggplot2::geom_abline(slope = 1, intercept = 0)+
+  ggplot2::labs(x = "Frequência de apertos na Basal 1", y = "Frequência de apertos na Basal 2") +
+  ggplot2::scale_colour_viridis_d() 
+
+#Dia 2
+ d2 = da_dia %>%
+   dplyr::filter(dia == 2)%>%
+   ggplot2::ggplot(ggplot2::aes(x = Basal_1, y = Basal_2, colour = grupo)) +
+   ggplot2::geom_point() +   
+   ggplot2::theme_minimal() +
+   ggplot2::geom_abline(slope = 1, intercept = 0)+
+   ggplot2::labs(x = "Frequência de apertos na Basal 1", y = "Frequência de apertos na Basal 2") +
+   ggplot2::scale_colour_viridis_d() 
+ 
+ #Dia 3
+ d3 = da_dia %>%
+   dplyr::filter(dia == 3)%>%
+   ggplot2::ggplot(ggplot2::aes(x = Basal_1, y = Basal_2, colour = grupo)) +
+   ggplot2::geom_point() +   
+   ggplot2::theme_minimal() +
+   ggplot2::geom_abline(slope = 1, intercept = 0)+
+   ggplot2::labs(x = "Frequência de apertos na Basal 1", y = "Frequência de apertos na Basal 2") +
+   ggplot2::scale_colour_viridis_d() 
+ 
+ d1+d2+d3+plot_layout(ncol=1)
+  
+```
