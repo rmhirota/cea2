@@ -130,6 +130,7 @@ n_apertos <- da_tidy %>%
 da_agrupado <- da_tidy %>%
   dplyr::distinct(grupo, nome, dia, condicao, tempo_sessao) %>%
   dplyr::left_join(n_apertos, c("grupo", "nome", "dia", "condicao")) %>%
+  tidyr::replace_na(list(n_apertos = 0)) %>%
   dplyr::mutate(freq_apertos = n_apertos/tempo_sessao*60)
 
 
