@@ -125,7 +125,7 @@ webshot::webshot(url="analises/bas_c_interativo_g3.html",file="analises/grafico3
 
 # Tempo entre vídeos ------------------------------------------------------
 
-da_diff_tempo <- da_tidy %>%
+da_diff_tempo <- cea2::da_tidy %>%
   dplyr::group_by(grupo, nome, dia, condicao) %>%
   dplyr::arrange(grupo, nome, dia, condicao, tempo) %>%
   dplyr::filter(status_video %in% c("inicio", "fim")) %>%
@@ -135,9 +135,9 @@ da_diff_tempo <- da_tidy %>%
   )) %>%
   dplyr::ungroup()
 
-tempo_video <- function(da, gr) {
+tempo_video <- function(da, gr,c) {
   da %>%
-    dplyr::filter(grupo == gr) %>%
+    dplyr::filter(grupo == gr,condicao==c) %>%
     dplyr::mutate(
       nome = as.factor(nome),
       label = stringr::str_c("bebê ", as.numeric(nome))
@@ -157,13 +157,13 @@ tempo_video <- function(da, gr) {
 }
 
 # grupo 1
-tempo_grupo1 <- tempo_video(da_diff_tempo, "b1")
+tempo_grupo1 <- tempo_video(da_diff_tempo, "b1","contingente")
 ggplot2::ggsave("analises/tempo_video_g1.jpeg", tempo_grupo1)
 # grupo 2
-tempo_grupo2 <- tempo_video(da_diff_tempo, "b2")
+tempo_grupo2 <- tempo_video(da_diff_tempo, "b2","contingente")
 ggplot2::ggsave("analises/tempo_video_g2.jpeg", tempo_grupo2)
 # grupo 3
-tempo_grupo3 <- tempo_video(da_diff_tempo, "b3")
+tempo_grupo3 <- tempo_video(da_diff_tempo, "b3","contingente")
 ggplot2::ggsave("analises/tempo_video_g3.jpeg", tempo_grupo3)
 
 ## grupo 1

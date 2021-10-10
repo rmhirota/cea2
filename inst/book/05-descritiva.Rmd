@@ -127,11 +127,8 @@ No geral, observamos no Gráfico x que para o Grupo 1 na Condião Basal 2 a freq
 Por fim, o Grupo 3 apresenta um aumento na frequência de apertos do Dia 3 em relação aos dias anteriores.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-da_apertos <- cea2::da_agrupado %>% 
-  dplyr::filter(condicao == "basal2") %>% 
-  dplyr::mutate(grupo=case_when(grupo=='b1'~'1',
-                          grupo=='b2'~'2',
-                          grupo=='b3'~'3')) %>% 
+da_apertos <- cea2::da_spss %>% 
+  dplyr::filter(condicao == "pos") %>% 
   dplyr::transmute(
     nome, grupo = as.character(grupo), 
     dia = stringr::str_c("dia", dia), freq_apertos
@@ -186,18 +183,15 @@ d13 = da_apertos %>%
     xintercept = median(da_apertos$dia1, na.rm = TRUE)
   ) 
 
-d12+d23+d13+plot_layout(ncol=1)
+d12+d23+d13+plot_layout(ncol=1,)
   
 ```
 Quando comparamos a Frequência de apertos nas Condições Basal 1 e Basal 2 (Gráfico x)
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-da_dia <- cea2::da_agrupado %>%
-   dplyr::filter(condicao %in% c("basal1", "basal2")) %>%
-  dplyr::mutate(grupo=case_when(grupo=='b1'~'1',
-                          grupo=='b2'~'2',
-                          grupo=='b3'~'3')) %>% 
-   dplyr::mutate(condicao = ifelse(condicao == "basal2", "Basal 2", "Basal 1")) %>%
+da_dia <- cea2::da_spss %>%
+   dplyr::filter(condicao %in% c("bas", "pos")) %>%
+   dplyr::mutate(condicao = ifelse(condicao == "pos", "Basal 2", "Basal 1")) %>%
    dplyr::select(nome,condicao, grupo, dia, freq_apertos) %>%
   dplyr::mutate(condicao = dplyr::case_when(
     condicao == "Basal 1" ~ "Basal_1",
