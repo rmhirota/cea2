@@ -36,9 +36,9 @@ b1_d1 <- purrr::map(nomes_b1, ~graf_exp(da_diff_tempo, .x, 1, "b1"))
 b2_d1 <- purrr::map(nomes_b2, ~graf_exp(da_diff_tempo, .x, 1, "b2"))
 b3_d1 <- purrr::map(nomes_b3, ~graf_exp(da_diff_tempo, .x, 1, "b3"))
 
-grupo1 <- purrr::reduce(b1_d1, `/`)
-grupo2 <- purrr::reduce(b2_d1, `/`)
-grupo3 <- purrr::reduce(b3_d1, `/`)
+grupo1 <- purrr::reduce(b1_d1, `+`)
+grupo2 <- purrr::reduce(b2_d1, `+`)
+grupo3 <- purrr::reduce(b3_d1, `+`)
 
 # Dia 2
 
@@ -46,9 +46,9 @@ b1_d2 <- purrr::map(nomes_b1, ~graf_exp(cea2::da_tidy, .x, 2, "b1"))
 b2_d2 <- purrr::map(nomes_b2, ~graf_exp(cea2::da_tidy, .x, 2, "b2"))
 b3_d2 <- purrr::map(nomes_b3, ~graf_exp(cea2::da_tidy, .x, 2, "b3"))
 
-grupo1_2 <- purrr::reduce(b1_d2, `/`)
-grupo2_2 <- purrr::reduce(b2_d2, `/`)
-grupo3_2 <- purrr::reduce(b3_d2, `/`)
+grupo1_2 <- purrr::reduce(b1_d2, `+`)
+grupo2_2 <- purrr::reduce(b2_d2, `+`)
+grupo3_2 <- purrr::reduce(b3_d2, `+`)
 
 # Dia 3
 
@@ -60,3 +60,30 @@ grupo1_3 <- purrr::reduce(b1_d3, `/`)
 grupo2_3 <- purrr::reduce(b2_d3, `/`)
 grupo3_3 <- purrr::reduce(b3_d3, `/`)
 
+# Sem abertura por dia
+
+graf_exp_all <- function(da, bebe, gr){
+  da_bebe <- da %>%
+    dplyr::filter(
+      !is.null(diff_video),
+      grupo == gr, nome == bebe
+    )
+  tempo <- da_bebe %>%
+    dplyr::mutate(id = dplyr::row_number()) %>%
+    dplyr::select(id,diff_video)
+  da_bebe %>%
+    ggplot2::ggplot(ggplot2::aes(x = diff_video, y=..density..)) +
+    ggplot2::geom_histogram()+
+    ggplot2::geom_density(ggplot2::aes(x=diff_video,y=..density..))
+}
+
+# Teste da exponencialização da variavel tempo entre videos
+
+
+g1 <- purrr::map(nomes_b1, ~graf_exp_all(da_diff_tempo, .x, "b1"))
+g2 <- purrr::map(nomes_b2, ~graf_exp_all(da_diff_tempo, .x, "b2"))
+g3 <- purrr::map(nomes_b3, ~graf_exp_all(da_diff_tempo, .x, "b3"))
+
+grupo1 <- purrr::reduce(g1, `+`)
+grupo2 <- purrr::reduce(g2, `+`)
+grupo3 <- purrr::reduce(g3, `+`)
