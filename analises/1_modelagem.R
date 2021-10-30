@@ -1,6 +1,18 @@
 library(magrittr)
 library(patchwork)
 
+# Tempo entre vídeos ------------------------------------------------------
+
+da_diff_tempo <- cea2::da_tidy %>%
+  dplyr::group_by(grupo, nome, dia, condicao) %>%
+  dplyr::arrange(grupo, nome, dia, condicao, tempo) %>%
+  dplyr::filter(status_video %in% c("inicio", "fim")) %>%
+  dplyr::mutate(diff_video = dplyr::case_when(
+    status_video == "inicio" & dplyr::lag(status_video) == "fim"
+    ~ (tempo - dplyr::lag(tempo))
+  )) %>%
+  dplyr::ungroup()
+
 nomes_b1 <- cea2::da_tidy %>%
   dplyr::filter(grupo == "b1", condicao == "contingente") %>%
   dplyr::pull(nome) %>% unique()
@@ -11,7 +23,7 @@ nomes_b3 <- cea2::da_tidy %>%
   dplyr::filter(grupo == "b3", condicao == "contingente") %>%
   dplyr::pull(nome) %>% unique()
 
-# Fixamos o dia 1 para análise
+# Fixamos o dia 1 para análise --------------------------------------------------------------
 
 graf_exp <- function(da, bebe, d, gr){
   da_bebe <- da %>%
@@ -77,8 +89,6 @@ graf_exp_all <- function(da, bebe, gr){
     ggplot2::geom_density(ggplot2::aes(x=diff_video,y=..density..))
 }
 
-# Teste da exponencialização da variavel tempo entre videos
-
 
 g1 <- purrr::map(nomes_b1, ~graf_exp_all(da_diff_tempo, .x, "b1"))
 g2 <- purrr::map(nomes_b2, ~graf_exp_all(da_diff_tempo, .x, "b2"))
@@ -87,3 +97,25 @@ g3 <- purrr::map(nomes_b3, ~graf_exp_all(da_diff_tempo, .x, "b3"))
 grupo1 <- purrr::reduce(g1, `+`)
 grupo2 <- purrr::reduce(g2, `+`)
 grupo3 <- purrr::reduce(g3, `+`)
+
+# Teste de KS da variavel tempo entre videos
+
+require(vcd)
+require(MASS)
+
+# Grupo 1
+
+baby_11 <- as.data.frame(da_diff_tempo %>%
+  dplyr::filter(!is.na(diff_video),condicao == 'contingente',nome==nomes_b1[1]) %>%
+  dplyr::select(diff_video))
+fit1 <- fitdistr(baby_11$diff_video,"exponential")
+ks.test(baby_11$diff_video,"pexp", fit1$estimate) # p-value < 0.05 -> distribution refused
+
+baby_12 <- da_diff_tempo %>%
+  dplyr::filter(!is.na(diff_video),condicao == 'contingente',nome==nomes_b1[2]) %>%
+  dplyr::select(diff_video)
+fit2 <- fitdistr(baby_12$diff_video,"exponential")
+ks.test(baby_12$diff_video,"pexp", fit2$estimate) # p-value < 0.05 -> distribution refused
+#  ties should not be present for the Kolmogorov-Smirnov test
+
+
