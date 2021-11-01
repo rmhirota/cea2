@@ -65,8 +65,8 @@ library(magrittr)
 ### 1. [Processo de Contagem](#processo)
 ### 2. [FBST](#fbst)
 ### 3. [Teste Não Paramétrico](#teste)
-### 4. [Próximos Passos](#proximos)
-### 5. [Bibliografia](#conclusoes)
+### 4. Próximos Passos
+### 5. Bibliografia
 
 
 ---
@@ -77,25 +77,22 @@ name: processo
 ---
 ## Processo de Contagem
 
-O processo N(t) chama-se de contagem, se ele “conta” quantos eventos ocorreram durante o intervalo de tempo (0, t]
+Seja $X = X_{1},X_{2}...X_{3}$ uma v.a. que indica o número de ocorrências de um evento ao longo do tempo. Logo,
 
 $$X ∼ Poisson(\lambda)$$
 
-com função de probabilidade
+cuja função de probabilidade é dada por
 
-$$ P(X = k) = \frac{\lambda^{k}e^{-\lambda}}{k!}  $$
+$$P(X = k) = \frac{\lambda^{k}e^{-\lambda}}{k!}$$
 com $\lambda$ > 0 e k = 0,1,2...
-
 
 
 ???
 _Seja a variável aleatória X o número de ocorrências por intervalo
 fixo (de tempo ou espaço). Dizemos que X tem distribuição de
-Poisson com parametro $\lambda$,
+Poisson com parametro lambda_
 
 ---
-
---
 .pull-left[
 ### Definição 1
 
@@ -103,12 +100,10 @@ Poisson com parametro $\lambda$,
   
 - N(t + s) − N(s) não depende do N(s) para quaisquer t, s ≤ 0;
   
-- P{N(t + s) − N(s) = n} = $$\frac{e^{-\lambda*t}*(\lambda*t)^{n}}{n!}$$ , n = 0, 1,...
+- $$P[N(t + s) − N(s) = n] = \frac{e^{-\lambda*t}*(\lambda*t)^{n}}{n!}$$ 
 
-??? 
-_2 = o processo tem incrementos independentes;
-3 = o n´umero de eventos que ocorreram durante o tempo t
-tem a distribuição de Poisson com média $\lambda$t_
+com n = 0, 1,...
+
 ]
 
 --
@@ -119,44 +114,54 @@ tem a distribuição de Poisson com média $\lambda$t_
 
 - O processo possui a propriedade de “falta da memória”.
 
+Exemplo: $$Y \sim Exponencial(\alpha)$$
+Logo, 
+
+$$P(Y > t + s/X > t) = \frac{P(Y > t + s, Y > t)}{P(Y > t)} =$$
+$$\frac{P(Y > t + s)}{P(Y > t)} =
+\frac{e^{-\alpha(t+s)}}{e^{-\alpha*t}} =$$ 
+
+$$e^{-\alpha*s} = P(X > s)$$
 ]
 
 ???
-Dist Exponencial = Frequentemente usada para modelar o tempo entre eventos que
-ocorrem a uma taxa m´edia constante.
+
+_Um processo estocástico N(t) chama-se de contagem, se ele “conta” quantos eventos ocorreram durante o intervalo de tempo (0, t]_
+
+_o processo tem incrementos independentes;
+3 = o n´umero de eventos que ocorreram durante o tempo t
+tem a distribuição de Poisson com média lambda*t_
+
+_Dist Exponencial = Frequentemente usada para modelar o tempo entre eventos que
+ocorrem a uma taxa m´edia constante._
 
 ---
 
-Seja X ~ Exponencial($\lambda$)
-
-$$P(X > t + s/X > t) = \frac{P(X > t + s, X > t)}{P(X > t)} = \frac{P(X > t + s)}{P(X > t)} =
-\frac{e^{-\lambda(t+s)}}{e^{-\lambda*t}} = e^{-\lambda*s} = P(X > s)
-$$
-
-
----
 ## Contexto no trabalho
 
-Aperto = evento de interesse
+_Aperto_ = evento de interesse
 
-Tempo entre vídeos = tempos entre as ocorrências do possível processo de Poisson
+_Tempo entre vídeo_ = tempos entre as ocorrências do possível processo de Poisson
+\newline
+\newline
+
 
 - **Ideia**: Avaliar se os tempos entre vídeos, na condição contingente, se ajustam a algum modelo exponencial;
 
 - **Objetivo**: Tentativa de caracterizar a variável Tempo entre video
 
----
-Para o i-ésimo bebê no j-ésimo dia, temos
 
-$$ X_{ij} \sim  Poisson(\lambda_{ij}*t)  $$
+Para o _i_-ésimo bebê no _j_-ésimo dia, temos
 
-com $t = tempo da sessão$
+$$Tempo \; entre \; video_{ij} \sim  Poisson(\lambda_{ij}*t)$$
+
+com $$t = tempo \; da \; sessão$$
 ---
 ## Testes de exponencialidade
 
-- **Gráfica**: Histogramas da variável Tempo entre disparo do vídeo para cada bebê;
+- **Gráfica**: Histogramas da variável _Tempo entre vídeo_ para cada bebê;
 
-<center><img src="imagens/exp_g1_dia1.png" width="300"></center>
+<center><img src="imagens/exp_g1_dia1.png" width="600" higjt = "600"></center>
 
 - **Kolmogorov - Smirnov**: estimação do parâmetro através da função _fitdistr_ 
 
@@ -167,82 +172,81 @@ name: fbst
 # Teste de Significância Genuinamente Bayesiano
 
 ---
-**Ideia**: estimar 36 $\theta$ e compará-los entre si através de testes de hipótese 
+## Inferência Bayesiana
 
-**Objetivo**: comparar as taxas de apertos por minuto dos grupos x condição x dia, associando a cada bebê um processo de contagem de Poisson.
+Seja $\theta$ uma variável aleatória, tal que
 
-Método proposto por **Pereira e Stern (1999)** com o objetivo de apresentar uma alternativa bayesiana aos testes de hipóteses precisas
-
-Procedimento baseado em estimador por região (Highest Posterior Density)
-
----
-
-### Inferência Bayesiana
-
-Seja $\theta$ uma variável aleatória
-
-$$posteriori \; \alpha \;  verossimilhança \; \alpha \; priori  $$
+$$posteriori \; \alpha \;  verossimilhança \; \alpha \; priori$$
 
 - A distribuição priori deve representar probabilisticamente o conhecimento que se tem sobre o antes da realização do experimento
 
-- O método de Monte Carlo para estimação da priori 
+- O método de Monte Carlo é muito utilizado para estimação da priori 
 
 ---
-# e-value
+## FBST
 
-quantifica a evidência Bayesiana contra $H_{0}$ 
+**Ideia**: estimar 36 parâmetros $\theta$ e compará-los entre si através de testes de hipótese 
+
+**Objetivo**: comparar as taxas de apertos por minuto dos grupos x condição x dia, associando a cada bebê um processo de contagem de Poisson.
+\newline
+\newline
+
+- Método proposto por **Pereira e Stern (1999)** 
+
+- Highest Posterior Density
+
+???
+_objetivo de apresentar uma alternativa bayesiana aos testes de hipóteses precisas_
+_Procedimento baseado em estimador por região (Highest Posterior Density)_
+
+---
+## e-value
+
+Quantifica a evidência Bayesiana contra $H_{0}$ 
 
 Definimos a medida de evidência de Pereira-Stern da
 amostra x ∈ X para a hipótese $H_{0}$ por
 
-$$ E_{v}(\Theta_{0},x) = 1 - P(\theta \in T_{x} | X = x) $$
+$$E_{v}(\Theta_{0},x) = 1 - P(\theta \in T_{x} | X = x)$$
 com
 
-$$ T_{x} = [\theta \in \Theta : f(\theta | X = x) > f(\theta_{0} | X = x)] $$
----
-
+$$T_{x} = [\theta \in \Theta : f(\theta | X = x) > f(\theta_{0} | X = x)]$$
 - É a área da posteriori no conjunto do espaço paramétrico de $\theta$ que consiste nos pontos com densidade menor do que no ponto máximo da densidade à posteriori sob $H_{0}$
 
-- O procedimento de teste que consiste em rejeitar $H_{0}$ se, e só se, E($\Theta_{0}$, x) $\leq$ $\alpha$, $α ∈ [0, 1]$, é chamado procedimento de Pereira-Stern (ou FBST).
+- Rejeitar $H_{0}$ se, e só se, $E(\Theta_{0}, x)$ $\leq$ $\alpha$, $α ∈ [0, 1]$.
 
 inserir imagem que o prof mandou
 
 ---
-# Teste para hipóteses nulas compostas
+## Teste para hipóteses nulas compostas
 
-$$ H_{0}: \theta \in \Theta_{0} \\
+$$H_{0}: \theta \in \Theta_{0} \\
    H_{0}: \theta \in \Theta_{1}$$
 
 Definimos a medida de evidência de Pereira-Stern da amostra x ∈ X para a hipótese $H_{0}$ por
 
-$$ E_{v}(\Theta_{0},x) = 1 - P(\theta \in T_{x} | X = x) $$
+$$E_{v}(\Theta_{0},x) = 1 - P(\theta \in T_{x} | X = x)$$
 com
 
-$$ T_{x} = [\theta \in \Theta : f(\theta | X = x) > sup_{\theta^{'}\in\Theta_{0}}f(\theta^{'} | X = x)] $$
----  
-class: inverse center middle
-name: proximos
-# Próximos passos
----
+$$T_{x} = [\theta \in \Theta : f(\theta | X = x) > sup_{\theta^{'}\in\Theta_{0}}f(\theta^{'} | X = x)]$$
 
+---
 ## Próximos passos
   
---
 
 - Tentaiva de um moedelo do tipo Medidas Repetidas;  
   
---
 
 - Definição de um modelo adequado a estrutura dos dados;  
   
---
 
----
-
-# Bibliografia
+## Bibliografia
 
 
 [Pereira e Stern (1999)](https://teses.usp.br/teses/disponiveis/45/45133/tde-09072012-103238/pt-br.php)
-[Sheldon Ross](Introduce to probability models)
-[Inferência Estatística Comparada](Notas de aula sobre Inferência Bayesiana)
 
+[Sheldon Ross - Introduce to probability models]()
+
+[Inferência Estatística Comparada - Notas de aula sobre Inferência Bayesiana]()
+
+---
