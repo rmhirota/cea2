@@ -179,25 +179,28 @@ sobreviveu t horas é o mesmo que a probabilidade inicial de que viva por pelo m
 
 _Aperto_ = evento de interesse
 
-_Tempo entre vídeo_ = tempos entre as ocorrências do possível processo de Poisson
-\newline
-\newline
+_Tempo entre os apertos_ = tempos entre as ocorrências do possível processo de Poisson
+
+  
 
 
-- **Ideia**: Avaliar se os tempos entre vídeos, na condição contingente, se ajustam a algum modelo exponencial;
+- **Ideia**: Avaliar se o tempo entre a ocorrência dos eventos se ajusta a uma distribuição exponencial;
 
-- **Objetivo**: Tentativa de verificar se a taxa entre apertos muda para cada bebê
+- **Objetivo**: Associar a cada bebê um Processo de Poisson
 
 
-Para o _i_-ésimo bebê no _j_-ésimo dia, temos
+Para o _i_-ésimo grupo, na _j_-ésima condição e no _k_-ésimo dia, teríamos
 
-`$$Tempo \; entre \; video_{ij} \sim  Poisson(\lambda_{ij}*t_{ij})$$`
+`$$Tempo \; entre \; apertos_{ijk} \sim  Exponencial(\alpha_{ijk})$$`
+E um Processo de Poisson associado a cada bebê
+
+`$$Frequência \; de \; apertos_{ijkl} \sim  Poisson(\lambda_{ijk}t_{ijkl})$$`
 
 com `$$t_{ij} = tempo \; da \; sessão$$`
 ---
 ## Testes de exponencialidade
 
-- **Gráfica**: Histogramas da variável _Tempo entre vídeo_ para cada bebê;
+- **Gráfica**: Histogramas da variável _Tempo entre apertos_ para cada bebê;
 
 &lt;center&gt;&lt;img src="imagens/exp_g1_dia1.png" width="600" higjt = "600"&gt;&lt;/center&gt;
 
@@ -223,29 +226,37 @@ Seja `\(\theta\)` uma variável aleatória, tal que
 ---
 ## FBST
 
-**Ideia**: estimar 36 parâmetros `\(\theta\)` e compará-los entre si através de testes de hipótese 
+**Ideia**: estimar 36 parâmetros `\(\theta_{i}\)` e compará-los entre si através de testes de hipótese 
 
-**Objetivo**: comparar as taxas de apertos por minuto dos grupos x condição x dia, associando a cada bebê um processo de contagem de Poisson.
-\newline
-\newline
+**Objetivo**: comparar as taxas de apertos por minuto dos grupos x condição x dia
+\\
+\\
 
 - Método proposto por **Pereira e Stern (1999)** 
 
 - Highest Posterior Density
+
+Procedimento baseado em estimador por região (HPD)
+
+&lt;center&gt;&lt;img src="imagens/area2.JPG" width="400" hight = "400"&gt;&lt;/center&gt;
 
 ???
 _objetivo de apresentar uma alternativa bayesiana aos testes de hipóteses precisas_
 _Procedimento baseado em estimador por região (Highest Posterior Density)_
 
 ---
-## e-value
+## Teste de Hipótese precisa e e-value
 
 Quantifica a evidência Bayesiana contra `\(H_{0}\)` 
 
-Definimos a medida de evidência de Pereira-Stern da
-amostra x ∈ X para a hipótese `\(H_{0}\)` por
+Seja 
 
-`$$E_{v}(\Theta_{0},x) = 1 - P(\theta \in T_{x} | X = x)$$`
+`$$H_{0}: \theta = \theta_{0} \\
+H_{0}: \theta \neq \theta_{0}$$`
+        
+Então, 
+
+`$$e-value = E_{v}(\Theta_{0},x) = 1 - P(\theta \in T_{x} | X = x)$$`
 com
 
 `$$T_{x} = [\theta \in \Theta : f(\theta | X = x) &gt; f(\theta_{0} | X = x)]$$`
@@ -253,20 +264,23 @@ com
 
 - Rejeitar `\(H_{0}\)` se, e só se, `\(E(\Theta_{0}, x)\)` `\(\leq\)` `\(\alpha\)`, `\(α ∈ [0, 1]\)`.
 
-inserir imagem que o prof mandou
+
 
 ---
-## Teste para hipóteses nulas compostas
+## Teste para hipóteses compostas 
 
-`$$H_{0}: \theta \in \Theta_{0} \\
-   H_{0}: \theta \in \Theta_{1}$$`
+`$$H_{0}: \theta_{1} = \theta_{2} \\
+   H_{0}: \theta_{1} \neq \theta_{2}$$`
+   
 
 Definimos a medida de evidência de Pereira-Stern da amostra x ∈ X para a hipótese `\(H_{0}\)` por
 
-`$$E_{v}(\Theta_{0},x) = 1 - P(\theta \in T_{x} | X = x)$$`
+`$$E_{v}[(\theta_{1},\theta_{2}),x] = 1 - P[(\theta_{1},\theta_{2}) \in T_{XY} | X, Y]$$`
 com
 
-`$$T_{x} = [\theta \in \Theta : f(\theta | X = x) &gt; sup_{\theta^{'}\in\Theta_{0}}f(\theta^{'} | X = x)]$$`
+`$$T_{XY} = [\theta = (\theta_{1},\theta_{2}) \in R^{2}_{+}: \pi(\theta_{1},\theta_{2} | X, Y) &gt; \pi^{*}(\theta_{1},\theta_{2} | X, Y)]$$`
+
+&lt;center&gt;&lt;img src="imagens/area1.JPG" width="400" hight = "400"&gt;&lt;/center&gt;
 
 ---
 ## Próximos passos
