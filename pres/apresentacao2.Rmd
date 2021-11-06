@@ -75,16 +75,17 @@ name: processo
 # Processo de Contagem
 
 ---
-## Processo de Contagem
+## Distribuição de Poisson
 
-Seja $X = X_{1},X_{2}...X_{3}$ uma v.a. que indica o número de ocorrências de um evento ao longo do tempo. Logo,
+Seja $X$ uma v.a. assumindo um dos valores 0, 1, 2, ..., possue distribuição de Poisson com parâmetro $\lambda$, se para algum $\lambda$ > 0:
 
 $$X ∼ Poisson(\lambda)$$
 
 cuja função de probabilidade é dada por
 
 $$P(X = k) = \frac{\lambda^{k}e^{-\lambda}}{k!}$$
-com $\lambda$ > 0 e k = 0,1,2...
+
+<center><img src="imagens/poisson.png" width="400" hight = "400"></center>
 
 
 ???
@@ -93,16 +94,39 @@ fixo (de tempo ou espaço). Dizemos que X tem distribuição de
 Poisson com parametro lambda_
 
 ---
+## Processo de Contagem
+
+**Processo estocástico** = conjunto de variáveis aletórias que depende de um parâmetro t (tempo)
+
+O processo estocástico N(t) chama-se de contagem, se ele “conta” quantos eventos ocorreram durante o intervalo de tempo (0, t]
+
+### Propriedades:
+
+- N(t) $\geq$ 0
+  
+- N(t) é um número inteiro
+  
+- Se s < t, then N(s) $\leq$ N(t) 
+ 
+- Para s < t, N(t) − N(s) representa o número de eventos que ocorreram no intervalo (s, t]
+
+???
+é uma família de variáveis aleatórias representando a evolução de um sistema de valores com o tempo
+
+---
+Um processo de contagem N(t) é um processo de Poisson com intensidade $\lambda$, $\lambda$ > 0, se
+
 .pull-left[
 ### Definição 1
 
 - No instante inicial nenhum evento ocorreu (N(0) = 0);
   
-- N(t + s) − N(s) não depende do N(s) para quaisquer t, s ≤ 0;
+- N(t + s) − N(s) não depende do N(s) para quaisquer t;
   
 - $$P[N(t + s) − N(s) = n] = \frac{e^{-\lambda*t}*(\lambda*t)^{n}}{n!}$$ 
 
-com n = 0, 1,...
+com n = 0, 1,...  e s ≥ 0, t > 0
+
 
 ]
 
@@ -110,30 +134,34 @@ com n = 0, 1,...
 .pull-right[
 ### Definição 2
 
-- Os tempos entre as ocorrências de um processo de Poisson possuem distribuição exponencial;
+- Os tempos entre as ocorrências de um processo de Poisson possuem distribuição exponencial
+ 
+ $T_{n}$ = o tempo entre a (n − 1) e n-ésima ocorrência de eventos
 
-- O processo possui a propriedade de “falta da memória”.
+- Perda de memória 
 
-Exemplo: $$Y \sim Exponencial(\alpha)$$
+Se $$T \sim Exponencial(\alpha)$$
 Logo, 
 
-$$P(Y > t + s/X > t) = \frac{P(Y > t + s, Y > t)}{P(Y > t)} =$$
-$$\frac{P(Y > t + s)}{P(Y > t)} =
-\frac{e^{-\alpha(t+s)}}{e^{-\alpha*t}} =$$ 
+$$P(T > t + s/T > t) = \frac{P(T > t + s, T > t)}{P(T > t)} = \\ \frac{P(T > t + s)}{P(T > t)} =
+\frac{e^{-\alpha(t+s)}}{e^{-\alpha*t}} = e^{-\alpha*s} = P(T > s)$$
 
-$$e^{-\alpha*s} = P(X > s)$$
+
 ]
 
 ???
 
-_Um processo estocástico N(t) chama-se de contagem, se ele “conta” quantos eventos ocorreram durante o intervalo de tempo (0, t]_
+_O Processo de Poisson pode ser um modelo para uma série de eventos discretos onde o tempo entre os eventos é conhecido, mas o tempo preciso dos eventos é aleatório. A chegada de uma ocasião é independente do evento anterior (o tempo de espera entre os eventos é sem memória)_
 
-_o processo tem incrementos independentes;
-3 = o n´umero de eventos que ocorreram durante o tempo t
-tem a distribuição de Poisson com média lambda*t_
+_o processo tem incrementos independentes_
+
+_o número de eventos em qualquer intervalo de comprimento t é uma variável aleatória de Poisson com média λt_
 
 _Dist Exponencial = Frequentemente usada para modelar o tempo entre eventos que
-ocorrem a uma taxa m´edia constante._
+ocorrem a uma taxa m´edia constante_
+
+_A probabilidade de que o instrumento viva por pelo menos s + t horas, dado que tem
+sobreviveu t horas é o mesmo que a probabilidade inicial de que viva por pelo menos s horas_
 
 ---
 
@@ -148,14 +176,14 @@ _Tempo entre vídeo_ = tempos entre as ocorrências do possível processo de Poi
 
 - **Ideia**: Avaliar se os tempos entre vídeos, na condição contingente, se ajustam a algum modelo exponencial;
 
-- **Objetivo**: Tentativa de caracterizar a variável Tempo entre video
+- **Objetivo**: Tentativa de verificar se a taxa entre apertos muda para cada bebê
 
 
 Para o _i_-ésimo bebê no _j_-ésimo dia, temos
 
-$$Tempo \; entre \; video_{ij} \sim  Poisson(\lambda_{ij}*t)$$
+$$Tempo \; entre \; video_{ij} \sim  Poisson(\lambda_{ij}*t_{ij})$$
 
-com $$t = tempo \; da \; sessão$$
+com $$t_{ij} = tempo \; da \; sessão$$
 ---
 ## Testes de exponencialidade
 
