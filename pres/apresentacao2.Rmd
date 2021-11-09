@@ -62,20 +62,71 @@ library(magrittr)
 
 ## Sumário
 
-### 1. [Processo de Contagem](#processo)
-### 2. [FBST](#fbst)
-### 3. [Teste Não Paramétrico](#teste)
+### 1. [Descrição do Estudo](#estudo)
+### 2. [Análise Inferencial I](#processo)
+### 3. [Análise Inferencial II](#teste)
 ### 4. Próximos Passos
 ### 5. Bibliografia
 
+---
+class: inverse center middle
+name: estudo
+# Descrição do Estudo
 
+---
+### Objetivo
+
+- Investigar a emergência e desenvolvimento do comportamento voluntário das mãos 
+em bebês de até três meses de idade
+
+### Condições
+
+- **Condição Basal**: sem nenhuma variação ambiental (duração = 2 min);  
+
+- **Contingente**: um vídeo aparecia se o bebê atingisse determinada pressão 
+palmar (duração = 4 min);  
+
+- **Não Contingente**: um vídeo aparecia de forma automática e aleatória, sem 
+que o bebê atingisse o valor de pressão estipulado (duração = 4 min);  
+
+- **Condição Basal 2**: segunda condição sem estímulo visual (duração = 2 min)
+
+---
+### Limitações
+
+- Interrupção de alguns processos de coleta de dados; 
+  
+- Tempo de observação cortado para alguns bebês;  
+
+- Número pequeno de participantes no estudo;
+
+- Quantidade diferente de participantes em cada faixa etária;  
+
+- Processo de aleatorização na ordem das condições Contingente e Não Contingente;
+
+- Cruzamento de Grupo x Dia x Condição 
 ---
 class: inverse center middle
 name: processo
-# Processo de Contagem
+# Análise Inferencial I
 
 ---
-## Distribuição de Poisson
+### Ideia
+
+- Avaliar se o tempo entre a ocorrência dos eventos se ajusta a uma distribuição exponencial;
+
+### Objetivo
+
+- Associar a cada bebê um Processo de Poisson e testar se há diferença entre os parâmetros da distribuição
+
+### Pré Requisito
+
+- Os tempos entre as ocorrências de um processo de Poisson possuem distribuição exponencial
+ 
+ $T_{n}$ = o tempo entre a (n − 1) e n-ésima ocorrência de eventos
+
+---
+### Distribuição de Poisson
 
 Seja $X$ uma v.a. assumindo um dos valores 0, 1, 2, ..., possue distribuição de Poisson com parâmetro $\lambda$, se para algum $\lambda$ > 0:
 
@@ -135,8 +186,6 @@ com n = 0, 1,...  e s ≥ 0, t > 0
 ### Definição 2
 
 - Os tempos entre as ocorrências de um processo de Poisson possuem distribuição exponencial
- 
- $T_{n}$ = o tempo entre a (n − 1) e n-ésima ocorrência de eventos
 
 - Perda de memória 
 
@@ -171,115 +220,107 @@ _Aperto_ = evento de interesse
 
 _Tempo entre os apertos_ = tempos entre as ocorrências do possível processo de Poisson
 
-  
 
-
-- **Ideia**: Avaliar se o tempo entre a ocorrência dos eventos se ajusta a uma distribuição exponencial;
-
-- **Objetivo**: Associar a cada bebê um Processo de Poisson
-
-
-Para o _i_-ésimo grupo, na _j_-ésima condição e no _k_-ésimo dia, teríamos
-
-$$Tempo \; entre \; apertos_{ijk} \sim  Exponencial(\alpha_{ijk})$$
-E um Processo de Poisson associado a cada bebê
-
-$$Frequência \; de \; apertos_{ijkl} \sim  Poisson(\lambda_{ijk}t_{ijkl})$$
-
-com $$t_{ij} = tempo \; da \; sessão$$
----
 ## Testes de exponencialidade
 
-- **Gráfica**: Histogramas da variável _Tempo entre apertos_ para cada bebê;
+### Gráfica
 
-<center><img src="imagens/exp_g1_dia1.png" width="600" higjt = "600"></center>
+- Histogramas da variável _Tempo entre apertos_ para cada bebê;
 
-- **Kolmogorov - Smirnov**: estimação do parâmetro através da função _fitdistr_ 
 
+### Kolmogorov - Smirnov
+
+- Estimação do parâmetro através da função _fitdistr_ 
+
+- Teste a partir da função _ks.test_
+
+ $$ks.test(tempo\;entre\;apertos,"pexp", parâmetro\;estimado)$$
+
+---
+
+- 22 x 36 gráficos
+
+- Os testes rejeitaram a hipótese para cada i-ésimo bebê no j-ésimo dia da k-ésima condição
+
+$$H_{0}: Tempo \sim Exponencial(\lambda_{ijk})$$\\
+$$H_{1}: Tempo \neq Exponencial(\lambda_{ijk})$$
+
+- Há indicíos de que não existe perda de mémoria
+
+- Não é possível aplicar o Teste de Significância Genuinamente Bayesiano
 ---
 class: inverse center middle
-name: fbst
+name: teste
 
-# Teste de Significância Genuinamente Bayesiano
-
----
-## Inferência Bayesiana
-
-Seja $\theta$ uma variável aleatória, tal que
-
-$$posteriori \; \alpha \;  verossimilhança \; \alpha \; priori$$
-
-- A distribuição priori deve representar probabilisticamente o conhecimento que se tem sobre o antes da realização do experimento
-
-- O método de Monte Carlo é muito utilizado para estimação da priori 
+# Análise Inferencial II
 
 ---
-## FBST
+## Teste de Kruskal-Walis
 
-**Ideia**: estimar 36 parâmetros $\theta_{i}$ e compará-los entre si através de testes de hipótese 
+- Teste Não Paramétrico;
 
-**Objetivo**: comparar as taxas de apertos por minuto dos grupos x condição x dia
-\\
-\\
+- Equivale ao Teste Pareado de Friedman da ANOVA de 1 fator em k níveis;
 
-- Método proposto por **Pereira e Stern (1999)** 
+- Comparação de três ou mais amostras independentes;
 
-- Highest Posterior Density
+- Determinar se há indícios de diferença entre as popelações;
 
-Procedimento baseado em estimador por região (HPD)
-
-<center><img src="imagens/area2.JPG" width="400" hight = "400"></center>
-
-???
-_objetivo de apresentar uma alternativa bayesiana aos testes de hipóteses precisas_
-_Procedimento baseado em estimador por região (Highest Posterior Density)_
+- Comparação dos grupos é realizada por meio da mediana dos postos;
 
 ---
-## Teste de Hipótese precisa e e-value
 
-Quantifica a evidência Bayesiana contra $H_{0}$ 
+### Suposição
 
-Seja 
+- As amostras são aleatórias e independentes entre si;
 
-$$H_{0}: \theta = \theta_{0} \\
-H_{0}: \theta \neq \theta_{0}$$
-        
-Então, 
+- A escala de medidas é pelo menos ordinal
 
-$$e-value = E_{v}(\Theta_{0},x) = 1 - P(\theta \in T_{x} | X = x)$$
-com
+- _n > 6 por grupo e há mais do que 5 grupos:_ a significância de H pode ser determinada por recorrência à Tabela do Qui-quadrado
 
-$$T_{x} = [\theta \in \Theta : f(\theta | X = x) > f(\theta_{0} | X = x)]$$
-- É a área da posteriori no conjunto do espaço paramétrico de $\theta$ que consiste nos pontos com densidade menor do que no ponto máximo da densidade à posteriori sob $H_{0}$
+- _n < 6 e número de grupos ≤ 5:_ deve-se recorrer à tabelas especiais
 
-- Rejeitar $H_{0}$ se, e só se, $E(\Theta_{0}, x)$ $\leq$ $\alpha$, $α ∈ [0, 1]$.
+### Método
+
+Dado um Dia fixado:
+
+**Amostras** = Grupos,  
+
+**Tratamento** = Basal 1 x Basal 2,  
+
+**Menor posto** = ao menor valor,  
+
+**Maior posto** = ao maior valor, 
 
 
-
+$$H_{0} = Todas\; as\; k\; distribuições\; são\; idênticas$$ 
 ---
-## Teste para hipóteses compostas 
+## Passo a Passo
 
-$$H_{0}: \theta_{1} = \theta_{2} \\
-   H_{0}: \theta_{1} \neq \theta_{2}$$
-   
+1) Ordenar os dados
 
-Definimos a medida de evidência de Pereira-Stern da amostra x ∈ X para a hipótese $H_{0}$ por
+2) Atribuir postos para cada valor
 
-$$E_{v}[(\theta_{1},\theta_{2}),x] = 1 - P[(\theta_{1},\theta_{2}) \in T_{XY} | X, Y]$$
-com
+3) Somar os postos dentro de cada grupo
 
-$$T_{XY} = [\theta = (\theta_{1},\theta_{2}) \in R^{2}_{+}: \pi(\theta_{1},\theta_{2} | X, Y) > \pi^{*}(\theta_{1},\theta_{2} | X, Y)]$$
+4) Aplicar a Estatística do Teste
 
-<center><img src="imagens/area1.JPG" width="400" hight = "400"></center>
+5) Comparar a Estatiística à uma distribuição qui-quadrado com df = número de grupos  
 
+$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$ 
+
+com $R(X_{ij})$ = posto($X_{ij}$) e   
+
+  
+$R_{i}$ = $\sum^{n_{i}}_{j=1}R(X_{ij})$ = soma dos postos associad a i-ésima amostra
+i = 1,2,...,k
 ---
 ## Próximos passos
   
 
-- Tentaiva de um moedelo do tipo Medidas Repetidas;  
+- Reestruturação da Análise Descritiva com a segunda leva dos dados;  
   
 
-- Definição de um modelo adequado a estrutura dos dados;  
+- Aplicação dos Testes não Paramétricos;  
   
 
 ## Bibliografia
