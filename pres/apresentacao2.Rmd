@@ -113,53 +113,32 @@ name: processo
 ---
 ### Ideia
 
-- Avaliar se o tempo entre a ocorrência dos eventos se ajusta a uma distribuição exponencial;
+- Comparar as taxas de apertos por minuto dos *Grupos x Condição x Dia*, associando a cada bebê um Processo de Contagem de Poisson
 
-### Objetivo
+- Teste de hipótese pontual através do Teste de Significância Genuinamente Bayesiano (FBST) 
 
-- Associar a cada bebê um Processo de Poisson e testar se há diferença entre os parâmetros da distribuição
+**Pereira e Stern (1999)**
 
-### Pré Requisito
+### Suposição
 
-- Os tempos entre as ocorrências de um processo de Poisson possuem distribuição exponencial
+- Os tempos entre os eventos de um processo de Poisson possuem distribuição exponencial
+
+<center><img src="imagens/expo.png" width="300" hight="300"></center>
  
- $T_{n}$ = o tempo entre a (n − 1) e n-ésima ocorrência de eventos
-
----
-### Distribuição de Poisson
-
-Seja $X$ uma v.a. assumindo um dos valores 0, 1, 2, ..., possue distribuição de Poisson com parâmetro $\lambda$, se para algum $\lambda$ > 0:
-
-$$X ∼ Poisson(\lambda)$$
-
-cuja função de probabilidade é dada por
-
-$$P(X = k) = \frac{\lambda^{k}e^{-\lambda}}{k!}$$
-
-<center><img src="imagens/poisson.png" width="400" hight = "400"></center>
-
-
-???
-_Seja a variável aleatória X o número de ocorrências por intervalo
-fixo (de tempo ou espaço). Dizemos que X tem distribuição de
-Poisson com parametro lambda_
-
 ---
 ## Processo de Contagem
 
-**Processo estocástico** = conjunto de variáveis aletórias que depende de um parâmetro t (tempo)
+**Processo estocástico** = conjunto de variáveis aleatórias que dependem do tempo
 
-O processo estocástico N(t) chama-se de contagem, se ele “conta” quantos eventos ocorreram durante o intervalo de tempo (0, t]
+"Conta" quantos eventos ocorreram durante o intervalo de tempo $(0, t]$
 
 ### Propriedades:
-
-- N(t) $\geq$ 0
   
-- N(t) é um número inteiro
+- N(t) assume valores inteiros positivos
   
-- Se s < t, then N(s) $\leq$ N(t) 
+- Se $s < t$, então N(s) $\leq$ N(t) 
  
-- Para s < t, N(t) − N(s) representa o número de eventos que ocorreram no intervalo (s, t]
+- Para $s < t$, N(t) − N(s) = o número de eventos que ocorreram no intervalo $(s, t]$
 
 ???
 é uma família de variáveis aleatórias representando a evolução de um sistema de valores com o tempo
@@ -170,11 +149,16 @@ Um processo de contagem N(t) é um processo de Poisson com intensidade $\lambda$
 .pull-left[
 ### Definição 1
 
-- No instante inicial nenhum evento ocorreu (N(0) = 0);
+- N(0) = 0;
   
-- N(t + s) − N(s) não depende do N(s) para quaisquer t;
+- O processo tem incrementos independentes
+
+$$N(t_1) − N(t_0), \;N(t_2) − N(t_1)\; . . . \;N(t_n) − N(t_{n−1})$$
+São variáveis aleatórias independentes para quaisquer $t_0 = 0 < t_1 < · · · < t_n$,
   
-- $$P[N(t + s) − N(s) = n] = \frac{e^{-\lambda*t}*(\lambda*t)^{n}}{n!}$$ 
+- N(t) ~ Poisson($\lambda$t)
+
+$$P[N(t) − N(0) = n] = \frac{e^{-\lambda*t}*(\lambda*t)^{n}}{n!}$$ 
 
 com n = 0, 1,...  e s ≥ 0, t > 0
 
@@ -187,7 +171,7 @@ com n = 0, 1,...  e s ≥ 0, t > 0
 
 - Os tempos entre as ocorrências de um processo de Poisson possuem distribuição exponencial
 
-- Perda de memória 
+- A chegada de uma ocasião é independente do evento anterior 
 
 Se $$T \sim Exponencial(\alpha)$$
 Logo, 
@@ -202,7 +186,7 @@ $$P(T > t + s/T > t) = \frac{P(T > t + s, T > t)}{P(T > t)} = \\ \frac{P(T > t +
 
 _O Processo de Poisson pode ser um modelo para uma série de eventos discretos onde o tempo entre os eventos é conhecido, mas o tempo preciso dos eventos é aleatório. A chegada de uma ocasião é independente do evento anterior (o tempo de espera entre os eventos é sem memória)_
 
-_o processo tem incrementos independentes_
+_(o tempo de espera entre os eventos é sem memória)_
 
 _o número de eventos em qualquer intervalo de comprimento t é uma variável aleatória de Poisson com média λt_
 
@@ -214,18 +198,11 @@ sobreviveu t horas é o mesmo que a probabilidade inicial de que viva por pelo m
 
 ---
 
-## Contexto no trabalho
-
-_Aperto_ = evento de interesse
-
-_Tempo entre os apertos_ = tempos entre as ocorrências do possível processo de Poisson
-
-
-## Testes de exponencialidade
+### Testes de exponencialidade
 
 ### Gráfica
 
-- Histogramas da variável _Tempo entre apertos_ para cada bebê;
+- Histogramas da variável _Tempo entre apertos_ para cada bebê (22 x 36);
 
 
 ### Kolmogorov - Smirnov
@@ -235,19 +212,27 @@ _Tempo entre os apertos_ = tempos entre as ocorrências do possível processo de
 - Teste a partir da função _ks.test_
 
  $$ks.test(tempo\;entre\;apertos,"pexp", parâmetro\;estimado)$$
+ 
+ <center><img src="imagens/kstest.png" width="800" hight="800"></center>
 
 ---
 
-- 22 x 36 gráficos
+## Conclusão
 
-- Os testes rejeitaram a hipótese para cada i-ésimo bebê no j-ésimo dia da k-ésima condição
+- Temos bebês que no instante 0 já começam apertando o aparelho (N(0) $\neq$ 0)
 
-$$H_{0}: Tempo \sim Exponencial(\lambda_{ijk})$$\\
-$$H_{1}: Tempo \neq Exponencial(\lambda_{ijk})$$
+- Testes rejeitaram a hipótese de exponencialidade 
+
+
+$$H_{0}: Tempo_{ijk} \sim Exponencial(\alpha_{ijk})$$\\
+$$H_{1}: Tempo_{ijk} \neq Exponencial(\alpha_{ijk})$$
+
+tal que $i$ = i-ésimo bebê, $j$ = j-ésimo dia de $k$ = k-ésima condição
 
 - Há indicíos de que não existe perda de mémoria
 
-- Não é possível aplicar o Teste de Significância Genuinamente Bayesiano
+- Não foi possível associar um Processo de Poisson ao evento aperto
+
 ---
 class: inverse center middle
 name: teste
