@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Pesquisadora: Priscilla A. M. Ferronato" />
+    <meta name="author" content="Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel" />
+    <meta name="author" content="Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota" />
+    <meta name="author" content="Orientador: Prof. Dr. Luis Gustavo Esteves" />
+    <link href="apresentacao2_files/panelset/panelset.css" rel="stylesheet" />
+    <script src="apresentacao2_files/panelset/panelset.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade
+## 12-10-2021
+### Pesquisadora: Priscilla A. M. Ferronato
+### Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel
+### Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota
+### Orientador: Prof. Dr. Luis Gustavo Esteves
+
+---
+
+
+
+
+
+
+
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 110px;
+height: 128px;
+z-index: 0;
+background-image: url(imagens/ime.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+
+
+
+
+
+## Sumário
+
+### 1. [Descrição do Estudo](#estudo)
+### 2. [Análise Inferencial I](#processo)
+### 3. [Análise Inferencial II](#teste)
+### 4. Próximos Passos
+### 5. Bibliografia
+
+---
+class: inverse center middle
+name: estudo
+# Descrição do Estudo
+
+---
+### Objetivo
+
+- Investigar a emergência e desenvolvimento do comportamento voluntário das mãos 
+em bebês de até três meses de idade
+
+### Condições
+
+- **Condição Basal**: sem nenhuma variação ambiental (duração = 2 min);  
+
+- **Contingente**: um vídeo aparecia se o bebê atingisse determinada pressão 
+palmar (duração = 4 min);  
+
+- **Não Contingente**: um vídeo aparecia de forma automática e aleatória, sem 
+que o bebê atingisse o valor de pressão estipulado (duração = 4 min);  
+
+- **Condição Basal 2**: segunda condição sem estímulo visual (duração = 2 min)
+
+---
+### Limitações
+
+- Interrupção de alguns processos de coleta de dados; 
+  
+- Tempo de observação cortado para alguns bebês;  
+
+- Número pequeno de participantes no estudo;
+
+- Quantidade diferente de participantes em cada faixa etária;  
+
+- Processo de aleatorização na ordem das condições Contingente e Não Contingente;
+
+- Cruzamento de Grupo x Dia x Condição 
+---
+class: inverse center middle
+name: processo
+# Análise Inferencial I
+
+---
+### Ideia
+
+- Avaliar se o tempo entre a ocorrência dos eventos se ajusta a uma distribuição exponencial;
+
+### Objetivo
+
+- Associar a cada bebê um Processo de Poisson e testar se há diferença entre os parâmetros da distribuição
+
+### Pré Requisito
+
+- Os tempos entre as ocorrências de um processo de Poisson possuem distribuição exponencial
+ 
+ `\(T_{n}\)` = o tempo entre a (n − 1) e n-ésima ocorrência de eventos
+
+---
+### Distribuição de Poisson
+
+Seja `\(X\)` uma v.a. assumindo um dos valores 0, 1, 2, ..., possue distribuição de Poisson com parâmetro `\(\lambda\)`, se para algum `\(\lambda\)` &gt; 0:
+
+`$$X ∼ Poisson(\lambda)$$`
+
+cuja função de probabilidade é dada por
+
+`$$P(X = k) = \frac{\lambda^{k}e^{-\lambda}}{k!}$$`
+
+&lt;center&gt;&lt;img src="imagens/poisson.png" width="400" hight = "400"&gt;&lt;/center&gt;
+
+
+???
+_Seja a variável aleatória X o número de ocorrências por intervalo
+fixo (de tempo ou espaço). Dizemos que X tem distribuição de
+Poisson com parametro lambda_
+
+---
+## Processo de Contagem
+
+**Processo estocástico** = conjunto de variáveis aletórias que depende de um parâmetro t (tempo)
+
+O processo estocástico N(t) chama-se de contagem, se ele “conta” quantos eventos ocorreram durante o intervalo de tempo (0, t]
+
+### Propriedades:
+
+- N(t) `\(\geq\)` 0
+  
+- N(t) é um número inteiro
+  
+- Se s &lt; t, then N(s) `\(\leq\)` N(t) 
+ 
+- Para s &lt; t, N(t) − N(s) representa o número de eventos que ocorreram no intervalo (s, t]
+
+???
+é uma família de variáveis aleatórias representando a evolução de um sistema de valores com o tempo
+
+---
+Um processo de contagem N(t) é um processo de Poisson com intensidade `\(\lambda\)`, `\(\lambda\)` &gt; 0, se
+
+.pull-left[
+### Definição 1
+
+- No instante inicial nenhum evento ocorreu (N(0) = 0);
+  
+- N(t + s) − N(s) não depende do N(s) para quaisquer t;
+  
+- `$$P[N(t + s) − N(s) = n] = \frac{e^{-\lambda*t}*(\lambda*t)^{n}}{n!}$$` 
+
+com n = 0, 1,...  e s ≥ 0, t &gt; 0
+
+
+]
+
+--
+.pull-right[
+### Definição 2
+
+- Os tempos entre as ocorrências de um processo de Poisson possuem distribuição exponencial
+
+- Perda de memória 
+
+Se `$$T \sim Exponencial(\alpha)$$`
+Logo, 
+
+`$$P(T &gt; t + s/T &gt; t) = \frac{P(T &gt; t + s, T &gt; t)}{P(T &gt; t)} = \\ \frac{P(T &gt; t + s)}{P(T &gt; t)} =
+\frac{e^{-\alpha(t+s)}}{e^{-\alpha*t}} = e^{-\alpha*s} = P(T &gt; s)$$`
+
+
+]
+
+???
+
+_O Processo de Poisson pode ser um modelo para uma série de eventos discretos onde o tempo entre os eventos é conhecido, mas o tempo preciso dos eventos é aleatório. A chegada de uma ocasião é independente do evento anterior (o tempo de espera entre os eventos é sem memória)_
+
+_o processo tem incrementos independentes_
+
+_o número de eventos em qualquer intervalo de comprimento t é uma variável aleatória de Poisson com média λt_
+
+_Dist Exponencial = Frequentemente usada para modelar o tempo entre eventos que
+ocorrem a uma taxa m´edia constante_
+
+_A probabilidade de que o instrumento viva por pelo menos s + t horas, dado que tem
+sobreviveu t horas é o mesmo que a probabilidade inicial de que viva por pelo menos s horas_
+
+---
+
+## Contexto no trabalho
+
+_Aperto_ = evento de interesse
+
+_Tempo entre os apertos_ = tempos entre as ocorrências do possível processo de Poisson
+
+
+## Testes de exponencialidade
+
+### Gráfica
+
+- Histogramas da variável _Tempo entre apertos_ para cada bebê;
+
+
+### Kolmogorov - Smirnov
+
+- Estimação do parâmetro através da função _fitdistr_ 
+
+- Teste a partir da função _ks.test_
+
+ `$$ks.test(tempo\;entre\;apertos,"pexp", parâmetro\;estimado)$$`
+
+---
+
+- 22 x 36 gráficos
+
+- Os testes rejeitaram a hipótese para cada i-ésimo bebê no j-ésimo dia da k-ésima condição
+
+`$$H_{0}: Tempo \sim Exponencial(\lambda_{ijk})$$`\\
+`$$H_{1}: Tempo \neq Exponencial(\lambda_{ijk})$$`
+
+- Há indicíos de que não existe perda de mémoria
+
+- Não é possível aplicar o Teste de Significância Genuinamente Bayesiano
+---
+class: inverse center middle
+name: teste
+
+# Análise Inferencial II
+
+---
+## Teste de Kruskal-Walis
+
+- Teste Não Paramétrico;
+
+- Equivale ao Teste Pareado de Friedman da ANOVA de 1 fator em k níveis;
+
+- Comparação de três ou mais amostras independentes;
+
+- Determinar se há indícios de diferença entre as popelações;
+
+- Comparação dos grupos é realizada por meio da mediana dos postos;
+
+---
+
+### Suposição
+
+- As amostras são aleatórias e independentes entre si;
+
+- A escala de medidas é pelo menos ordinal
+
+- _n &gt; 6 por grupo e há mais do que 5 grupos:_ a significância de H pode ser determinada por recorrência à Tabela do Qui-quadrado
+
+- _n &lt; 6 e número de grupos ≤ 5:_ deve-se recorrer à tabelas especiais
+
+### Método
+
+Dado um Dia fixado:
+
+**Amostras** = Grupos,  
+
+**Tratamento** = Basal 1 x Basal 2,  
+
+**Menor posto** = ao menor valor,  
+
+**Maior posto** = ao maior valor, 
+
+
+`$$H_{0} = Todas\; as\; k\; distribuições\; são\; idênticas$$` 
+---
+## Passo a Passo
+
+1) Ordenar os dados
+
+2) Atribuir postos para cada valor
+
+3) Somar os postos dentro de cada grupo
+
+4) Aplicar a Estatística do Teste
+
+5) Comparar a Estatiística à uma distribuição qui-quadrado com df = número de grupos  
+
+`$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$` 
+
+com `\(R(X_{ij})\)` = posto($X_{ij}$) e   
+
+  
+`\(R_{i}\)` = `\(\sum^{n_{i}}_{j=1}R(X_{ij})\)` = soma dos postos associad a i-ésima amostra
+i = 1,2,...,k
+---
+## Próximos passos
+  
+
+- Reestruturação da Análise Descritiva com a segunda leva dos dados;  
+  
+
+- Aplicação dos Testes não Paramétricos;  
+  
+
+## Bibliografia
+
+
+[Pereira e Stern (1999)](https://teses.usp.br/teses/disponiveis/45/45133/tde-09072012-103238/pt-br.php)
+
+[Sheldon Ross - Introduce to probability models]()
+
+[Inferência Estatística Comparada - Notas de aula sobre Inferência Bayesiana]()
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
