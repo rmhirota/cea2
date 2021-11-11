@@ -7,9 +7,9 @@
     <meta name="author" content="Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel" />
     <meta name="author" content="Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota" />
     <meta name="author" content="Orientador: Prof. Dr. Luis Gustavo Esteves" />
-    <script src="apresentacao2_files/header-attrs/header-attrs.js"></script>
-    <link href="apresentacao2_files/panelset/panelset.css" rel="stylesheet" />
-    <script src="apresentacao2_files/panelset/panelset.js"></script>
+    <script src="apresentacao2_re_files/header-attrs/header-attrs.js"></script>
+    <link href="apresentacao2_re_files/panelset/panelset.css" rel="stylesheet" />
+    <script src="apresentacao2_re_files/panelset/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -74,10 +74,10 @@ top:1em;right:1em;
 ## Sumário
 
 ### 1. [Descrição do Estudo](#estudo)
-### 2. [Processo de Poisson](#processo)
-### 3. [Métodos não-paramétricos](#teste)
-### 4. [Próximos Passos](#proximos)
-### 5. [Bibliografia](#bibliografia)
+### 2. [Análise Inferencial I](#processo)
+### 3. [Análise Inferencial II](#teste)
+### 4. Próximos Passos
+### 5. Bibliografia
 
 ---
 class: inverse center middle
@@ -116,17 +116,10 @@ que o bebê atingisse o valor de pressão estipulado (duração = 4 min);
 - Processo de aleatorização na ordem das condições Contingente e Não Contingente;
 
 - Cruzamento de Grupo x Dia x Condição
-
-???
-22 bebês, dos quais nem todos têm dados completos
-grupos: 6, 8 e 8
-apresentação diferente
-muitos tratamentos se considerarmos todos os cruzamentos possíveis das variáveis
-
 ---
 class: inverse center middle
 name: processo
-# Processo de Poisson
+# Análise Inferencial I
 
 ---
 ### Ideia
@@ -150,33 +143,33 @@ name: processo
 
 ### Propriedades:
 
-- `\(N(t)\)` assume valores inteiros positivos
+- N(t) assume valores inteiros positivos
 
-- Se `\(s &lt; t\)`, então `\(N(s) \leq N(t)\)`
+- Se `\(s &lt; t\)`, então N(s) `\(\leq\)` N(t)
 
-- Para `\(s &lt; t\)`, `\(N(t) − N(s)\)` = o número de eventos que ocorreram no intervalo `\((s, t]\)`
+- Para `\(s &lt; t\)`, N(t) − N(s) = o número de eventos que ocorreram no intervalo `\((s, t]\)`
 
 ???
 é uma família de variáveis aleatórias representando a evolução de um sistema de valores com o tempo
 
 ---
-Um processo de contagem `\(N(t)\)` é um processo de Poisson com parâmetro `\(\lambda\)`, `\(\lambda\)` &gt; 0, se
+Um processo de contagem N(t) é um processo de Poisson com intensidade `\(\lambda\)`, `\(\lambda\)` &gt; 0, se
 
 .pull-left[
 ### Definição 1
 
-- `\(N(0) = 0\)`;
+- N(0) = 0;
 
 - O processo tem incrementos independentes
 
 `$$N(t_1) − N(t_0), \;N(t_2) − N(t_1)\; . . . \;N(t_n) − N(t_{n−1})$$`
 São variáveis aleatórias independentes para quaisquer `\(t_0 = 0 &lt; t_1 &lt; · · · &lt; t_n\)`,
 
-- `\(N(t) ~ Poisson(\lambda t)\)`
+- N(t) ~ Poisson($\lambda$t)
 
 `$$P[N(t) − N(0) = n] = \frac{e^{-\lambda*t}*(\lambda*t)^{n}}{n!}$$`
 
-com `\(n = 0, 1,...\)`  e `\(s ≥ 0, t &gt; 0\)`
+com n = 0, 1,...  e s ≥ 0, t &gt; 0
 
 
 ]
@@ -216,26 +209,20 @@ sobreviveu t horas é o mesmo que a probabilidade inicial de que viva por pelo m
 
 ### Testes de exponencialidade
 
-### Gráfico
+### Gráfica
 
-- Histogramas da variável _Tempo entre apertos_ para cada bebê (22 x 12);
+- Histogramas da variável _Tempo entre apertos_ para cada bebê (22 x 36);
 
 
-### Kolmogorov-Smirnov
+### Kolmogorov - Smirnov
 
 - Estimação do parâmetro através da função _fitdistr_
 
 - Teste a partir da função _ks.test_
 
-`ks.test(tempo entre apertos, "pexp", parâmetro estimado)`
+ `$$ks.test(tempo\;entre\;apertos,"pexp", parâmetro\;estimado)$$`
 
-
-| bebe| statistic|   p.value|method                             |alternative |
-|----:|---------:|---------:|:----------------------------------|:-----------|
-|    1| 0.6926546| 0.0000000|One-sample Kolmogorov-Smirnov test |two-sided   |
-|    2| 0.1792350| 0.0017047|One-sample Kolmogorov-Smirnov test |two-sided   |
-|    3| 0.3293864| 0.0000000|One-sample Kolmogorov-Smirnov test |two-sided   |
-
+ &lt;center&gt;&lt;img src="imagens/kstest.png" width="800" hight="800"&gt;&lt;/center&gt;
 
 ---
 
@@ -245,11 +232,13 @@ sobreviveu t horas é o mesmo que a probabilidade inicial de que viva por pelo m
 
 - Testes rejeitaram a hipótese de exponencialidade
 
-`$$H_{0}: Tempo_{ijk} \sim Exponencial(\alpha_{ijk})$$`
-`$$H_{1}: Tempo_{ijk} \not\sim Exponencial(\alpha_{ijk})$$`
+
+`$$H_{0}: Tempo_{ijk} \sim Exponencial(\alpha_{ijk})$$`\\
+`$$H_{1}: Tempo_{ijk} \neq Exponencial(\alpha_{ijk})$$`
 
 tal que `\(i\)` = i-ésimo bebê, `\(j\)` = j-ésimo dia de `\(k\)` = k-ésima condição
-&lt;br&gt;&lt;br&gt;
+
+- Há indicíos de que não existe perda de mémoria
 
 - Não foi possível associar um Processo de Poisson ao evento aperto
 
@@ -257,79 +246,20 @@ tal que `\(i\)` = i-ésimo bebê, `\(j\)` = j-ésimo dia de `\(k\)` = k-ésima c
 class: inverse center middle
 name: teste
 
-# Métodos não-paramétricos
+# Análise Inferencial II
 
 ---
-## Teste de Wilcoxon
+## Teste de Kruskal-Walis
 
 - Teste Não Paramétrico;
 
-- Equivale ao Teste T de Student;
-
-- Baseado nos postos das diferenças intrapares;
-
-- Função __wilcox.test__ do pacote __stats__
-
----
-
-### Suposição
-
-
-- Os dados não podem ser nominais;
-
-    Com base na amostra, é calculado `\(|D_i| = |Y_i - X_i|\)`, `\(i = 1,2,...,n'\)`
-
-- As diferenças `\(D_i\)` têm distribuição simétrica;
-
-- As diferenças `\(D_i\)` são independentes e têm todas a mesma mediana.
-
-
-### Método
-
-
-**X** = dados do dia `\(t_1\)`,
-
-**Y** = dados do dia `\(t_2\)`, com `\(t_1 &lt; t_2\)`
-
-**Menor posto** = menor valor `\(|D_i|\)`,
-
-**Maior posto** = maior valor `\(|D_i|\)`,
-
-
-`$$H_{0} = A \;mediana \;das \;diferenças \;d_{0.5} \;é \;zero.$$`
----
-## Passo a Passo
-
-1) Calcular as diferenças `\(d_i\)`, omitir diferenças nulas
-
-2) Atribuir postos `\(R_i\)` para cada valor, utilizando postos médios em caso de valores coincidentes
-
-3) Aplicar a Estatística do Teste T
-
-4) Comparar a Estatiística aos quantis da estatística de Wilcoxon
-
-
-
-`$$T = \sum^{n}_{i=1}R_i$$`
-
-com `\(n \leq n'\)` a quantidade de diferenças não nulas e
-
-`\(R_i\)` = Posto( `\(|D_i|\)` )
-
----
-## Teste de Kruskal-Wallis
-
-- Teste Não Paramétrico;
-
-- Equivale ao Teste Pareado de Friedman da ANOVA de 1 fator em `\(k\)` níveis;
+- Equivale ao Teste Pareado de Friedman da ANOVA de 1 fator em k níveis;
 
 - Comparação de três ou mais amostras independentes;
 
-- Determinar se há indícios de diferença entre as populações;
+- Determinar se há indícios de diferença entre as popelações;
 
 - Comparação dos grupos é realizada por meio da mediana dos postos;
-
-- Função __kruskal.test__ do pacote __stats__
 
 ---
 
@@ -339,25 +269,26 @@ com `\(n \leq n'\)` a quantidade de diferenças não nulas e
 
 - A escala de medidas é pelo menos ordinal
 
+- _n &gt; 6 por grupo e há mais do que 5 grupos:_ a significância de H pode ser determinada por recorrência à Tabela do Qui-quadrado
+
+- _n &lt; 6 e número de grupos ≤ 5:_ deve-se recorrer à tabelas especiais
+
 ### Método
 
-Dado um Dia e Condição fixados:
+Dado um Dia fixado:
 
-**Amostras** = Grupo 1, Grupo 2, Grupo 3
+**Amostras** = Grupos,
 
-**Menor posto** = menor valor
+**Tratamento** = Basal 1 x Basal 2,
 
-**Maior posto** = maior valor
+**Menor posto** = ao menor valor,
 
-$$
-`\begin{cases}
-H_{0} = \text{Todas as } k \text{ distribuições são idênticas} \\
-H_1 = \text{Ao menos uma das populações tende a produzir valores maiores que as outras}
-\end{cases}`
-$$
+**Maior posto** = ao maior valor,
 
+
+`$$H_{0} = Todas\; as\; k\; distribuições\; são\; idênticas$$`
 ---
-### Passo a Passo
+## Passo a Passo
 
 1) Ordenar os dados
 
@@ -367,21 +298,15 @@ $$
 
 4) Aplicar a Estatística do Teste
 
-5) Comparar a Estatística à uma distribuição qui-quadrado com df = número de grupos
+5) Comparar a Estatiística à uma distribuição qui-quadrado com df = número de grupos
 
 `$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$`
-&lt;br&gt;
-com `\(R(X_{ij}) = \text{posto}(X_{ij})\)` e
+
+com `\(R(X_{ij})\)` = posto($X_{ij}$) e
 
 
-`\(R_{i}\)` = `\(\sum^{n_{i}}_{j=1}R(X_{ij})\)` = soma dos postos associada a i-ésima amostra
-`\(i = 1,2,...,k\)`
-
----
-class: center, middle, inverse
-
-# Próximos passos
-
+`\(R_{i}\)` = `\(\sum^{n_{i}}_{j=1}R(X_{ij})\)` = soma dos postos associad a i-ésima amostra
+i = 1,2,...,k
 ---
 ## Próximos passos
 
@@ -389,29 +314,19 @@ class: center, middle, inverse
 - Reestruturação da Análise Descritiva com a segunda leva dos dados;
 
 
-- Aplicação dos Testes não Paramétricos.
-
+- Aplicação dos Testes não Paramétricos;
 
 
 ## Bibliografia
 
 
-PEREIRA, C. A.; STERN, J. . M. Evidence and credibility: full Bayesian significance
-test of precise hypotesis. Entropy, 1999.
+[Pereira e Stern (1999)](https://teses.usp.br/teses/disponiveis/45/45133/tde-09072012-103238/pt-br.php)
 
-ROSS, S. Introduction to Probability Models. Academic Press, 2006.
+[Sheldon Ross - Introduce to probability models]()
 
-CONOVER, W. J. Practical Nonparametric Statistics. John Wiley and Sons, 1999.
+[Inferência Estatística Comparada - Notas de aula sobre Inferência Bayesiana]()
 
 ---
-class: center, middle
-
-# Obrigada!
-
-### Dúvidas?
-
-[**slides**](https://rmhirota.github.io/cea2/pres/apresentacao2.html)&lt;br&gt;
-[**análises**](https://github.com/rmhirota/cea2)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
