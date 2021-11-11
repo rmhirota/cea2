@@ -271,11 +271,11 @@ name: teste
 
 **X** = dados do dia k,
 
-**Y** = dados do dia l, com k <l
+**Y** = dados do dia l, com k < l
  
 **Menor posto** = menor valor $|D_i|$,  
 
-**Maior posto** = maior valor$|D_i|$, 
+**Maior posto** = maior valor $|D_i|$, 
 
 
 $$H_{0} = A \;mediana \;das \;diferenças \;d_{0.5} \;é \;zero.$$ 
@@ -296,7 +296,7 @@ $$T = \sum^{n}_{i=1}R_i$$
 
 com $n \leq n'$ a quantidade de diferenças não nulas e 
 
-$R_i$ = Posto($|D_i|$)
+$R_i$ = Posto( $|D_i|$ )
 
 ---
 ## Teste de Kruskal-Walis
@@ -339,7 +339,8 @@ Dado um Dia fixado:
 
 
 $$H_{0} = Todas\; as\; k\; distribuições\; são\; idênticas$$ 
----m
+
+---
 ## Passo a Passo
 
 1) Ordenar os dados

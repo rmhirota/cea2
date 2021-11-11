@@ -7,6 +7,7 @@
     <meta name="author" content="Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel" />
     <meta name="author" content="Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota" />
     <meta name="author" content="Orientador: Prof. Dr. Luis Gustavo Esteves" />
+    <script src="apresentacao2_files/header-attrs/header-attrs.js"></script>
     <link href="apresentacao2_files/panelset/panelset.css" rel="stylesheet" />
     <script src="apresentacao2_files/panelset/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -250,6 +251,65 @@ name: teste
 # Análise Inferencial II
 
 ---
+## Teste de Wilcoxon
+
+- Teste Não Paramétrico;
+
+- Equivale ao Teste T de Student;
+
+- Baseado nos postos das diferenças intrapares;
+
+- Eficiência de aproximadamente 95% em amostras grandes e pequenas
+
+- Função __wilcox.test__ do pacote __stats__
+
+---
+
+### Suposição
+
+
+- Os dados não podem ser nominais;
+
+    Com base na amostra, é calculado `\(|D_i| = |Y_i - X_i|\)`, i = 1,2,...,n'
+
+- As diferenças `\(D_i\)` têm distribuição simétrica; 
+
+- As diferenças `\(D_i\)` são independentes e têm todas a mesma mediana.
+
+
+### Método
+
+
+**X** = dados do dia k,
+
+**Y** = dados do dia l, com k &lt; l
+ 
+**Menor posto** = menor valor `\(|D_i|\)`,  
+
+**Maior posto** = maior valor `\(|D_i|\)`, 
+
+
+`$$H_{0} = A \;mediana \;das \;diferenças \;d_{0.5} \;é \;zero.$$` 
+---
+## Passo a Passo
+
+1) Calcular as diferenças `\(d_i\)`, omitir diferenças nulas
+
+2) Atribuir postos `\(R_i\)` para cada valor, utilizando postos médios em caso de valores coincidentes
+
+3) Aplicar a Estatística do Teste T
+
+4) Comparar a Estatiística aos quantis da estatística de Wilcoxon
+
+
+
+`$$T = \sum^{n}_{i=1}R_i$$` 
+
+com `\(n \leq n'\)` a quantidade de diferenças não nulas e 
+
+`\(R_i\)` = Posto( `\(|D_i|\)` )
+
+---
 ## Teste de Kruskal-Walis
 
 - Teste Não Paramétrico;
@@ -258,9 +318,11 @@ name: teste
 
 - Comparação de três ou mais amostras independentes;
 
-- Determinar se há indícios de diferença entre as popelações;
+- Determinar se há indícios de diferença entre as populações;
 
 - Comparação dos grupos é realizada por meio da mediana dos postos;
+
+- Função __kruskal.test__ do pacote __stats__
 
 ---
 
@@ -288,6 +350,7 @@ Dado um Dia fixado:
 
 
 `$$H_{0} = Todas\; as\; k\; distribuições\; são\; idênticas$$` 
+
 ---
 ## Passo a Passo
 
@@ -306,8 +369,9 @@ Dado um Dia fixado:
 com `\(R(X_{ij})\)` = posto($X_{ij}$) e   
 
   
-`\(R_{i}\)` = `\(\sum^{n_{i}}_{j=1}R(X_{ij})\)` = soma dos postos associad a i-ésima amostra
+`\(R_{i}\)` = `\(\sum^{n_{i}}_{j=1}R(X_{ij})\)` = soma dos postos associada a i-ésima amostra
 i = 1,2,...,k
+
 ---
 ## Próximos passos
   
@@ -316,6 +380,7 @@ i = 1,2,...,k
   
 
 - Aplicação dos Testes não Paramétricos;  
+  
   
 
 ## Bibliografia
