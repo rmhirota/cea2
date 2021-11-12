@@ -133,9 +133,7 @@ name: processo
 ---
 ## Processo de Contagem
 
-**Processo estocástico** = conjunto de variáveis aleatórias que dependem do tempo
-
-"Conta" quantos eventos ocorreram durante o intervalo de tempo $(0, t]$
+Processo Estocástico que "Conta" quantos eventos ocorreram durante o intervalo de tempo $(0, t]$
 
 ### Propriedades:
 
@@ -145,8 +143,6 @@ name: processo
 
 - Para $s < t$, $N(t) − N(s)$ = o número de eventos que ocorreram no intervalo $(s, t]$
 
-???
-é uma família de variáveis aleatórias representando a evolução de um sistema de valores com o tempo
 
 ---
 Um processo de contagem $N(t)$ é um processo de Poisson com parâmetro $\lambda$, $\lambda$ > 0, se
