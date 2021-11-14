@@ -57,4 +57,29 @@ grafico <- function(g, n) {
 
 purrr::map2(bbs$grupo, bbs$nome, grafico)
 
+# Wilcoxon: Comparação entre dias
+da_spss <- readr::read_rds("data-raw/2_tidy_spss.rds")
+
+dia1 = as.matrix(da_spss %>% dplyr::filter(dia==1) %>% dplyr::select(freq_apertos))
+dia2 = as.matrix(da_spss %>% dplyr::filter(dia==2) %>% dplyr::select(freq_apertos))
+dia3 = as.matrix(da_spss %>% dplyr::filter(dia==3) %>% dplyr::select(freq_apertos))
+
+teste_w <- function(d, n) {
+  wilcox.test(d,n)
+}
+
+teste_w(dia1,dia2) #p-value = 0.2476, não rejeita a igualdade
+teste_w(dia1,dia3) #p-value = 0.3803, não rejeita a igualdade
+teste_w(dia2,dia3) #p-value = 0.6977, não rejeita a igualdade
+
+# Wilcoxon: Comparação entre grupos
+
+grupo1 = as.matrix(da_spss %>% dplyr::filter(grupo==1) %>% dplyr::select(freq_apertos))
+grupo2 = as.matrix(da_spss %>% dplyr::filter(grupo==2) %>% dplyr::select(freq_apertos))
+grupo3 = as.matrix(da_spss %>% dplyr::filter(grupo==3) %>% dplyr::select(freq_apertos))
+
+
+teste_w(grupo1,grupo2) #p-value = p-value = 0.004112, nrejeita-se a igualdade
+teste_w(grupo1,grupo3) #p-value = 0.008848, não rejeita a igualdade
+teste_w(grupo2,grupo3) # p-value = 0.8918, não rejeita a igualdade
 

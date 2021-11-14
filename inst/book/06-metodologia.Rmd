@@ -1,2 +1,26 @@
 # Metodologia {#metodologia}
 
+Nessa seção apresentamos a análise das variáveis brutas e agrupadas com o intuito de caracterizar a emergência e desenvolvimento da ação manipulativa de apertar em bebês. Devido as limitações encontradas no projeto, foram testadas metodologias paramétricas e não paramétricas. 
+As seguintes variáveis foram consideradas na etapa metodológica: 
+
+-	Variáveis brutas: Dia, Grupo, Condição, Tempo entre apertos 
+- Variáveis agrupadas: Frequência de apertos
+
+A seguir, serão apresentadas as metodologias aplicadas aos dados do estudo.
+
+## Análise da variável Tempo entre apertos
+
+Primeiramente, analisamos a variável tempo entre apertos a fim de entender se a mesma se ajustá a uma distribuição exponencial. Essa é frequentemente usada para modelar o tempo entre eventos que ocorrem a uma taxa média constante.
+
+Fixado um dia e condição do experimento, foram feitos histogramas da variável para cada bebê. Observamos que o gráfico para alguns casos não seguia o comporatamento de decaimento experado para dados cuja distribuião é exponencial.
+
+Em seguida, utilizamos o teste de Kolmogorov-Smirnov para verificar se de fato a suposição é rejeitada.
+   
+Para a maioria dos bebês observados os testes rejeitaram a hipótese de exponencialidade
+
+$$H_{0}: Tempo_{ijk} \sim Exponencial(\alpha_{ijk})$$
+$$H_{1}: Tempo_{ijk} \not\sim Exponencial(\alpha_{ijk})$$
+
+tal que $i$ = i-ésimo bebê, $j$ = j-ésimo dia de $k$ = k-ésima condição
+
+Dado que a distribuição exponencial é a única dentre as contínuas com a característica de perda de memória - a chegada de uma ocasião é independente do evento anterior - esse resultado indica que os apertos não ocorrem a uma taxa média constante. Ou seja, parece existir um possível aprendizado entre os participantes do estudo.
