@@ -289,11 +289,14 @@ tempo_video <- function(da, gr,c) {
 ## Grupo 1
 tempo_grupo1 <- tempo_video(da_diff_tempo, "b1","contingente")
 ggplot2::ggsave("analises/tempo_video_g1.jpeg", tempo_grupo1)
+ggplot2::ggsave("pres/plots/tempo_video_g1.jpeg", tempo_grupo1)
 
 ## Grupo 2
 tempo_grupo2 <- tempo_video(da_diff_tempo, "b2","contingente")
 ggplot2::ggsave("analises/tempo_video_g2.jpeg", tempo_grupo2)
+ggplot2::ggsave("pres/plots/tempo_video_g2.jpeg", tempo_grupo2)
 
 ## Grupo 3
 tempo_grupo3 <- tempo_video(da_diff_tempo, "b3","contingente")
 ggplot2::ggsave("analises/tempo_video_g3.jpeg", tempo_grupo3)
+ggplot2::ggsave("pres/plots/tempo_video_g3.jpeg", tempo_grupo3)

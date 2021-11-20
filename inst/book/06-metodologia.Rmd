@@ -1,26 +1,174 @@
 # Metodologia {#metodologia}
 
-Nessa seção apresentamos a análise das variáveis brutas e agrupadas com o intuito de caracterizar a emergência e desenvolvimento da ação manipulativa de apertar em bebês. Devido as limitações encontradas no projeto, foram testadas metodologias paramétricas e não paramétricas. 
-As seguintes variáveis foram consideradas na etapa metodológica: 
+Nessa seção apresentamos a análise inferencial com o intuito de caracterizar a emergência e desenvolvimento da ação manipulativa de apertar em bebês. Devido as limitações encontradas no projeto, foram testadas metodologias paramétricas e não paramétricas. A seguir, serão apresentadas os métodos aplicados aos dados do estudo.
 
--	Variáveis brutas: Dia, Grupo, Condição, Tempo entre apertos 
-- Variáveis agrupadas: Frequência de apertos
-
-A seguir, serão apresentadas as metodologias aplicadas aos dados do estudo.
-
-## Análise da variável Tempo entre apertos
+## Análise paramétrica
 
 Primeiramente, analisamos a variável tempo entre apertos a fim de entender se a mesma se ajustá a uma distribuição exponencial. Essa é frequentemente usada para modelar o tempo entre eventos que ocorrem a uma taxa média constante.
 
-Fixado um dia e condição do experimento, foram feitos histogramas da variável para cada bebê. Observamos que o gráfico para alguns casos não seguia o comporatamento de decaimento experado para dados cuja distribuião é exponencial.
-
-Em seguida, utilizamos o teste de Kolmogorov-Smirnov para verificar se de fato a suposição é rejeitada.
+Fixado um dia e condição do experimento, foram feitos histogramas da variável para cada bebê. Observamos que o gráfico para alguns casos não seguia o comporatamento de decaimento esperado para dados cuja distribuição é exponencial. Em seguida, utilizamos o teste de Kolmogorov-Smirnov para verificar se de fato a suposição é rejeitada.
    
-Para a maioria dos bebês observados os testes rejeitaram a hipótese de exponencialidade
+Para a maioria dos bebês observados os testes rejeitaram a hipótese de exponencialidade definida a seguir:
 
 $$H_{0}: Tempo_{ijk} \sim Exponencial(\alpha_{ijk})$$
 $$H_{1}: Tempo_{ijk} \not\sim Exponencial(\alpha_{ijk})$$
 
 tal que $i$ = i-ésimo bebê, $j$ = j-ésimo dia de $k$ = k-ésima condição
 
-Dado que a distribuição exponencial é a única dentre as contínuas com a característica de perda de memória - a chegada de uma ocasião é independente do evento anterior - esse resultado indica que os apertos não ocorrem a uma taxa média constante. Ou seja, parece existir um possível aprendizado entre os participantes do estudo.
+Dado que a distribuição exponencial é a única dentre as contínuas com a característica de perda de memória - a chegada de uma ocasião é independente do evento anterior - esse resultado pode ser um indício de que os apertos não ocorrem a uma taxa média constante. Ou seja, parece existir um possível aprendizado entre os participantes do estudo.
+
+## Análise não paramétrica
+
+Em conversa com a pesquisadora determinamos que a variável de maior interesse para o estudo é a frequência de apertos, visto que ela caracteriza a quantidade de apertos em relação ao tempo de cada sessão. Como explicado anteriormente, houve interrupção de coleta e cortes nos dados de alguns bebês, ocasionando uma variação nos tempos de experimento em cada condição.
+
+Conforme apontado na literatura (Wolfowitz, 1942) devemos nos referir a situação onde uma distribuição é completamente determinada pelo conhecimento de seu conjunto de parâmetros finitos como o caso paramétrico, e denotar o caso oposto, onde as formas funcionais das distribuições são desconhecidas, como o caso não paramétrico. Logo, como não foi possível verificar uma distribução conhecida para os dados propostos, decidimos seguir com testes não paramétricos.
+
+### Teste de Wilcoxon
+
+O primeiro teste escolhido é frequentemente usado no lugar do Teste t (paramétrico) quando as populações comparadas não são normalmente distribuídas. Ou seja, a hipótese nula pode ser definida da seguinte forma:
+
+$$ H_0: a\; mediana\; das\; diferenças\;é\; zero = as\;duas\; populações\; são\; iguais \\
+   H_1: caso\; contrário $$
+
+Com base na amostra são calculadas as diferenças
+
+$$ |D_i| = |Y_i - X_i| $$
+com $i$ = 1,2...$n^'$
+
+omitindo-se os valores nulos. Em seguida, atribui-se postos $R_i$ para cada valor, utilizando postos médios em caso de valores coincidentes. Por fim, a estatística
+$ T = \sum^{n}_{i=1}R_i $ é calculada e comparada aos quantis da estatística de Wilcoxon
+
+Obs: $n \leq n^'$ = quantidade de diferenças não nulas e $ R_i = Posto(|D_i|) $
+
+Algumas suposições do teste Wilcoxon são:
+
+- Os dados não podem ser nominais;
+- As diferenças $D_i$ têm distribuição simétrica;
+- As diferenças $D_i$ são independentes e possuem a mesma mediana
+
+### Interpretação dos resultados
+
+No contexto do trabalho, a ideia era comparar entre os dias do experimento a diferença da frequência de apertos nas condições basal 1 e basal 2.
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+#Wilcoxon: Comparação entre dias (basal 2 - basal 1)
+da_spss <- readr::read_rds("data-raw/2_tidy_spss.rds")
+
+da_wilcoxon <- da_spss %>%
+  dplyr::filter(condicao %in% c("bas", "pos")) %>%
+  dplyr::mutate(id = paste0(nome, grupo)) %>%
+  dplyr::select(id, dia, condicao, freq_apertos) %>%
+  tidyr::pivot_wider(names_from = condicao, values_from = freq_apertos) %>%
+  dplyr::mutate(dif_basal = (pos - bas)/bas)
+
+teste_w <- function(dia1, dia2, alt = "two.sided") {
+  d1 <- da_wilcoxon %>%
+    dplyr::filter(dia == dia1) %>%
+    dplyr::pull(dif_basal)
+  d2 <- da_wilcoxon %>%
+    dplyr::filter(dia == dia2) %>%
+    dplyr::pull(dif_basal)
+  wilcox.test(d1, d2, paired = TRUE, alternative = alt)
+}
+
+```
+
+Adotando 5% como nível de significância, a Tabela 5 nos mostra que a hipótese nula de igualdade entre o dia 1 e dia 2 é rejeitada (valor-p = 0.097). Porém, adotando um corte de 10% parece existir indicios de diferença entre essas sessões.
+
+```{r}
+# teste bicaudal
+teste_w(1, 2)  # diferença entre dias 1 e 2
+teste_w(1, 3)  # diferença entre dias 1 e 3
+teste_w(2, 3)  # diferença entre dias 2 e 3
+```
+
+Ao analisar a comparação dos dias 1 e 3 observa-se que há indicios de diferença entre as medianas das populações (valor-p = 0.709). O mesmo ocorre quando comparamos os dias 2 e 3 do experimento (valor-p = 0.330)
+
+### Teste de Kruskall-Wallis
+
+O teste proposto por Wallis é conhecido como um equivalente ao teste pareado de Friedman da ANOVA de 1 fator em $k$ níveis. Ele pode ser utilizado na comparação de três ou mais amostras independentes e determina se há indícios de diferença entre as populações.
+
+A comparação dos grupos é realizada por meio da mediana dos postos e a hipótese nula pode ser definida da seguinte forma:
+
+
+$$ H_0: todas\; as\; k\; distribuições\; são\; idênticas \\
+   H_1: ao\; menos\; uma\; população\; tende\; a\; produzir\; valores\; maiores\; que\; as\; outras $$
+
+Com base na amostra os dados são ordanados e em seguidas atribui-se postos para cada valor. Em seguida, esses valores devem ser somados dentro de cada grupo e a estatística do teste é calculada através da fórmula:
+
+$$ T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1) $$
+
+com $R(X_{ij}) = \text{posto}(X_{ij})$ e
+
+
+$R_{i}$ = $\sum^{n_{i}}_{j=1}R(X_{ij})$ = soma dos postos associada a i-ésima amostra
+$i = 1,2,...,k$
+
+Por fim, compara-se a estatística à uma distribuição qui-quadrado com graus de liberdade igual ao número de grupos.
+
+$$ |D_i| = |Y_i - X_i| $$
+com $i$ = 1,2...$n^'$
+
+omitindo-se os valores nulos. Em seguida, atribui-se postos $R_i$ para cada valor, utilizando postos médios em caso de valores coincidentes. Por fim, a estatística
+$ T = \sum^{n}_{i=1}R_i $ é calculada e comparada aos quantis da estatística de Wilcoxon
+   
+As suposições do teste de Kruskall-Wallis são:
+
+- As amostras são aleatórias e independentes entre si;
+- A escala de medidas é pelo menos ordinal;
+- As diferenças $D_i$ são independentes e possuem a mesma mediana
+
+### Interpretação dos resultados
+
+No contexto do trabalho, a ideia era comparar a frequência de apertos por condição do experimento, fixado um dia de sessão.
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# Kruskal-Wallis ----------------------------------------------------------
+
+da_spss <- readr::read_rds("data-raw/2_tidy_spss.rds")
+
+teste_kw <- function(cond, d) {
+  da <- da_spss %>%
+    dplyr::filter(condicao == cond, dia == d) %>%
+    dplyr::select(grupo, freq_apertos)
+  g1 <- dplyr::filter(da, grupo == 1)
+  g2 <- dplyr::filter(da, grupo == 2)
+  g3 <- dplyr::filter(da, grupo == 3)
+  kruskal.test(list(
+    g1$freq_apertos, g2$freq_apertos, g3$freq_apertos
+  ))
+}
+```
+
+```{r}
+# Contingente
+teste_kw("c", 1)  # dia 1
+teste_kw("c", 2)  # dia 2
+teste_kw("c", 3)  # dia 3
+```
+
+
+```{r}
+# Basal 1
+teste_kw("bas", 1)  # dia 1
+teste_kw("bas", 2)  # dia 2
+teste_kw("bas", 3)  # dia 3
+```
+
+
+```{r}
+# Basal 2
+teste_kw("pos", 1)  # dia 1
+teste_kw("pos", 2)  # dia 2
+teste_kw("pos", 3)  # dia 3
+```
+
+
+```{r}
+# Não contingente
+teste_kw("nc", 1)  # dia 1
+teste_kw("nc", 2)  # dia 2
+teste_kw("nc", 3)  # dia 3
+
+```
+
