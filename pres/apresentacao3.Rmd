@@ -189,3 +189,25 @@ para os dias 1 e 3 (p valor = 0,70) e 2 e 3 (p valor = 0,33)
 entre as medianas dos dias 1 e 2, pois o teste com $H_1 : Md1 > Md2$ resultou em um p valor de 0,04.
 
 - Assim, o teste revela que a mediana do dia 1 é maior do que a mediana do dia 2
+
+---
+
+### Teste de Kruskal Wallis
+
+- Com um nível de significância de 10%, é possível negar a 
+hipótese de igualdade de distribuição entre os grupos no dia 2, para a condição
+contingente (p valor = 0,08), mas não para os dias 1 (p valor = 0,45) e 
+3 (p valor = 0,71)
+--
+- Já para a condição basal 1, também ao nível de significância de 10%, apenas o 
+dia 3 mantém a hipótese de igualdade das distribuições (p valor = 0,84)
+--
+- Olhando a condição pos basal, todos os dias aparentam manter a mesma distribuição 
+dos grupos, com todos os valores p acima de 20%
+--
+- Por fim, olhando a condição não contingente, negamos a hipótese de igualdade 
+entre as distribuições dos grupos apenas para o dia 1 (p valor = 0,08), já que os
+dias 2 (p valor = 0,20) e 3 (p valor = 0,86) possuem p valor acima do nível de
+significância de 10%. 
+
+
