@@ -211,3 +211,4 @@ dias 2 (p valor = 0,20) e 3 (p valor = 0,86) possuem p valor acima do nível de
 significância de 10%. 
 
 
+
