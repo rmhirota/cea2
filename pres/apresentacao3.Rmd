@@ -1,7 +1,7 @@
 ---
 title: "Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade"
 # date: '`r Sys.Date()`'
-subtitle: "12-10-2021"
+subtitle: "30-11-2021"
 author: 
   - "Pesquisadora: Priscilla A. M. Ferronato"
   - "Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel"
@@ -75,151 +75,314 @@ name: estudo
 # Relembrando o Estudo
 
 ---
+## Sobre o estudo
+
+.pull-left[
 ### Objetivo
 
 - Entender a emergência e desenvolvimento do comportamento voluntário das mãos 
-em bebês de até três meses de idade;
+em bebês de até três meses de idade;  
 
---
 - Verificar se bebês de um a três meses são capazes de identificar uma relação 
-entre seus apertos e alterações no contexto ambiental;
+entre seus apertos e alterações no contexto ambiental;  
 
---
-- Identificar se há indícios de aprendizado ao longo dos dias de experimento.
-- 
+- Identificar se há indícios de aprendizado ao longo dos dias de experimento;
 
+- Identificar se há indicíos de diferença na frequência de apertos entre os três grupos distintos de bebês
 
+]
+
+.pull-rigt[
 ### Estrutura do experimento
 
 Dividido em 3 dias e 4 condições: 
 
-- **Condição Basal**: duração = 2 min;  
+- **Condição Basal**: sem nenhuma variação ambiental;  
 
-- **Contingente**:duração = 4 min;  
+- **Contingente**: vídeo aparecia se o bebê atingisse determinada pressão palmar;  
 
-- **Não Contingente**: duração = 4 min;  
+- **Não Contingente**: vídeo aparecia de forma automática e aleatória, sem que o bebê atingisse o valor de pressão estipulado;  
 
-- **Condição Basal 2**: duração = 2 min
-
-Os bebês deveriam ser apresentados a todas elas, e para cada um, os dados de 
-pressão palmar relacionados aos seus apertos eram registrados.
-
+- **Condição Basal 2**: segunda condição sem estímulo visual
+]
 
 ---
-### Limitações
+## Limitações
 
 - Interrupção de alguns processos de coleta de dados; 
+<br><br> 
   
 - Tempo de observação cortado para alguns bebês;  
+<br><br>
 
 - Número pequeno de participantes no estudo;
+<br><br>
 
 - Quantidade diferente de participantes em cada faixa etária;  
+<br><br>
 
 - Processo de aleatorização na ordem das condições Contingente e Não Contingente;
+<br><br> 
 
 - Cruzamento de Grupo x Dia x Condição 
-- 
+
 ---
 class: inverse center middle
 name: descritiva
 # Atualizando a Descritiva
 
 ---
-###Problemas na base
 
-- Após verificarmos algumas inconsistências na base, uma atualização por parte da 
-pesquisadora foi feita, e houve a necessidade de atualizar gráficos e tabelas
+**Após primeira apresentação:** 
 
---
-- Além disso, transformamos a escala do conjunto de boxplots em logarítmica, 
+<br><br> 
+
+- Segundo corte na base realizado;
+<br><br> 
+
+- Avaliação da _Frequência de apertos_ ao invés do _Número de apertos_;
+<br><br>
+
+- Transformação da escala do conjunto de boxplots em logarítmica, 
 para melhor visualização dos resultados
+<br><br>
+
+- Definição de uma nova variável: Tempo entre apertos
 
 ---
-###Boxplots
+## Boxplots
 
+.left-column[
+### Tempo entre vídeos (Grupo 1 - Contingente)
 
+- Comportamento entre indivíduos de um mesmo grupo é heterogêneo
+
+- A extenção dos boxplots indica uma grande variabilidade nessa variável.
+]
+
+.right-column[
+<img src="imagens/tempo_video_g1.jpeg" width="750">
+]
+
+---
+
+.left-column[
+### Tempo entre vídeos (Grupo 2 - Contingente)
+
+- É o mais homogêneo quanto a variável tempo entre vídeos
+
+- A maior diferença se dá com o bebê 8, que não tem dados para o dia 1, e possui valores maiores no dia 2. 
+]
+
+.right-column[
+<img src="imagens/tempo_video_g2.jpeg" width="750">
+]
+---
+.left-column[
+### Tempo entre vídeos (Grupo 3 - Contingente)
+
+- Comportamento entre indivíduos de um mesmo grupo é heterogêneo
+
+- A variabilidade do tempo entre vídeos é menor se comparado aos bebês com um mês de idade
+
+]
+
+.right-column[
+<img src="imagens/tempo_video_g3.jpeg" width="750">
+]
 ---
 class: inverse center middle
 name: processo
 # Análise Inferencial
 
 ---
+
+### Tempo entre apertos
+
+**Objetivo:** entender se a mesma se ajusta a uma distribuição exponencial
+
+- Distribuição frequentemente usada para modelar o tempo entre eventos que ocorrem a uma taxa média constante
+
+- Indicaria que chegada de um aperto é independente do evento anterior
+
+<center><img src="imagens/expo.png" width="500" hight="500"></center>
+
+---
+
+Para a maioria dos bebês observados os testes de Kolmogorov-Smirnov rejeitaram a hipótese de exponencialidade dado por:
+
+$$H_{0}: Tempo_{ijk} \sim Exponencial(\alpha_{ijk})$$
+$$H_{1}: Tempo_{ijk} \not\sim Exponencial(\alpha_{ijk})$$
+
+tal que $i$ = i-ésimo bebê, $j$ = j-ésimo dia de $k$ = k-ésima condição
+
+```{r echo = FALSE}
+bbs <- list(
+  grupo = c("b1", "b2", "b3"),
+  nome = c("eduarda", "arthur", "nicolas")
+)
+
+teste_ks <- function(g, n) {
+  bb <- cea2::da_tidy %>%
+  dplyr::filter(
+    grupo == g, nome == n, condicao == "contingente", dia == "1"
+  )  %>%
+  dplyr::arrange(dia, tempo) %>%
+  dplyr::filter(status_aperto %in% c("inicio", "fim")) %>%
+  dplyr::mutate(diff_aperto = dplyr::case_when(
+    status_aperto == "inicio" & dplyr::lag(status_aperto) == "fim"
+    ~ (tempo - dplyr::lag(tempo))
+  )) %>%
+  dplyr::filter(!is.na(diff_aperto)) %>%
+  dplyr::pull(diff_aperto)
+
+  fit <- MASS::fitdistr(bb, "exponential")
+  ks.test(bb, "pexp", fit$estimate) %>%
+    broom::tidy()
+}
+
+purrr::map2_dfr(bbs$grupo, bbs$nome, teste_ks) %>%
+  dplyr::mutate(bebe = c(1, 2, 3)) %>%
+  dplyr::relocate(bebe) %>%
+  knitr::kable()
+
+```
+
+
+--- 
+
+### Primeira Conclusão
+
+- Distribuição exponencial é a única dentre as contínuas com a característica de perda de memória; 
+
+- Indício de que os apertos não ocorrem a uma taxa média constante;
+
+- Parece existir um possível aprendizado entre os participantes do estudo, pois um aperto depende dos anteriores
+
+---
+
 ### Teste de Kruskal Wallis
 
+**Objetivo:** comparar a frequência de apertos por grupo, fixado um dia de sessão e uma condição experimental
+
+<br><br> 
+
 - Teste não paramétrico para verificar a igualdade de distribuições entre os grupos
+<br><br> 
 
---
-- Necessário fixar dia e condição
+$$
+\begin{cases}
+H_{0} = \text{Todas as } três \text{ distribuições são idênticas} \\
+H_1 = \text{Ao menos uma das populações tende a produzir valores maiores que as outras}
+\end{cases}
+$$
 
---
-  - Calcula postos para as observações e os soma por grupo
+<br><br> 
   
---  
-  - Estatística do teste
+
+- Estatística do teste
   
   
 $$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$ 
 ---
 
-### Teste de Wilcoxon
-
-- Teste não paramétrico para verificar igualdade entre as medianas das condições, 
-comparando os dias dois a dois
-
---
-  - Calcula postos para as diferenças $D_i$ = $|Y_i - X_i|$
-  
---
-  - Estatística do teste
-  
-  
-$$T = \sum^{n}_{i=1}R_i$$ 
-### Estimador da taxa de falha não paramétrico
-
-- Considerando a falha como a primeira ativação do vídeo (condição contingente)
-
---
-- Estimação da taxa de falha com métodos não paramétricos
-
-
----
-class: inverse center middle
-name: teste
-# Resultados e Interpretações
-
----
-
-### Teste de Kruskal Wallis
+## Resultados e Interpretações
 
 - Com um nível de significância de 10%, é possível negar a 
 hipótese de igualdade de distribuição entre os grupos no dia 2, para a condição
 contingente (p valor = 0,08), mas não para os dias 1 (p valor = 0,45) e 
 3 (p valor = 0,71)
 
+<br>
+
 - Já para a condição basal 1, também ao nível de significância de 10%, apenas o 
 dia 3 mantém a hipótese de igualdade das distribuições (p valor = 0,84)
 
+<br> 
+
 - Olhando a condição pos basal, todos os dias aparentam manter a mesma distribuição 
 dos grupos, com todos os valores p acima de 20%
---
+
+<br>
+
 - Por fim, olhando a condição não contingente, negamos a hipótese de igualdade 
 entre as distribuições dos grupos apenas para o dia 1 (p valor = 0,08), já que os
 dias 2 (p valor = 0,20) e 3 (p valor = 0,86) possuem p valor acima do nível de
 significância de 10%. 
 
 ---
-
 ### Teste de Wilcoxon
+
+**Objetivo:** comparar entre os dias do experimento a diferença da frequência de apertos nas condições basal 1 e basal 2. Temos uma amostra de dados pareados pois são observados os mesmos bebês em diferentes dias do experimento.
+
+<br>
+
+- Teste não paramétrico para verificar igualdade entre as medianas das condições, 
+comparando os dias dois a dois
+
+<br>
+
+$$
+\begin{cases}
+H_{0} = \text{a mediana das diferenças é zero: as duas populações são iguais} \\
+H_1 = \text{caso contrário}
+\end{cases}
+$$
+- Calcula postos para as diferenças $D_i$ = $|Y_i - X_i|$
+<br>
+
+- Estatística do teste
+  
+  
+$$T = \sum^{n}_{i=1}R_i$$ 
+
+---
+
+## Resultados e Interpretações
+
 
 - Com um nível de significância de 10% em um teste bicaudal, é possível negar a 
 hipótese de igualdade entre as medianas do dia 1 e 2 (p valor = 0,09), mas não 
 para os dias 1 e 3 (p valor = 0,70) e 2 e 3 (p valor = 0,33)
 
--Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
-entre as medianas dos dias 1 e 2, pois o teste com $H_1 : Md1 > Md2$ resultou em um p valor de 0,04.
+<br><br>
+
+- Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
+entre as medianas dos dias 1 e 2, pois o teste com $H_1 : Md1 > Md2$ resultou em um p valor de 0,04;
+
+<br><br>
 
 - Assim, o teste revela que a mediana do dia 1 é maior do que a mediana do dia 2
+
+
+---
+
+### Estimador da taxa de falha não paramétrico
+
+- Condição Contingente
+
+<br> 
+
+- Estudar o tempo desde o instante inicial até a ocorrência da primeira ativação do vídeo (falha);
+
+<br>
+
+- Estimação da taxa de falha com métodos não paramétricos
+
+### Estimador de Kaplan-Meier
+
+**Objetivo:** medir a _Função de sobrevivência_ que nos diz a probabilidade de ocorrência do evento depois de o tempo $t$
+
+---
+
+Um gráfico do estimador Kaplan-Meier é uma série de passos horizontais decrescentes que, com um tamanho de amostra grande o suficiente, se aproxima da verdadeira função de sobrevivência para aquela população
+
+---
+class: inverse center middle
+name: teste
+# Conclusões
+
+---
 
 
 
