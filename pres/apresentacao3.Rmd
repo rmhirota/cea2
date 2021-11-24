@@ -139,7 +139,6 @@ class: inverse center middle
 name: processo
 # Análise Inferencial
 
-
 ---
 
 ### Teste de Wilcoxon
@@ -172,3 +171,21 @@ $$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2
 --
 - Estimação da taxa de falha com métodos não paramétricos
 
+
+---
+class: inverse center middle
+name: teste
+# Resultados e Interpretações
+
+---
+
+### Teste de Wilcoxon
+
+- Com um nível de significância de 10% em um teste bicaudal, é possível negar a 
+hipótese de igualdade entre as medianas do dia 1 e 2 (p valor = 0,09), mas não 
+para os dias 1 e 3 (p valor = 0,70) e 2 e 3 (p valor = 0,33)
+
+-Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
+entre as medianas dos dias 1 e 2, pois o teste com $H_1 : Md1 > Md2$ resultou em um p valor de 0,04.
+
+- Assim, o teste revela que a mediana do dia 1 é maior do que a mediana do dia 2
