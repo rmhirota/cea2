@@ -1,3 +1,8 @@
 # Resumo {#resumo}
 
+A literatura  na área da saúde aponta, em geral, que o desenvolvimento infantil é fruto da interação entre o sujeito consigo mesmo e com o ambiente ao seu redor.
+O estudo analisado neste relatório estatístico busca identificar se os movimentos de apertar em bebês de até três meses de idade alteram-se ao longo de três sessões de prática nas diversas situações experimentais definidas pela pesquisadora. A partir desse objetivo, foram construídos testes não paramétricos a fim de entender se há diferença na frequência de apertos dos participantes em cada um dos cenários observados.
+Eram esperados diferentes padrões de apertar em cada condição experimental e que este padrão se modificasse com o aumento da idade dos participantes. Ademais,também era desejado que os kovimentos apresentassem diferenças do primeiro para o terceiro dia de participação no experimento, caracterizando uma crescente automonia dos bebês no controle das mãos com o aumento da idade.
+Concluiu-se que, de modo geral, 
+
 
