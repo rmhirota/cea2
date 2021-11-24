@@ -1,0 +1,174 @@
+---
+title: "Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade"
+# date: '`r Sys.Date()`'
+subtitle: "12-10-2021"
+author: 
+  - "Pesquisadora: Priscilla A. M. Ferronato"
+  - "Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel"
+  - "Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota"
+  - "Orientador: Prof. Dr. Luis Gustavo Esteves"
+
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  fig.showtext = TRUE,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+# library(xaringanthemer)
+# style_mono_accent(
+#   base_color = "#1c5253",
+#   header_font_google = google_font("Josefin Sans"),
+#   text_font_google   = google_font("Montserrat", "300", "300i"),
+#   code_font_google   = google_font("Fira Mono")
+# )
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo("imagens/ime.png")
+```
+
+```{r xaringan-scribble, echo=FALSE}
+# xaringanExtra::use_scribble()
+```
+
+```{r dados, include=FALSE}
+library(magrittr)
+```
+
+
+## Sumário
+
+### 1. [Relembrando o Estudo](#estudo)
+### 2. [Atualizando a descritiva](#descritiva)
+### 3. [Análise Inferencial](#processo)
+### 4. [Resultados e Interpretações](#teste)
+### 5. Conclusões
+### 6. Bibliografia
+
+---
+class: inverse center middle
+name: estudo
+# Relembrando o Estudo
+
+---
+### Objetivo
+
+- Entender a emergência e desenvolvimento do comportamento voluntário das mãos 
+em bebês de até três meses de idade;
+--
+- Verificar se bebês de um a três meses são capazes de identificar uma relação 
+entre seus apertos e alterações no contexto ambiental;
+--
+- Identificar se há indícios de aprendizado ao longo dos dias de experimento.
+
+
+### Estrutura do experimento
+
+Dividido em 3 dias e 4 condições: 
+
+- **Condição Basal**: duração = 2 min;  
+
+- **Contingente**:duração = 4 min;  
+
+- **Não Contingente**: duração = 4 min;  
+
+- **Condição Basal 2**: duração = 2 min
+
+Os bebês deveriam ser apresentados a todas elas, e para cada um, os dados de 
+pressão palmar relacionados aos seus apertos eram registrados.
+
+
+---
+### Limitações
+
+- Interrupção de alguns processos de coleta de dados; 
+  
+- Tempo de observação cortado para alguns bebês;  
+
+- Número pequeno de participantes no estudo;
+
+- Quantidade diferente de participantes em cada faixa etária;  
+
+- Processo de aleatorização na ordem das condições Contingente e Não Contingente;
+
+- Cruzamento de Grupo x Dia x Condição 
+---
+class: inverse center middle
+name: descritiva
+# Atualizando a Descritiva
+
+---
+###Problemas na base
+
+- Após verificarmos algumas inconsistências na base, uma atualização por parte da 
+pesquisadora foi feita, e houve a necessidade de atualizar gráficos e tabelas
+--
+- Além disso, transformamos a escala do conjunto de boxplots em logarítmica, 
+para melhor visualização dos resultados
+
+---
+###Boxplots
+
+
+---
+class: inverse center middle
+name: processo
+# Análise Inferencial
+
+
+---
+
+### Teste de Wilcoxon
+
+- Teste não paramétrico para verificar igualdade entre as medianas das condições, 
+comparando os dias dois a dois
+--
+  - Calcula postos para as diferenças $D_i$ = $|Y_i - X_i|$
+--
+  - Estatística do teste
+  
+$$T = \sum^{n}_{i=1}R_i$$ 
+
+---
+### Teste de Kruskal Wallis
+
+- Teste não paramétrico para verificar a igualdade de distribuições entre os grupos
+--
+- Necessário fixar dia e condição
+--
+  - Calcula postos para as observações e os soma por grupo
+--  
+  - Estatística do teste
+  
+$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$ 
+---
+### Estimador da taxa de falha não paramétrico
+
+- Considerando a falha como a primeira ativação do vídeo (condição contingente)
+--
+- Estimação da taxa de falha com métodos não paramétricos
+
