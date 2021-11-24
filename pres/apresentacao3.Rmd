@@ -79,11 +79,14 @@ name: estudo
 
 - Entender a emergência e desenvolvimento do comportamento voluntário das mãos 
 em bebês de até três meses de idade;
+
 --
 - Verificar se bebês de um a três meses são capazes de identificar uma relação 
 entre seus apertos e alterações no contexto ambiental;
+
 --
 - Identificar se há indícios de aprendizado ao longo dos dias de experimento.
+- 
 
 
 ### Estrutura do experimento
@@ -116,6 +119,7 @@ pressão palmar relacionados aos seus apertos eram registrados.
 - Processo de aleatorização na ordem das condições Contingente e Não Contingente;
 
 - Cruzamento de Grupo x Dia x Condição 
+- 
 ---
 class: inverse center middle
 name: descritiva
@@ -126,6 +130,7 @@ name: descritiva
 
 - Após verificarmos algumas inconsistências na base, uma atualização por parte da 
 pesquisadora foi feita, e houve a necessidade de atualizar gráficos e tabelas
+
 --
 - Além disso, transformamos a escala do conjunto de boxplots em logarítmica, 
 para melhor visualização dos resultados
@@ -140,34 +145,40 @@ name: processo
 # Análise Inferencial
 
 ---
+### Teste de Kruskal Wallis
+
+- Teste não paramétrico para verificar a igualdade de distribuições entre os grupos
+
+--
+- Necessário fixar dia e condição
+
+--
+  - Calcula postos para as observações e os soma por grupo
+  
+--  
+  - Estatística do teste
+  
+  
+$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$ 
+---
 
 ### Teste de Wilcoxon
 
 - Teste não paramétrico para verificar igualdade entre as medianas das condições, 
 comparando os dias dois a dois
+
 --
   - Calcula postos para as diferenças $D_i$ = $|Y_i - X_i|$
+  
 --
   - Estatística do teste
+  
   
 $$T = \sum^{n}_{i=1}R_i$$ 
-
----
-### Teste de Kruskal Wallis
-
-- Teste não paramétrico para verificar a igualdade de distribuições entre os grupos
---
-- Necessário fixar dia e condição
---
-  - Calcula postos para as observações e os soma por grupo
---  
-  - Estatística do teste
-  
-$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$ 
----
 ### Estimador da taxa de falha não paramétrico
 
 - Considerando a falha como a primeira ativação do vídeo (condição contingente)
+
 --
 - Estimação da taxa de falha com métodos não paramétricos
 
@@ -176,6 +187,26 @@ $$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2
 class: inverse center middle
 name: teste
 # Resultados e Interpretações
+
+---
+
+### Teste de Kruskal Wallis
+
+- Com um nível de significância de 10%, é possível negar a 
+hipótese de igualdade de distribuição entre os grupos no dia 2, para a condição
+contingente (p valor = 0,08), mas não para os dias 1 (p valor = 0,45) e 
+3 (p valor = 0,71)
+
+- Já para a condição basal 1, também ao nível de significância de 10%, apenas o 
+dia 3 mantém a hipótese de igualdade das distribuições (p valor = 0,84)
+
+- Olhando a condição pos basal, todos os dias aparentam manter a mesma distribuição 
+dos grupos, com todos os valores p acima de 20%
+--
+- Por fim, olhando a condição não contingente, negamos a hipótese de igualdade 
+entre as distribuições dos grupos apenas para o dia 1 (p valor = 0,08), já que os
+dias 2 (p valor = 0,20) e 3 (p valor = 0,86) possuem p valor acima do nível de
+significância de 10%. 
 
 ---
 
@@ -190,25 +221,9 @@ entre as medianas dos dias 1 e 2, pois o teste com $H_1 : Md1 > Md2$ resultou em
 
 - Assim, o teste revela que a mediana do dia 1 é maior do que a mediana do dia 2
 
----
 
-### Teste de Kruskal Wallis
 
-- Com um nível de significância de 10%, é possível negar a 
-hipótese de igualdade de distribuição entre os grupos no dia 2, para a condição
-contingente (p valor = 0,08), mas não para os dias 1 (p valor = 0,45) e 
-3 (p valor = 0,71)
---
-- Já para a condição basal 1, também ao nível de significância de 10%, apenas o 
-dia 3 mantém a hipótese de igualdade das distribuições (p valor = 0,84)
---
-- Olhando a condição pos basal, todos os dias aparentam manter a mesma distribuição 
-dos grupos, com todos os valores p acima de 20%
---
-- Por fim, olhando a condição não contingente, negamos a hipótese de igualdade 
-entre as distribuições dos grupos apenas para o dia 1 (p valor = 0,08), já que os
-dias 2 (p valor = 0,20) e 3 (p valor = 0,86) possuem p valor acima do nível de
-significância de 10%. 
+
 
 
 
