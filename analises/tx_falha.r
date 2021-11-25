@@ -41,6 +41,40 @@ ajuste <- survival::survfit(
 )
 survminer::ggsurvplot(ajuste)
 
+# Por grupo
+
+da_1o_video_grupo <- function(grupo){
+  da_diff_tempo %>%
+  dplyr::filter(grupo == grupo,condicao == "contingente", video == TRUE) %>%
+  dplyr::group_by(nome, dia) %>%
+  dplyr::summarise(
+    t_1o_video = dplyr::first(tempo),
+    video = dplyr::first(video),
+    .groups = "drop"
+  ) %>%
+  dplyr::mutate(
+    dia = as.factor(dia),
+    video = ifelse(video, 1, 0)
+  )
+}
+
+ajuste1 <- survival::survfit(
+  survival::Surv(time = t_1o_video, event = video) ~  dia,
+  data = da_1o_video_grupo('b1')
+)
+survminer::ggsurvplot(ajuste1)
+
+ajuste2 <- survival::survfit(
+  survival::Surv(time = t_1o_video, event = video) ~  dia,
+  data = da_1o_video_grupo('b2')
+)
+survminer::ggsurvplot(ajuste2)
+
+ajuste3 <- survival::survfit(
+  survival::Surv(time = t_1o_video, event = video) ~  dia,
+  data = da_1o_video_grupo('b3')
+)
+survminer::ggsurvplot(ajuste3)
 
 # bshazard
 fit <- bshazard::bshazard(

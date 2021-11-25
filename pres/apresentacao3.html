@@ -75,7 +75,6 @@ top:1em;right:1em;
 ### 1. [Relembrando o Estudo](#estudo)
 ### 2. [Atualizando a descritiva](#descritiva)
 ### 3. [Análise Inferencial](#processo)
-### 4. [Resultados e Interpretações](#teste)
 ### 5. Conclusões
 ### 6. Bibliografia
 
@@ -89,9 +88,6 @@ name: estudo
 
 .pull-left[
 ### Objetivo
-
-- Entender a emergência e desenvolvimento do comportamento voluntário das mãos 
-em bebês de até três meses de idade;  
 
 - Verificar se bebês de um a três meses são capazes de identificar uma relação 
 entre seus apertos e alterações no contexto ambiental;  
@@ -143,7 +139,7 @@ name: descritiva
 
 ---
 
-**Após primeira apresentação:** 
+##Após primeira apresentação:
 
 &lt;br&gt;&lt;br&gt; 
 
@@ -271,6 +267,40 @@ $$
 `$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$` 
 ---
 
+
+**Contingente**
+
+| statistic|   p.value| parameter|method                       |
+|---------:|---------:|---------:|:----------------------------|
+| 1.5563241| 0.4592493|         2|Kruskal-Wallis rank sum test |
+| 4.8621554| 0.0879420|         2|Kruskal-Wallis rank sum test |
+| 0.6745258| 0.7137212|         2|Kruskal-Wallis rank sum test |
+
+**Não Contingente**
+
+| statistic|   p.value| parameter|method                       |
+|---------:|---------:|---------:|:----------------------------|
+| 4.9282622| 0.0850827|         2|Kruskal-Wallis rank sum test |
+| 3.1808300| 0.2038410|         2|Kruskal-Wallis rank sum test |
+| 0.2970006| 0.8619997|         2|Kruskal-Wallis rank sum test |
+
+**Basal 1**
+
+| statistic|   p.value| parameter|method                       |
+|---------:|---------:|---------:|:----------------------------|
+| 8.4229249| 0.0148247|         2|Kruskal-Wallis rank sum test |
+| 4.6432806| 0.0981125|         2|Kruskal-Wallis rank sum test |
+| 0.3395176| 0.8438683|         2|Kruskal-Wallis rank sum test |
+
+**Basal 2**
+
+| statistic|   p.value| parameter|method                       |
+|---------:|---------:|---------:|:----------------------------|
+| 2.7440515| 0.2535927|         2|Kruskal-Wallis rank sum test |
+| 2.9850649| 0.2248026|         2|Kruskal-Wallis rank sum test |
+| 0.8924057| 0.6400539|         2|Kruskal-Wallis rank sum test |
+
+---
 ## Resultados e Interpretações
 
 - Com um nível de significância de 10%, é possível negar a 
@@ -285,7 +315,7 @@ dia 3 mantém a hipótese de igualdade das distribuições (p valor = 0,84)
 
 &lt;br&gt; 
 
-- Olhando a condição pos basal, todos os dias aparentam manter a mesma distribuição 
+- Olhando a condição basal 2, todos os dias aparentam manter a mesma distribuição 
 dos grupos, com todos os valores p acima de 20%
 
 &lt;br&gt;
@@ -298,12 +328,12 @@ significância de 10%.
 ---
 ### Teste de Wilcoxon
 
-**Objetivo:** comparar entre os dias do experimento a diferença da frequência de apertos nas condições basal 1 e basal 2. Temos uma amostra de dados pareados pois são observados os mesmos bebês em diferentes dias do experimento.
+**Objetivo:** comparar entre os dias do experimento, a diferença da frequência de apertos na condição basal 2. Temos uma amostra de dados pareados pois são observados os mesmos bebês em diferentes dias do experimento.
 
 &lt;br&gt;
 
-- Teste não paramétrico para verificar igualdade entre as medianas das condições, 
-comparando os dias dois a dois
+- Teste não paramétrico para verificar igualdade entre as medianas dos dias, 
+comparando-os dois a dois
 
 &lt;br&gt;
 
@@ -322,22 +352,52 @@ $$
 `$$T = \sum^{n}_{i=1}R_i$$` 
 
 ---
+### Basal 2
 
+
+
+### Teste Bicaudal
+
+
+| statistic|   p.value|method                          |alternative |
+|---------:|---------:|:-------------------------------|:-----------|
+|       151| 0.0896950|Wilcoxon signed rank exact test |two.sided   |
+|       135| 0.1133766|Wilcoxon signed rank exact test |two.sided   |
+|        76| 0.2942524|Wilcoxon signed rank exact test |two.sided   |
+
+### Teste Unicaudal
+
+
+
+
+
+| statistic|   p.value|method                          |alternative |
+|---------:|---------:|:-------------------------------|:-----------|
+|       151| 0.0448475|Wilcoxon signed rank exact test |greater     |
+|       135| 0.0566883|Wilcoxon signed rank exact test |greater     |
+|        76| 0.8613224|Wilcoxon signed rank exact test |greater     |
+
+---
 ## Resultados e Interpretações
 
 
 - Com um nível de significância de 10% em um teste bicaudal, é possível negar a 
-hipótese de igualdade entre as medianas do dia 1 e 2 (p valor = 0,09), mas não 
-para os dias 1 e 3 (p valor = 0,70) e 2 e 3 (p valor = 0,33)
+hipótese de igualdade entre as medianas do dia 1 e 2 (valor-p = 0,09), mas não 
+para os dias 1 e 3 (valor-p = 0,11) e 2 e 3 (valor-p = 0,29)
 
-&lt;br&gt;&lt;br&gt;
+&lt;br&gt;
 
 - Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
-entre as medianas dos dias 1 e 2, pois o teste com `\(H_1 : Md1 &gt; Md2\)` resultou em um p valor de 0,04;
+entre as medianas dos dias 1 e 2, pois o teste com `\(H_1 : Md1 &gt; Md2\)` resultou em um valor-p = 0,04;
 
-&lt;br&gt;&lt;br&gt;
+&lt;br&gt;
 
-- Assim, o teste revela que a mediana do dia 1 é maior do que a mediana do dia 2
+- Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
+entre as medianas dos dias 1 e 3, pois o teste com `\(H_1 : Md1 &gt; Md3\)` resultou em um valor-p = 0,07;
+
+&lt;br&gt;
+
+- Assim, o teste revela que a mediana do dia 1 é maior do que as demais
 
 
 ---
@@ -352,7 +412,8 @@ entre as medianas dos dias 1 e 2, pois o teste com `\(H_1 : Md1 &gt; Md2\)` resu
 
 &lt;br&gt;
 
-- Estimação da taxa de falha com métodos não paramétricos
+- Comparação entre dias para garantir uma independência (abertura por grupo apresentou o mesmo comportamento)
+
 
 ### Estimador de Kaplan-Meier
 
@@ -360,7 +421,11 @@ entre as medianas dos dias 1 e 2, pois o teste com `\(H_1 : Md1 &gt; Md2\)` resu
 
 ---
 
-Um gráfico do estimador Kaplan-Meier é uma série de passos horizontais decrescentes que, com um tamanho de amostra grande o suficiente, se aproxima da verdadeira função de sobrevivência para aquela população
+&lt;center&gt;&lt;img src="imagens/survival_dia.png" width="500" hight="750"&gt;
+
+- Considerando todos os grupos como uma unidade, a probabilidade de ativar o vídeo pela primeira vez nos primeiros milisegundos é maior no dia 3;
+
+- No entanto, a probabilidade de ativar o vídeo pela primeira vez após os 50 primeiros milisegundos é maior no dia 2;
 
 ---
 class: inverse center middle
@@ -368,6 +433,24 @@ name: teste
 # Conclusões
 
 ---
+
+### Geral
+
+- A heterogeneidade entre os bebês de um mesmo grupo dificulta relacionar os dados e notar padrões;
+
+- Parece existir um possível aprendizado entre os participantes do estudo, pois um aperto depende dos anteriores;
+
+### Frequência de apertos
+
+- A hipótese de igualdade entre os grupos varia para cada condição;
+
+- Na basal 2, não há indicios de diferença entre os grupos, ou seja, em todas as sessões parece existir uma mesma distribuição da frequência de apertos
+
+### Primeira Ativação do vídeo (Contingente)
+
+- Parece existir uma diferença no período da primeira ativação do vídeo entre os dias;
+
+- Porém, entre os grupos o comportamento de cada sessão mantem-se o mesmo
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
