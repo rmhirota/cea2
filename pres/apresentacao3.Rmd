@@ -461,7 +461,7 @@ entre as medianas dos dias 1 e 2, pois o teste com $H_1 : Md1 > Md2$ resultou em
 <br>
 
 - Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
-entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em um valor-p = 0,07;
+entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em um valor-p = 0,06;
 
 <br>
 
@@ -491,9 +491,9 @@ entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em
 
 <center><img src="imagens/survival_dia.png" width="500" hight="750">
 
-- Considerando todos os grupos como uma unidade, a probabilidade de ativar o vídeo pela primeira vez nos primeiros milisegundos é maior no dia 3;
+- Considerando todos os grupos como uma unidade, a probabilidade de ativar o vídeo pela primeira vez nos primeiros segundos é maior no dia 3;
 
-- No entanto, a probabilidade de ativar o vídeo pela primeira vez após os 50 primeiros milisegundos é maior no dia 2;
+- No entanto, a probabilidade de ativar o vídeo pela primeira vez após os 50 primeiros segundos é maior no dia 2;
 
 ---
 class: inverse center middle
