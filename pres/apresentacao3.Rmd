@@ -379,7 +379,6 @@ H_{0} = \text{a mediana das diferenças é zero: as duas populações são iguai
 H_1 = \text{caso contrário}
 \end{cases}
 $$
-- Calcula postos para as diferenças $D_i$ = $|Y_i - X_i|$
 <br>
 
 - Estatística do teste
@@ -506,19 +505,21 @@ name: teste
 
 - A heterogeneidade entre os bebês de um mesmo grupo dificulta relacionar os dados e notar padrões;
 
-- Parece existir um possível aprendizado entre os participantes do estudo, pois um aperto depende dos anteriores;
+- Parece existir um possível aprendizado entre os participantes do estudo, pois um aperto depende dos anteriores. 
 
 ### Frequência de apertos
 
 - A hipótese de igualdade entre os grupos varia para cada condição;
 
-- Na basal 2, não há indicios de diferença entre os grupos, ou seja, em todas as sessões parece existir uma mesma distribuição da frequência de apertos
+- Na basal 2, não há indicios de diferença entre os grupos;
+ 
+- Também na basal 2, há indícios de que a frequência de apertos do dia 1 é maior do que nos dias 2 e 3. 
 
 ### Primeira Ativação do vídeo (Contingente)
 
 - Parece existir uma diferença no período da primeira ativação do vídeo entre os dias;
 
-- Porém, entre os grupos o comportamento de cada sessão mantem-se o mesmo 
+- Porém, entre os grupos o comportamento de cada sessão mantém-se o mesmo.
 
 
 
