@@ -74,7 +74,9 @@ name: estudo
 # Relembrando o Estudo
 
 ---
-## Sobre o estudo
+
+Experimento dividido em 3 dias e 4 condições
+<br><br>
 
 .pull-left[
 ### Objetivo
@@ -90,8 +92,6 @@ entre seus apertos e alterações no contexto ambiental;
 
 .pull-rigt[
 ### Estrutura do experimento
-
-Dividido em 3 dias e 4 condições: 
 
 - **Condição Basal**: sem nenhuma variação ambiental;  
 
@@ -143,7 +143,7 @@ name: descritiva
 para melhor visualização dos resultados
 <br><br>
 
-- Definição de uma nova variável: Tempo entre apertos
+- **Definição de uma nova variável**: Tempo entre apertos
 
 ---
 ## Boxplots
@@ -207,10 +207,18 @@ name: processo
 
 Para a maioria dos bebês observados os testes de Kolmogorov-Smirnov rejeitaram a hipótese de exponencialidade dado por:
 
+<br>
+
 $$H_{0}: Tempo_{ijk} \sim Exponencial(\alpha_{ijk})$$
 $$H_{1}: Tempo_{ijk} \not\sim Exponencial(\alpha_{ijk})$$
 
+<br>
+
 tal que $i$ = i-ésimo bebê, $j$ = j-ésimo dia de $k$ = k-ésima condição
+
+<br><br>
+
+###Exemplo:
 
 ```{r echo = FALSE}
 bbs <- list(
@@ -244,16 +252,18 @@ purrr::map2_dfr(bbs$grupo, bbs$nome, teste_ks) %>%
 
 ```
 
-
---- 
-
+---
 ### Primeira Conclusão
 
 - Distribuição exponencial é a única dentre as contínuas com a característica de perda de memória; 
 
+<br>
+
 - Indício de que os apertos não ocorrem a uma taxa média constante;
 
-- Parece existir um possível aprendizado entre os participantes do estudo, pois um aperto depende dos anteriores
+<br>
+
+- Fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê depende dos apertos executados anteriormente
 
 ---
 
@@ -275,9 +285,6 @@ $$
 
 <br><br> 
   
-
-- Estatística do teste
-  
   
 $$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$ 
 ---
@@ -298,6 +305,7 @@ teste_kw <- function(cond, d) {
 }
 ```
 
+.pull-left[
 **Contingente**
 ```{r echo=FALSE}
 library(broom)
@@ -306,60 +314,57 @@ d1 = teste_kw("c", 1)
 d2 = teste_kw("c", 2) 
 d3 = teste_kw("c", 3)
 
-map_df(list(d1,d2,d3), tidy) %>% knitr::kable()
+cbind(Dia = c("Dia 1","Dia 2","Dia 3"),map_df(list(d1,d2,d3), tidy) ) %>% dplyr::select(-parameter,-method) %>% knitr::kable()
 ```
-
+<br><br>
 **Não Contingente**
 ```{r echo=FALSE}
 n1 = teste_kw("nc", 1)
 n2 = teste_kw("nc", 2) 
 n3 = teste_kw("nc", 3)
 
-map_df(list(n1,n2,n3), tidy) %>% knitr::kable()
+cbind(Dia = c("Dia 1","Dia 2","Dia 3"),map_df(list(n1,n2,n3), tidy) ) %>% dplyr::select(-parameter,-method) %>% knitr::kable()
 ```
+]
 
+.pull-rigt[
 **Basal 1**
 ```{r echo=FALSE}
 b1 = teste_kw("bas", 1)
 b2 = teste_kw("bas", 2) 
 b3 = teste_kw("bas", 3)
 
-map_df(list(b1,b2,b3), tidy) %>% knitr::kable()
+cbind(Dia = c("Dia 1","Dia 2","Dia 3"),map_df(list(b1,b2,b3), tidy) ) %>% dplyr::select(-parameter,-method) %>% knitr::kable()
 ```
-
+<br><br>
 **Basal 2**
 ```{r echo=FALSE}
 p1 = teste_kw("pos", 1)
 p2 = teste_kw("pos", 2) 
 p3 = teste_kw("pos", 3)
 
-map_df(list(p1,p2,p3), tidy) %>% knitr::kable()
+cbind(Dia = c("Dia 1","Dia 2","Dia 3"),map_df(list(p1,p2,p3), tidy)) %>% dplyr::select(-parameter,-method) %>% knitr::kable()
 ```
-
+]
 ---
 ## Resultados e Interpretações
 
-- Com um nível de significância de 10%, é possível negar a 
-hipótese de igualdade de distribuição entre os grupos no dia 2, para a condição
-contingente (p valor = 0,08), mas não para os dias 1 (p valor = 0,45) e 
-3 (p valor = 0,71)
+- **Contingente:** Com um nível de significância de 10%, é possível negar a 
+hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
 
 <br>
 
-- Já para a condição basal 1, também ao nível de significância de 10%, apenas o 
-dia 3 mantém a hipótese de igualdade das distribuições (p valor = 0,84)
+- **Não Contingente:** Rejeitamos a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
 
 <br> 
 
-- Olhando a condição basal 2, todos os dias aparentam manter a mesma distribuição 
-dos grupos, com todos os valores p acima de 20%
+- **Basal 1:** também ao nível de significância de 10%, apenas o 
+dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
 
-<br>
+<br> 
 
-- Por fim, olhando a condição não contingente, negamos a hipótese de igualdade 
-entre as distribuições dos grupos apenas para o dia 1 (p valor = 0,08), já que os
-dias 2 (p valor = 0,20) e 3 (p valor = 0,86) possuem p valor acima do nível de
-significância de 10%. 
+- **Basal 2:** todos os dias aparentam manter a mesma distribuição dos grupos
+
 
 ---
 ### Teste de Wilcoxon
@@ -381,8 +386,6 @@ H_1 = \text{caso contrário}
 $$
 <br>
 
-- Estatística do teste
-  
   
 $$T = \sum^{n}_{i=1}R_i$$ 
 
@@ -417,7 +420,7 @@ w1 = teste_w(1, 2)  # diferença entre dias 1 e 2
 w2 = teste_w(1, 3)  # diferença entre dias 1 e 3
 w3 = teste_w(2, 3)  # diferença entre dias 2 e 3
 
-map_df(list(w1,w2,w3), tidy) %>% knitr::kable()
+cbind(Dias = c("Dia 1 x Dia 2","Dia 1 x Dia 3","Dia 2 x Dia 3"),map_df(list(w1,w2,w3), tidy) )  %>% knitr::kable()
 ```
 
 ### Teste Unicaudal
@@ -441,7 +444,7 @@ w1 = teste_w2(1, 2)  # diferença entre dias 1 e 2
 w2 = teste_w2(1, 3)  # diferença entre dias 1 e 3
 w3 = teste_w2(2, 3)  # diferença entre dias 2 e 3
 
-map_df(list(w1,w2,w3), tidy) %>% knitr::kable()
+cbind(Dias = c("Dia 1 x Dia 2","Dia 1 x Dia 3","Dia 2 x Dia 3"),map_df(list(w1,w2,w3), tidy)) %>% knitr::kable()
 ```
 
 ---
@@ -466,8 +469,8 @@ entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em
 
 - Assim, o teste revela que a mediana do dia 1 é maior do que as demais
 
-
----
+???
+<!--
 
 ### Estimador da taxa de falha não paramétrico
 
@@ -486,7 +489,6 @@ entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em
 
 **Objetivo:** medir a _Função de sobrevivência_ que nos diz a probabilidade de ocorrência do evento depois de o tempo $t$
 
----
 
 <center><img src="imagens/survival_dia.png" width="500" hight="750">
 
@@ -494,6 +496,7 @@ entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em
 
 - No entanto, a probabilidade de ativar o vídeo pela primeira vez após os 50 primeiros segundos é maior no dia 2;
 
+-->
 ---
 class: inverse center middle
 name: teste
@@ -505,22 +508,43 @@ name: teste
 
 - A heterogeneidade entre os bebês de um mesmo grupo dificulta relacionar os dados e notar padrões;
 
-- Parece existir um possível aprendizado entre os participantes do estudo, pois um aperto depende dos anteriores. 
+
+- Não foi possível concluir se os bebês são capazes de identificar uma relação entre seus apertos e alterações no contexto ambiental;
+
+
+- Fixado uma condição e dia, parece existir um possível acúmulo de conhecimento entre os participantes do estudo (distribuição do tempo entre apertos sem perda de memória). 
 
 ### Frequência de apertos
 
-- A hipótese de igualdade entre os grupos varia para cada condição;
+- A hipótese de igualdade entre os grupos varia de condição para condição;
+
 
 - Na basal 2, não há indicios de diferença entre os grupos;
+
  
 - Também na basal 2, há indícios de que a frequência de apertos do dia 1 é maior do que nos dias 2 e 3. 
 
-### Primeira Ativação do vídeo (Contingente)
+---
+class: inverse center middle
+name: bibli
+# Bibliografia
+---
 
-- Parece existir uma diferença no período da primeira ativação do vídeo entre os dias;
+## Bibliografia
 
-- Porém, entre os grupos o comportamento de cada sessão mantém-se o mesmo.
+ROSS, S. Introduction to Probability Models. Academic Press, 2006.
 
+CONOVER, W. J. Practical Nonparametric Statistics. John Wiley and Sons, 1999.
+
+---
+class: center, middle
+
+# Obrigada!
+
+### Dúvidas?
+
+[**slides**](https://rmhirota.github.io/cea2/pres/apresentacao3.html)<br>
+[**análises**](https://github.com/rmhirota/cea2)
 
 
 

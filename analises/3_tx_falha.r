@@ -40,7 +40,9 @@ ajuste <- survival::survfit(
   data = da_1o_video
 )
 survminer::ggsurvplot(ajuste)
-
+surv_diff <- survival::survdiff(survival::Surv(time = t_1o_video, event = video) ~  dia,
+                                data = da_1o_video)
+surv_diff # p =0.5
 # Por grupo
 
 da_1o_video_grupo <- function(grupo){
@@ -63,17 +65,24 @@ ajuste1 <- survival::survfit(
   data = da_1o_video_grupo('b1')
 )
 survminer::ggsurvplot(ajuste1)
+survival::survdiff( survival::Surv(time = t_1o_video, event = video) ~  dia,
+                    data = da_1o_video_grupo('b1'))
 
 ajuste2 <- survival::survfit(
   survival::Surv(time = t_1o_video, event = video) ~  dia,
   data = da_1o_video_grupo('b2')
 )
 survminer::ggsurvplot(ajuste2)
+survival::survdiff(survival::Surv(time = t_1o_video, event = video) ~  dia,
+                    data = da_1o_video_grupo('b2'))
 
 ajuste3 <- survival::survfit(
   survival::Surv(time = t_1o_video, event = video) ~  dia,
   data = da_1o_video_grupo('b3')
 )
+
+survival::survdiff( survival::Surv(time = t_1o_video, event = video) ~  dia,
+                    data = da_1o_video_grupo('b3'))
 survminer::ggsurvplot(ajuste3)
 
 # bshazard
@@ -84,8 +93,41 @@ plot(fit)
 
 
 # weibulltools
-dados <- weibulltools::reliability_data(
-  data = da_1o_video,
+
+dados1 <- weibulltools::reliability_data(
+  data = da_1o_video %>% dplyr::filter(dia==1),
   x = t_1o_video, status = video
 )
-weibulltools::estimate_cdf(dados)
+
+dados2 <- weibulltools::reliability_data(
+  data = da_1o_video %>% dplyr::filter(dia==2),
+  x = t_1o_video, status = video
+)
+
+dados3 <- weibulltools::reliability_data(
+  data = da_1o_video %>% dplyr::filter(dia==3),
+  x = t_1o_video, status = video
+)
+
+wei_dia1 = weibulltools::plot_prob(weibulltools::estimate_cdf(dados1),
+                        title_main = "Dia 1",
+                        title_x = "Tempo em segundos",
+                        title_y = "Probabilidade de falhar em %",
+                        plot_method = "ggplot2")
+
+wei_dia2 = weibulltools::plot_prob(weibulltools::estimate_cdf(dados2),
+                                  title_main = "Dia 2",
+                                  title_x = "Tempo em segundos",
+                                  title_y = "Probabilidade de falhar em %",
+                                  plot_method = "ggplot2")
+
+wei_dia3 = weibulltools::plot_prob(weibulltools::estimate_cdf(dados3),
+                                  title_main = "Dia 3",
+                                  title_x = "Tempo em segundos",
+                                  title_y = "Probabilidade de falhar em %",
+                                  plot_method = "ggplot2")
+
+library(patchwork)
+wei_dia1 + wei_dia2 + wei_dia3
+################
+

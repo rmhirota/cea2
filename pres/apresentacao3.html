@@ -84,7 +84,9 @@ name: estudo
 # Relembrando o Estudo
 
 ---
-## Sobre o estudo
+
+Experimento dividido em 3 dias e 4 condições
+&lt;br&gt;&lt;br&gt;
 
 .pull-left[
 ### Objetivo
@@ -100,8 +102,6 @@ entre seus apertos e alterações no contexto ambiental;
 
 .pull-rigt[
 ### Estrutura do experimento
-
-Dividido em 3 dias e 4 condições: 
 
 - **Condição Basal**: sem nenhuma variação ambiental;  
 
@@ -153,7 +153,7 @@ name: descritiva
 para melhor visualização dos resultados
 &lt;br&gt;&lt;br&gt;
 
-- Definição de uma nova variável: Tempo entre apertos
+- **Definição de uma nova variável**: Tempo entre apertos
 
 ---
 ## Boxplots
@@ -217,10 +217,18 @@ name: processo
 
 Para a maioria dos bebês observados os testes de Kolmogorov-Smirnov rejeitaram a hipótese de exponencialidade dado por:
 
+&lt;br&gt;
+
 `$$H_{0}: Tempo_{ijk} \sim Exponencial(\alpha_{ijk})$$`
 `$$H_{1}: Tempo_{ijk} \not\sim Exponencial(\alpha_{ijk})$$`
 
+&lt;br&gt;
+
 tal que `\(i\)` = i-ésimo bebê, `\(j\)` = j-ésimo dia de `\(k\)` = k-ésima condição
+
+&lt;br&gt;&lt;br&gt;
+
+###Exemplo:
 
 
 | bebe| statistic|   p.value|method                             |alternative |
@@ -229,16 +237,18 @@ tal que `\(i\)` = i-ésimo bebê, `\(j\)` = j-ésimo dia de `\(k\)` = k-ésima c
 |    2| 0.1792350| 0.0017047|One-sample Kolmogorov-Smirnov test |two-sided   |
 |    3| 0.3293864| 0.0000000|One-sample Kolmogorov-Smirnov test |two-sided   |
 
-
---- 
-
+---
 ### Primeira Conclusão
 
 - Distribuição exponencial é a única dentre as contínuas com a característica de perda de memória; 
 
+&lt;br&gt;
+
 - Indício de que os apertos não ocorrem a uma taxa média constante;
 
-- Parece existir um possível aprendizado entre os participantes do estudo, pois um aperto depende dos anteriores
+&lt;br&gt;
+
+- Fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê depende dos apertos executados anteriormente
 
 ---
 
@@ -260,70 +270,65 @@ $$
 
 &lt;br&gt;&lt;br&gt; 
   
-
-- Estatística do teste
-  
   
 `$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$` 
 ---
 
 
+.pull-left[
 **Contingente**
 
-| statistic|   p.value| parameter|method                       |
-|---------:|---------:|---------:|:----------------------------|
-| 1.5563241| 0.4592493|         2|Kruskal-Wallis rank sum test |
-| 4.8621554| 0.0879420|         2|Kruskal-Wallis rank sum test |
-| 0.6745258| 0.7137212|         2|Kruskal-Wallis rank sum test |
-
+|Dia   | statistic|   p.value|
+|:-----|---------:|---------:|
+|Dia 1 | 1.5563241| 0.4592493|
+|Dia 2 | 4.8621554| 0.0879420|
+|Dia 3 | 0.6745258| 0.7137212|
+&lt;br&gt;&lt;br&gt;
 **Não Contingente**
 
-| statistic|   p.value| parameter|method                       |
-|---------:|---------:|---------:|:----------------------------|
-| 4.9282622| 0.0850827|         2|Kruskal-Wallis rank sum test |
-| 3.1808300| 0.2038410|         2|Kruskal-Wallis rank sum test |
-| 0.2970006| 0.8619997|         2|Kruskal-Wallis rank sum test |
+|Dia   | statistic|   p.value|
+|:-----|---------:|---------:|
+|Dia 1 | 4.9282622| 0.0850827|
+|Dia 2 | 3.1808300| 0.2038410|
+|Dia 3 | 0.2970006| 0.8619997|
+]
 
+.pull-rigt[
 **Basal 1**
 
-| statistic|   p.value| parameter|method                       |
-|---------:|---------:|---------:|:----------------------------|
-| 8.4229249| 0.0148247|         2|Kruskal-Wallis rank sum test |
-| 4.6432806| 0.0981125|         2|Kruskal-Wallis rank sum test |
-| 0.3395176| 0.8438683|         2|Kruskal-Wallis rank sum test |
-
+|Dia   | statistic|   p.value|
+|:-----|---------:|---------:|
+|Dia 1 | 8.4229249| 0.0148247|
+|Dia 2 | 4.6432806| 0.0981125|
+|Dia 3 | 0.3395176| 0.8438683|
+&lt;br&gt;&lt;br&gt;
 **Basal 2**
 
-| statistic|   p.value| parameter|method                       |
-|---------:|---------:|---------:|:----------------------------|
-| 2.7440515| 0.2535927|         2|Kruskal-Wallis rank sum test |
-| 2.9850649| 0.2248026|         2|Kruskal-Wallis rank sum test |
-| 0.8924057| 0.6400539|         2|Kruskal-Wallis rank sum test |
-
+|Dia   | statistic|   p.value|
+|:-----|---------:|---------:|
+|Dia 1 | 2.7440515| 0.2535927|
+|Dia 2 | 2.9850649| 0.2248026|
+|Dia 3 | 0.8924057| 0.6400539|
+]
 ---
 ## Resultados e Interpretações
 
-- Com um nível de significância de 10%, é possível negar a 
-hipótese de igualdade de distribuição entre os grupos no dia 2, para a condição
-contingente (p valor = 0,08), mas não para os dias 1 (p valor = 0,45) e 
-3 (p valor = 0,71)
+- **Contingente:** Com um nível de significância de 10%, é possível negar a 
+hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
 
 &lt;br&gt;
 
-- Já para a condição basal 1, também ao nível de significância de 10%, apenas o 
-dia 3 mantém a hipótese de igualdade das distribuições (p valor = 0,84)
+- **Não Contingente:** Rejeitamos a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
 
 &lt;br&gt; 
 
-- Olhando a condição basal 2, todos os dias aparentam manter a mesma distribuição 
-dos grupos, com todos os valores p acima de 20%
+- **Basal 1:** também ao nível de significância de 10%, apenas o 
+dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
 
-&lt;br&gt;
+&lt;br&gt; 
 
-- Por fim, olhando a condição não contingente, negamos a hipótese de igualdade 
-entre as distribuições dos grupos apenas para o dia 1 (p valor = 0,08), já que os
-dias 2 (p valor = 0,20) e 3 (p valor = 0,86) possuem p valor acima do nível de
-significância de 10%. 
+- **Basal 2:** todos os dias aparentam manter a mesma distribuição dos grupos
+
 
 ---
 ### Teste de Wilcoxon
@@ -343,11 +348,8 @@ H_{0} = \text{a mediana das diferenças é zero: as duas populações são iguai
 H_1 = \text{caso contrário}
 \end{cases}`
 $$
-- Calcula postos para as diferenças `\(D_i\)` = `\(|Y_i - X_i|\)`
 &lt;br&gt;
 
-- Estatística do teste
-  
   
 `$$T = \sum^{n}_{i=1}R_i$$` 
 
@@ -359,11 +361,11 @@ $$
 ### Teste Bicaudal
 
 
-| statistic|   p.value|method                          |alternative |
-|---------:|---------:|:-------------------------------|:-----------|
-|       151| 0.0896950|Wilcoxon signed rank exact test |two.sided   |
-|       135| 0.1133766|Wilcoxon signed rank exact test |two.sided   |
-|        76| 0.2942524|Wilcoxon signed rank exact test |two.sided   |
+|Dias          | statistic|   p.value|method                          |alternative |
+|:-------------|---------:|---------:|:-------------------------------|:-----------|
+|Dia 1 x Dia 2 |       151| 0.0896950|Wilcoxon signed rank exact test |two.sided   |
+|Dia 1 x Dia 3 |       135| 0.1133766|Wilcoxon signed rank exact test |two.sided   |
+|Dia 2 x Dia 3 |        76| 0.2942524|Wilcoxon signed rank exact test |two.sided   |
 
 ### Teste Unicaudal
 
@@ -371,11 +373,11 @@ $$
 
 
 
-| statistic|   p.value|method                          |alternative |
-|---------:|---------:|:-------------------------------|:-----------|
-|       151| 0.0448475|Wilcoxon signed rank exact test |greater     |
-|       135| 0.0566883|Wilcoxon signed rank exact test |greater     |
-|        76| 0.8613224|Wilcoxon signed rank exact test |greater     |
+|Dias          | statistic|   p.value|method                          |alternative |
+|:-------------|---------:|---------:|:-------------------------------|:-----------|
+|Dia 1 x Dia 2 |       151| 0.0448475|Wilcoxon signed rank exact test |greater     |
+|Dia 1 x Dia 3 |       135| 0.0566883|Wilcoxon signed rank exact test |greater     |
+|Dia 2 x Dia 3 |        76| 0.8613224|Wilcoxon signed rank exact test |greater     |
 
 ---
 ## Resultados e Interpretações
@@ -393,14 +395,14 @@ entre as medianas dos dias 1 e 2, pois o teste com `\(H_1 : Md1 &gt; Md2\)` resu
 &lt;br&gt;
 
 - Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
-entre as medianas dos dias 1 e 3, pois o teste com `\(H_1 : Md1 &gt; Md3\)` resultou em um valor-p = 0,07;
+entre as medianas dos dias 1 e 3, pois o teste com `\(H_1 : Md1 &gt; Md3\)` resultou em um valor-p = 0,06;
 
 &lt;br&gt;
 
 - Assim, o teste revela que a mediana do dia 1 é maior do que as demais
 
-
----
+???
+&lt;!--
 
 ### Estimador da taxa de falha não paramétrico
 
@@ -419,14 +421,14 @@ entre as medianas dos dias 1 e 3, pois o teste com `\(H_1 : Md1 &gt; Md3\)` resu
 
 **Objetivo:** medir a _Função de sobrevivência_ que nos diz a probabilidade de ocorrência do evento depois de o tempo `\(t\)`
 
----
 
 &lt;center&gt;&lt;img src="imagens/survival_dia.png" width="500" hight="750"&gt;
 
-- Considerando todos os grupos como uma unidade, a probabilidade de ativar o vídeo pela primeira vez nos primeiros milisegundos é maior no dia 3;
+- Considerando todos os grupos como uma unidade, a probabilidade de ativar o vídeo pela primeira vez nos primeiros segundos é maior no dia 3;
 
-- No entanto, a probabilidade de ativar o vídeo pela primeira vez após os 50 primeiros milisegundos é maior no dia 2;
+- No entanto, a probabilidade de ativar o vídeo pela primeira vez após os 50 primeiros segundos é maior no dia 2;
 
+--&gt;
 ---
 class: inverse center middle
 name: teste
@@ -438,19 +440,43 @@ name: teste
 
 - A heterogeneidade entre os bebês de um mesmo grupo dificulta relacionar os dados e notar padrões;
 
-- Parece existir um possível aprendizado entre os participantes do estudo, pois um aperto depende dos anteriores;
+
+- Não foi possível concluir se os bebês são capazes de identificar uma relação entre seus apertos e alterações no contexto ambiental;
+
+
+- Fixado uma condição e dia, parece existir um possível acúmulo de conhecimento entre os participantes do estudo (distribuição do tempo entre apertos sem perda de memória). 
 
 ### Frequência de apertos
 
-- A hipótese de igualdade entre os grupos varia para cada condição;
+- A hipótese de igualdade entre os grupos varia de condição para condição;
 
-- Na basal 2, não há indicios de diferença entre os grupos, ou seja, em todas as sessões parece existir uma mesma distribuição da frequência de apertos
 
-### Primeira Ativação do vídeo (Contingente)
+- Na basal 2, não há indicios de diferença entre os grupos;
 
-- Parece existir uma diferença no período da primeira ativação do vídeo entre os dias;
+ 
+- Também na basal 2, há indícios de que a frequência de apertos do dia 1 é maior do que nos dias 2 e 3. 
 
-- Porém, entre os grupos o comportamento de cada sessão mantem-se o mesmo
+---
+class: inverse center middle
+name: bibli
+# Bibliografia
+---
+
+## Bibliografia
+
+ROSS, S. Introduction to Probability Models. Academic Press, 2006.
+
+CONOVER, W. J. Practical Nonparametric Statistics. John Wiley and Sons, 1999.
+
+---
+class: center, middle
+
+# Obrigada!
+
+### Dúvidas?
+
+[**slides**](https://rmhirota.github.io/cea2/pres/apresentacao3.html)&lt;br&gt;
+[**análises**](https://github.com/rmhirota/cea2)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
