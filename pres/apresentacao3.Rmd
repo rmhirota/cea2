@@ -192,7 +192,7 @@ name: processo
 
 - Distribuição frequentemente usada para modelar o tempo entre eventos que ocorrem a uma taxa média constante
 
-- Indicaria que chegada de um aperto é independente do evento anterior
+- Indicaria que a distribuição do tempo para um novo aperto não é afetada pelas ocorrências anteriores
 
 <center><img src="imagens/expo.png" width="500" hight="500"></center>
 
@@ -207,7 +207,10 @@ $$H_{1}: Tempo_{ijk} \not\sim Exponencial(\alpha_{ijk})$$
 
 <br>
 
-tal que $i$ = i-ésimo bebê, $j$ = j-ésimo dia de $k$ = k-ésima condição
+tal que $i$ = i-ésimo bebê, $j$ = j-ésimo dia de $k$ = k-ésima
+condição
+
+para algum $\alpha_{ijk}$ > 0
 
 <br><br>
 
@@ -248,21 +251,13 @@ purrr::map2_dfr(bbs$grupo, bbs$nome, teste_ks) %>%
 ---
 ### Primeira Conclusão
 
-- Distribuição exponencial é a única dentre as contínuas com a característica de perda de memória;
-
-<br>
-
-- Indício de que os apertos não ocorrem a uma taxa média constante;
-
-<br>
-
 - Fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê depende dos apertos executados anteriormente
 
 ---
 
 ### Teste de Kruskal Wallis
 
-**Objetivo:** comparar a frequência de apertos por grupo, fixado um dia de sessão e uma condição experimental
+**Objetivo:** comparar a variável _Frequência de apertos_ por grupo, fixado um dia de sessão e uma condição experimental
 
 <br><br>
 
@@ -359,12 +354,11 @@ dplyr::bind_cols(
 ---
 ## Resultados e Interpretações
 
-- **Contingente:** Com um nível de significância de 10%, é possível negar a
-hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
+- **Contingente:** Com um nível de significância de 10%, há evidências contrárias a hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
 
 <br>
 
-- **Não Contingente:** Rejeitamos a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
+- **Não Contingente:** há evidências contrárias a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
 
 <br>
 
@@ -373,7 +367,7 @@ dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
 
 <br>
 
-- **Basal 2:** todos os dias aparentam manter a mesma distribuição dos grupos
+- **Basal 2:** para todos os dias, há evidências favoráveis a hipótese  de igualdade entre as distribuições dos grupos.
 
 
 ---
@@ -402,42 +396,7 @@ $$T = \sum^{n}_{i=1}R_i$$
 ---
 ### Basal 2
 
-```{r include=FALSE}
-#Wilcoxon: Comparação entre dias (basal 2)
-da_wilcoxon <- da_spss %>%
-  dplyr::filter(condicao == "pos") %>%
-  dplyr::mutate(id = paste0(nome, grupo)) %>%
-  dplyr::select(id, dia, condicao, freq_apertos) %>%
-  tidyr::pivot_wider(names_from = condicao, values_from = freq_apertos)
-
-teste_w <- function(dia1, dia2, alt = "two.sided") {
-  d1 <- da_wilcoxon %>%
-    dplyr::filter(dia == dia1) %>%
-    dplyr::pull(pos)
-  d2 <- da_wilcoxon %>%
-    dplyr::filter(dia == dia2) %>%
-    dplyr::pull(pos)
-  wilcox.test(d1, d2, paired = TRUE, alternative = alt)
-}
-
-```
-
-### Teste Bicaudal
-
-```{r echo=FALSE}
-# teste bicaudal
-w1 <- teste_w(1, 2)  # diferença entre dias 1 e 2
-w2 <- teste_w(1, 3)  # diferença entre dias 1 e 3
-w3 <- teste_w(2, 3)  # diferença entre dias 2 e 3
-
-dplyr::bind_cols(
-  Dia = c("Dia 1 x Dia 2", "Dia 1 x Dia 3", "Dia 2 x Dia 3"),
-  purrr::map_df(list(w1, w2, w3), broom::tidy)
-) %>%
-  knitr::kable()
-```
-
-### Teste Unicaudal
+### Teste Unilateral
 
 ```{r include=FALSE}
 teste_w2 <- function(dia1, dia2, alt = "greater") {
@@ -469,23 +428,15 @@ dplyr::bind_cols(
 ## Resultados e Interpretações
 
 
-- Com um nível de significância de 10% em um teste bicaudal, é possível negar a
-hipótese de igualdade entre as medianas do dia 1 e 2 (valor-p = 0,09), mas não
-para os dias 1 e 3 (valor-p = 0,11) e 2 e 3 (valor-p = 0,29)
+- Há indicíos de diferença entre as medianas dos dias 1 e 2, pois o teste com $H_1 : Md1 > Md2$ resultou em um valor-p = 0,04;
 
 <br>
 
-- Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
-entre as medianas dos dias 1 e 2, pois o teste com $H_1 : Md1 > Md2$ resultou em um valor-p = 0,04;
+- Há indicíos de diferença entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em um valor-p = 0,06;
 
 <br>
 
-- Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
-entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em um valor-p = 0,06;
-
-<br>
-
-- Assim, o teste revela que a mediana do dia 1 é maior do que as demais
+- Assim, o teste indica evidências favoráveis a hipótese de que a mediana do dia 1 é maior do que as demais
 
 ???
 <-- -- -->
@@ -539,7 +490,7 @@ name: teste
 - A hipótese de igualdade entre os grupos varia de condição para condição;
 
 
-- Na basal 2, não há indicios de diferença entre os grupos;
+- Na basal 2, há evidências favoráveis a hipótese de igualdade entre as distribuições dos grupos;
 
 
 - Também na basal 2, há indícios de que a frequência de apertos do dia 1 é maior do que nos dias 2 e 3.
