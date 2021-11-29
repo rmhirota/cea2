@@ -7,7 +7,6 @@
     <meta name="author" content="Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel" />
     <meta name="author" content="Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota" />
     <meta name="author" content="Orientador: Prof. Dr. Luis Gustavo Esteves" />
-    <script src="apresentacao3_files/header-attrs/header-attrs.js"></script>
     <link href="apresentacao3_files/panelset/panelset.css" rel="stylesheet" />
     <script src="apresentacao3_files/panelset/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -203,7 +202,7 @@ name: processo
 
 - Distribuição frequentemente usada para modelar o tempo entre eventos que ocorrem a uma taxa média constante
 
-- Indicaria que chegada de um aperto é independente do evento anterior
+- Indicaria que a distribuição do tempo para um novo aperto não é afetada pelas ocorrências anteriores
 
 &lt;center&gt;&lt;img src="imagens/expo.png" width="500" hight="500"&gt;&lt;/center&gt;
 
@@ -218,7 +217,10 @@ Para a maioria dos bebês observados os testes de Kolmogorov-Smirnov rejeitaram 
 
 &lt;br&gt;
 
-tal que `\(i\)` = i-ésimo bebê, `\(j\)` = j-ésimo dia de `\(k\)` = k-ésima condição
+tal que `\(i\)` = i-ésimo bebê, `\(j\)` = j-ésimo dia de `\(k\)` = k-ésima
+condição
+
+para algum `\(\alpha_{ijk}\)` &gt; 0
 
 &lt;br&gt;&lt;br&gt;
 
@@ -234,21 +236,13 @@ tal que `\(i\)` = i-ésimo bebê, `\(j\)` = j-ésimo dia de `\(k\)` = k-ésima c
 ---
 ### Primeira Conclusão
 
-- Distribuição exponencial é a única dentre as contínuas com a característica de perda de memória;
-
-&lt;br&gt;
-
-- Indício de que os apertos não ocorrem a uma taxa média constante;
-
-&lt;br&gt;
-
 - Fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê depende dos apertos executados anteriormente
 
 ---
 
 ### Teste de Kruskal Wallis
 
-**Objetivo:** comparar a frequência de apertos por grupo, fixado um dia de sessão e uma condição experimental
+**Objetivo:** comparar a variável _Frequência de apertos_ por grupo, fixado um dia de sessão e uma condição experimental
 
 &lt;br&gt;&lt;br&gt;
 
@@ -307,12 +301,11 @@ $$
 ---
 ## Resultados e Interpretações
 
-- **Contingente:** Com um nível de significância de 10%, é possível negar a
-hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
+- **Contingente:** Com um nível de significância de 10%, há evidências contrárias a hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
 
 &lt;br&gt;
 
-- **Não Contingente:** Rejeitamos a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
+- **Não Contingente:** há evidências contrárias a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
 
 &lt;br&gt;
 
@@ -321,7 +314,7 @@ dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
 
 &lt;br&gt;
 
-- **Basal 2:** todos os dias aparentam manter a mesma distribuição dos grupos
+- **Basal 2:** para todos os dias, há evidências favoráveis a hipótese  de igualdade entre as distribuições dos grupos.
 
 
 ---
@@ -350,18 +343,7 @@ $$
 ---
 ### Basal 2
 
-
-
-### Teste Bicaudal
-
-
-|Dia           | statistic|   p.value|method                          |alternative |
-|:-------------|---------:|---------:|:-------------------------------|:-----------|
-|Dia 1 x Dia 2 |       151| 0.0896950|Wilcoxon signed rank exact test |two.sided   |
-|Dia 1 x Dia 3 |       135| 0.1133766|Wilcoxon signed rank exact test |two.sided   |
-|Dia 2 x Dia 3 |        76| 0.2942524|Wilcoxon signed rank exact test |two.sided   |
-
-### Teste Unicaudal
+### Teste Unilateral
 
 
 
@@ -377,23 +359,15 @@ $$
 ## Resultados e Interpretações
 
 
-- Com um nível de significância de 10% em um teste bicaudal, é possível negar a
-hipótese de igualdade entre as medianas do dia 1 e 2 (valor-p = 0,09), mas não
-para os dias 1 e 3 (valor-p = 0,11) e 2 e 3 (valor-p = 0,29)
+- Há indicíos de diferença entre as medianas dos dias 1 e 2, pois o teste com `\(H_1 : Md1 &gt; Md2\)` resultou em um valor-p = 0,04;
 
 &lt;br&gt;
 
-- Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
-entre as medianas dos dias 1 e 2, pois o teste com `\(H_1 : Md1 &gt; Md2\)` resultou em um valor-p = 0,04;
+- Há indicíos de diferença entre as medianas dos dias 1 e 3, pois o teste com `\(H_1 : Md1 &gt; Md3\)` resultou em um valor-p = 0,06;
 
 &lt;br&gt;
 
-- Partindo para testes unicaudais, é possível verificar qual o sinal da comparação
-entre as medianas dos dias 1 e 3, pois o teste com `\(H_1 : Md1 &gt; Md3\)` resultou em um valor-p = 0,06;
-
-&lt;br&gt;
-
-- Assim, o teste revela que a mediana do dia 1 é maior do que as demais
+- Assim, o teste indica evidências favoráveis a hipótese de que a mediana do dia 1 é maior do que as demais
 
 ???
 &lt;-- -- --&gt;
@@ -447,7 +421,7 @@ name: teste
 - A hipótese de igualdade entre os grupos varia de condição para condição;
 
 
-- Na basal 2, não há indicios de diferença entre os grupos;
+- Na basal 2, há evidências favoráveis a hipótese de igualdade entre as distribuições dos grupos;
 
 
 - Também na basal 2, há indícios de que a frequência de apertos do dia 1 é maior do que nos dias 2 e 3.
@@ -473,9 +447,6 @@ class: center, middle
 
 [**slides**](https://rmhirota.github.io/cea2/pres/apresentacao3.html)&lt;br&gt;
 [**análises**](https://github.com/rmhirota/cea2)
-
-
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

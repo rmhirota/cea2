@@ -399,6 +399,12 @@ $$T = \sum^{n}_{i=1}R_i$$
 ### Teste Unilateral
 
 ```{r include=FALSE}
+da_wilcoxon <- da_spss %>%
+  dplyr::filter(condicao %in% c("pos")) %>%
+  dplyr::mutate(id = paste0(nome, grupo)) %>%
+  dplyr::select(id, dia, condicao, freq_apertos) %>%
+  tidyr::pivot_wider(names_from = condicao, values_from = freq_apertos) 
+
 teste_w2 <- function(dia1, dia2, alt = "greater") {
   d1 <- da_wilcoxon %>%
     dplyr::filter(dia == dia1) %>%
