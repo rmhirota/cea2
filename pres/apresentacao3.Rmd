@@ -2,7 +2,7 @@
 title: "Emergência e Desenvolvimento da Ação Manipulativa de Apertar em bebês de 1 a 3 meses de idade"
 # date: '`r Sys.Date()`'
 subtitle: "30-11-2021"
-author: 
+author:
   - "Pesquisadora: Priscilla A. M. Ferronato"
   - "Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel"
   - "Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota"
@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
   out.width = "100%",
   cache = FALSE,
   echo = FALSE,
-  message = FALSE, 
+  message = FALSE,
   warning = FALSE,
   hiline = TRUE
 )
@@ -79,10 +79,10 @@ name: estudo
 <br><br>
 --
 .pull-left[
-### Objetivo  
+### Objetivo
 
-- Verificar se bebês de um a três meses são capazes de identificar 
-uma relação entre seus apertos e alterações no contexto ambiental;  
+- Verificar se bebês de um a três meses são capazes de identificar
+uma relação entre seus apertos e alterações no contexto ambiental;
 
 - Identificar se há indícios de aprendizado ao longo dos dias de experimento;
 
@@ -91,33 +91,33 @@ uma relação entre seus apertos e alterações no contexto ambiental;
 
 --
 .pull-right[
-### Experimento  
+### Experimento
 
-- **Condição Basal**: sem nenhuma variação ambiental;  
+- **Condição Basal**: sem nenhuma variação ambiental;
 
-- **Contingente**: vídeo aparecia se o bebê atingisse determinada pressão palmar;  
+- **Contingente**: vídeo aparecia se o bebê atingisse determinada pressão palmar;
 
-- **Não Contingente**: vídeo aparecia de forma automática e aleatória, sem que o bebê atingisse o valor de pressão estipulado;  
+- **Não Contingente**: vídeo aparecia de forma automática e aleatória, sem que o bebê atingisse o valor de pressão estipulado;
 
 - **Condição Basal 2**: segunda condição sem estímulo visual
 ]
 
 ---
 ## Limitações
-  
-- Tempo de observação cortado para alguns bebês;  
+
+- Tempo de observação cortado para alguns bebês;
 <br><br>
 
 - Número pequeno de participantes no estudo;
 <br><br>
 
-- Quantidade diferente de participantes em cada faixa etária;  
+- Quantidade diferente de participantes em cada faixa etária;
 <br><br>
 
 - Processo de aleatorização na ordem das condições Contingente e Não Contingente;
-<br><br> 
+<br><br>
 
-- Cruzamento de Grupo x Dia x Condição 
+- Cruzamento de Grupo x Dia x Condição
 
 ---
 class: inverse center middle
@@ -128,10 +128,10 @@ name: descritiva
 
 ##Após primeira apresentação:
 
-<br><br> 
+<br><br>
 
 - Segundo corte na base realizado;
-<br><br> 
+<br><br>
 
 - Avaliação da _Frequência de apertos_ ao invés do _Número de apertos_;
 <br><br>
@@ -160,7 +160,7 @@ name: descritiva
 
 - É o mais homogêneo quanto a variável tempo entre vídeos
 
-- A maior diferença se dá com o bebê 8, que não tem dados para o dia 1, e possui valores maiores no dia 2. 
+- A maior diferença se dá com o bebê 8, que não tem dados para o dia 1, e possui valores maiores no dia 2.
 ]
 
 .right-column[
@@ -248,7 +248,7 @@ purrr::map2_dfr(bbs$grupo, bbs$nome, teste_ks) %>%
 ---
 ### Primeira Conclusão
 
-- Distribuição exponencial é a única dentre as contínuas com a característica de perda de memória; 
+- Distribuição exponencial é a única dentre as contínuas com a característica de perda de memória;
 
 <br>
 
@@ -264,10 +264,10 @@ purrr::map2_dfr(bbs$grupo, bbs$nome, teste_ks) %>%
 
 **Objetivo:** comparar a frequência de apertos por grupo, fixado um dia de sessão e uma condição experimental
 
-<br><br> 
+<br><br>
 
 - Teste não paramétrico para verificar a igualdade de distribuições entre os grupos
-<br><br> 
+<br><br>
 
 $$
 \begin{cases}
@@ -276,14 +276,13 @@ H_1 = \text{Ao menos uma das populações tende a produzir valores maiores que a
 \end{cases}
 $$
 
-<br><br> 
-  
-  
-$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$ 
+<br><br>
+
+
+$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$
 ---
-```{r message=FALSE, warning=FALSE, include=FALSE}
-library(magrittr)
-da_spss <- readr::read_rds("~/CEA - 2021/TCC 2/cea2/data-raw/2_tidy_spss.rds")
+```{r include=FALSE}
+da_spss <- readr::read_rds("../data-raw/2_tidy_spss.rds")
 
 teste_kw <- function(cond, d) {
   da <- da_spss %>%
@@ -300,61 +299,79 @@ teste_kw <- function(cond, d) {
 
 .pull-left[
 **Contingente**
-```{r echo=FALSE}
-library(broom)
-library(purrr)
-d1 = teste_kw("c", 1)
-d2 = teste_kw("c", 2) 
-d3 = teste_kw("c", 3)
+```{r}
+d1 <- teste_kw("c", 1)
+d2 <- teste_kw("c", 2)
+d3 <- teste_kw("c", 3)
 
-cbind(Dia = c("Dia 1","Dia 2","Dia 3"),map_df(list(d1,d2,d3), tidy) ) %>% dplyr::select(-parameter,-method) %>% knitr::kable()
+dplyr::bind_cols(
+  Dia = c("Dia 1", "Dia 2","Dia 3"),
+  purrr::map_df(list(d1,d2,d3), broom::tidy)
+) %>%
+  dplyr::select(-parameter, -method) %>%
+  knitr::kable()
 ```
 <br><br>
 **Não Contingente**
-```{r echo=FALSE}
-n1 = teste_kw("nc", 1)
-n2 = teste_kw("nc", 2) 
-n3 = teste_kw("nc", 3)
+```{r}
+n1 <- teste_kw("nc", 1)
+n2 <- teste_kw("nc", 2)
+n3 <- teste_kw("nc", 3)
 
-cbind(Dia = c("Dia 1","Dia 2","Dia 3"),map_df(list(n1,n2,n3), tidy) ) %>% dplyr::select(-parameter,-method) %>% knitr::kable()
+dplyr::bind_cols(
+  Dia = c("Dia 1", "Dia 2", "Dia 3"),
+  purrr::map_df(list(n1, n2, n3), broom::tidy)
+) %>%
+  dplyr::select(-parameter, -method) %>%
+  knitr::kable()
 ```
 ]
 
 .pull-rigt[
 **Basal 1**
-```{r echo=FALSE}
-b1 = teste_kw("bas", 1)
-b2 = teste_kw("bas", 2) 
-b3 = teste_kw("bas", 3)
+```{r}
+b1 <- teste_kw("bas", 1)
+b2 <- teste_kw("bas", 2)
+b3 <- teste_kw("bas", 3)
 
-cbind(Dia = c("Dia 1","Dia 2","Dia 3"),map_df(list(b1,b2,b3), tidy) ) %>% dplyr::select(-parameter,-method) %>% knitr::kable()
+dplyr::bind_cols(
+  Dia = c("Dia 1", "Dia 2", "Dia 3"),
+  purrr::map_df(list(b1, b2, b3), broom::tidy)
+) %>%
+  dplyr::select(-parameter, -method) %>%
+  knitr::kable()
 ```
 <br><br>
 **Basal 2**
-```{r echo=FALSE}
-p1 = teste_kw("pos", 1)
-p2 = teste_kw("pos", 2) 
-p3 = teste_kw("pos", 3)
+```{r}
+p1 <- teste_kw("pos", 1)
+p2 <- teste_kw("pos", 2)
+p3 <- teste_kw("pos", 3)
 
-cbind(Dia = c("Dia 1","Dia 2","Dia 3"),map_df(list(p1,p2,p3), tidy)) %>% dplyr::select(-parameter,-method) %>% knitr::kable()
+dplyr::bind_cols(
+  Dia = c("Dia 1", "Dia 2", "Dia 3"),
+  purrr::map_df(list(p1, p2, p3), broom::tidy)
+) %>%
+  dplyr::select(-parameter, -method) %>%
+  knitr::kable()
 ```
 ]
 ---
 ## Resultados e Interpretações
 
-- **Contingente:** Com um nível de significância de 10%, é possível negar a 
+- **Contingente:** Com um nível de significância de 10%, é possível negar a
 hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
 
 <br>
 
 - **Não Contingente:** Rejeitamos a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
 
-<br> 
+<br>
 
-- **Basal 1:** também ao nível de significância de 10%, apenas o 
+- **Basal 1:** também ao nível de significância de 10%, apenas o
 dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
 
-<br> 
+<br>
 
 - **Basal 2:** todos os dias aparentam manter a mesma distribuição dos grupos
 
@@ -366,7 +383,7 @@ dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
 
 <br>
 
-- Teste não paramétrico para verificar igualdade entre as medianas dos dias, 
+- Teste não paramétrico para verificar igualdade entre as medianas dos dias,
 comparando-os dois a dois
 
 <br>
@@ -379,13 +396,13 @@ H_1 = \text{caso contrário}
 $$
 <br>
 
-  
-$$T = \sum^{n}_{i=1}R_i$$ 
+
+$$T = \sum^{n}_{i=1}R_i$$
 
 ---
 ### Basal 2
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r include=FALSE}
 #Wilcoxon: Comparação entre dias (basal 2)
 da_wilcoxon <- da_spss %>%
   dplyr::filter(condicao == "pos") %>%
@@ -409,16 +426,20 @@ teste_w <- function(dia1, dia2, alt = "two.sided") {
 
 ```{r echo=FALSE}
 # teste bicaudal
-w1 = teste_w(1, 2)  # diferença entre dias 1 e 2
-w2 = teste_w(1, 3)  # diferença entre dias 1 e 3
-w3 = teste_w(2, 3)  # diferença entre dias 2 e 3
+w1 <- teste_w(1, 2)  # diferença entre dias 1 e 2
+w2 <- teste_w(1, 3)  # diferença entre dias 1 e 3
+w3 <- teste_w(2, 3)  # diferença entre dias 2 e 3
 
-cbind(Dias = c("Dia 1 x Dia 2","Dia 1 x Dia 3","Dia 2 x Dia 3"),map_df(list(w1,w2,w3), tidy) )  %>% knitr::kable()
+dplyr::bind_cols(
+  Dia = c("Dia 1 x Dia 2", "Dia 1 x Dia 3", "Dia 2 x Dia 3"),
+  purrr::map_df(list(w1, w2, w3), broom::tidy)
+) %>%
+  knitr::kable()
 ```
 
 ### Teste Unicaudal
 
-```{r}
+```{r include=FALSE}
 teste_w2 <- function(dia1, dia2, alt = "greater") {
   d1 <- da_wilcoxon %>%
     dplyr::filter(dia == dia1) %>%
@@ -433,19 +454,23 @@ teste_w2 <- function(dia1, dia2, alt = "greater") {
 
 ```{r echo=FALSE}
 # teste bicaudal
-w1 = teste_w2(1, 2)  # diferença entre dias 1 e 2
-w2 = teste_w2(1, 3)  # diferença entre dias 1 e 3
-w3 = teste_w2(2, 3)  # diferença entre dias 2 e 3
+w1 <- teste_w2(1, 2)  # diferença entre dias 1 e 2
+w2 <- teste_w2(1, 3)  # diferença entre dias 1 e 3
+w3 <- teste_w2(2, 3)  # diferença entre dias 2 e 3
 
-cbind(Dias = c("Dia 1 x Dia 2","Dia 1 x Dia 3","Dia 2 x Dia 3"),map_df(list(w1,w2,w3), tidy)) %>% knitr::kable()
+dplyr::bind_cols(
+  Dia = c("Dia 1 x Dia 2", "Dia 1 x Dia 3", "Dia 2 x Dia 3"),
+  purrr::map_df(list(w1, w2, w3), broom::tidy)
+) %>%
+  knitr::kable()
 ```
 
 ---
 ## Resultados e Interpretações
 
 
-- Com um nível de significância de 10% em um teste bicaudal, é possível negar a 
-hipótese de igualdade entre as medianas do dia 1 e 2 (valor-p = 0,09), mas não 
+- Com um nível de significância de 10% em um teste bicaudal, é possível negar a
+hipótese de igualdade entre as medianas do dia 1 e 2 (valor-p = 0,09), mas não
 para os dias 1 e 3 (valor-p = 0,11) e 2 e 3 (valor-p = 0,29)
 
 <br>
@@ -463,33 +488,33 @@ entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em
 - Assim, o teste revela que a mediana do dia 1 é maior do que as demais
 
 ???
-<!--
+<-- -- -->
+<-- -->
+<-- ### Estimador da taxa de falha não paramétrico -->
+<-- -->
+<-- - Condição Contingente -->
+<-- -->
+<-- <br> -->
+<-- -->
+<-- - Estudar o tempo desde o instante inicial até a ocorrência da primeira ativação do vídeo (falha); -->
+<-- -->
+<-- <br> -->
+<-- -->
+<-- - Comparação entre dias para garantir uma independência (abertura por grupo apresentou o mesmo comportamento) -->
+<-- -->
+<-- -->
+<-- ### Estimador de Kaplan-Meier -->
+<-- -->
+<-- **Objetivo:** medir a _Função de sobrevivência_ que nos diz a probabilidade de ocorrência do evento depois de o tempo $t$ -->
+<-- -->
+<-- -->
+<-- <center><img src="imagens/survival_dia.png" width="500" hight="750"> -->
+<-- -->
+<-- - Considerando todos os grupos como uma unidade, a probabilidade de ativar o vídeo pela primeira vez nos primeiros segundos é maior no dia 3; -->
+<-- -->
+<-- - No entanto, a probabilidade de ativar o vídeo pela primeira vez após os 50 primeiros segundos é maior no dia 2 -->
 
-### Estimador da taxa de falha não paramétrico
 
-- Condição Contingente
-
-<br> 
-
-- Estudar o tempo desde o instante inicial até a ocorrência da primeira ativação do vídeo (falha);
-
-<br>
-
-- Comparação entre dias para garantir uma independência (abertura por grupo apresentou o mesmo comportamento)
-
-
-### Estimador de Kaplan-Meier
-
-**Objetivo:** medir a _Função de sobrevivência_ que nos diz a probabilidade de ocorrência do evento depois de o tempo $t$
-
-
-<center><img src="imagens/survival_dia.png" width="500" hight="750">
-
-- Considerando todos os grupos como uma unidade, a probabilidade de ativar o vídeo pela primeira vez nos primeiros segundos é maior no dia 3;
-
-- No entanto, a probabilidade de ativar o vídeo pela primeira vez após os 50 primeiros segundos é maior no dia 2;
-
--->
 ---
 class: inverse center middle
 name: teste
@@ -505,7 +530,7 @@ name: teste
 - Não foi possível concluir se os bebês são capazes de identificar uma relação entre seus apertos e alterações no contexto ambiental;
 
 
-- Fixado uma condição e dia, parece existir um possível acúmulo de conhecimento entre os participantes do estudo (distribuição do tempo entre apertos sem perda de memória). 
+- Fixados uma condição e dia, parece existir um possível acúmulo de conhecimento entre os participantes do estudo (distribuição do tempo entre apertos sem perda de memória).
 
 <br>
 
@@ -516,8 +541,8 @@ name: teste
 
 - Na basal 2, não há indicios de diferença entre os grupos;
 
- 
-- Também na basal 2, há indícios de que a frequência de apertos do dia 1 é maior do que nos dias 2 e 3. 
+
+- Também na basal 2, há indícios de que a frequência de apertos do dia 1 é maior do que nos dias 2 e 3.
 
 ---
 class: inverse center middle
