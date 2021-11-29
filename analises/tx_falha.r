@@ -13,7 +13,7 @@ da_diff_tempo <- cea2::da_tidy %>%
 
 da_diff_tempo %>%
   dplyr::filter(condicao == "contingente", !is.na(diff_video)) %>%
-  dplyr::filter(nome == "eduarda", grupo == "b1", dia == "1") %>%
+  dplyr::filter(nome == "eduarda", grupo == "b1", dia == "3") %>%
   dplyr::mutate(id_video = dplyr::row_number()) %>%
   ggplot2::ggplot(ggplot2::aes(y = diff_video, x = id_video)) +
   ggplot2::geom_point()
@@ -36,18 +36,94 @@ da_1o_video <- da_diff_tempo %>%
 
 # KM
 ajuste <- survival::survfit(
-  survival::Surv(time = t_1o_video, event = video) ~  dia,
-  data = da_1o_video
+  survival::Surv(time = t_1o_video, event = video) ~ grupo,
+  data = dia3
+  # data = da_1o_video
 )
 survminer::ggsurvplot(ajuste)
 
 
 # bshazard
 fit <- bshazard::bshazard(
-  survival::Surv(t_1o_video, video) ~ dia + grupo, data = da_1o_video
+  survival::Surv(t_1o_video, video) ~ 1, data = da_1o_video
 )
 plot(fit)
 
+# dia 1
+dia1 <- da_diff_tempo %>%
+  dplyr::filter(condicao == "contingente", video == TRUE, dia == 1) %>%
+  dplyr::group_by(nome, grupo, dia) %>%
+  dplyr::summarise(
+    t_1o_video = dplyr::first(tempo),
+    video = dplyr::first(video),
+    .groups = "drop"
+  ) %>%
+  dplyr::mutate(
+    dia = as.factor(dia),
+    grupo = as.factor(grupo),
+    video = ifelse(video, 1, 0)
+  )
+fit1 <- bshazard::bshazard(
+  survival::Surv(t_1o_video, video) ~ 1, data = dia1
+)
+plot(fit1)
+
+# dia 1
+dia1 <- da_diff_tempo %>%
+  dplyr::filter(condicao == "contingente", video == TRUE, dia == 1) %>%
+  dplyr::group_by(nome, grupo, dia) %>%
+  dplyr::summarise(
+    t_1o_video = dplyr::first(tempo),
+    video = dplyr::first(video),
+    .groups = "drop"
+  ) %>%
+  dplyr::mutate(
+    dia = as.factor(dia),
+    grupo = as.factor(grupo),
+    video = ifelse(video, 1, 0)
+  )
+fit1 <- bshazard::bshazard(
+  survival::Surv(t_1o_video, video) ~ 1, data = dia1
+)
+plot(fit1)
+
+# dia 2
+dia2 <- da_diff_tempo %>%
+  dplyr::filter(condicao == "contingente", video == TRUE, dia == 2) %>%
+  dplyr::group_by(nome, grupo, dia) %>%
+  dplyr::summarise(
+    t_1o_video = dplyr::first(tempo),
+    video = dplyr::first(video),
+    .groups = "drop"
+  ) %>%
+  dplyr::mutate(
+    dia = as.factor(dia),
+    grupo = as.factor(grupo),
+    video = ifelse(video, 1, 0)
+  )
+fit2 <- bshazard::bshazard(
+  survival::Surv(t_1o_video, video) ~ 1, data = dia2
+)
+plot(fit2)
+
+# dia 3
+dia3 <- da_diff_tempo %>%
+  dplyr::filter(condicao == "contingente", video == TRUE, dia == 3) %>%
+  dplyr::group_by(nome, grupo, dia) %>%
+  dplyr::summarise(
+    t_1o_video = dplyr::first(tempo),
+    video = dplyr::first(video),
+    .groups = "drop"
+  ) %>%
+  dplyr::mutate(
+    dia = as.factor(dia),
+    grupo = as.factor(grupo),
+    video = ifelse(video, 1, 0)
+  )
+fit3 <- bshazard::bshazard(
+  survival::Surv(t_1o_video, video) ~ 1, data = dia3
+)
+plot(fit3)
 
 # weibulltools
 dados <- weibulltools::reliability_data(
