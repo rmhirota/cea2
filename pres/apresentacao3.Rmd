@@ -136,7 +136,12 @@ name: descritiva
 - Avaliação da _Frequência de apertos_ ao invés do _Número de apertos_;
 <br><br>
 
-- Definição de uma nova variável: Tempo entre apertos, calculado a partir dos dados originais cortados
+- Definição de uma nova variável: _Tempo entre apertos_, calculado a partir dos dados originais cortados
+
+
+
+- Nova versão dos boxplots da variável _Tempo entre vídeos_, na Condição Contingente
+
 
 ---
 ### Boxplots - Condição Contingente
@@ -146,7 +151,7 @@ name: descritiva
 
 - Comportamento entre indivíduos de um mesmo grupo é heterogêneo
 
-- A extensão dos boxplots indica uma grande variabilidade nessa variável.
+- A extensão dos boxplots indica uma grande amplitude nessa variável.
 ]
 
 .right-column[
@@ -172,7 +177,7 @@ name: descritiva
 
 - Comportamento entre indivíduos de um mesmo grupo é heterogêneo
 
-- A variabilidade do tempo entre vídeos é menor se comparado aos bebês com um mês de idade
+- A amplitude do tempo entre vídeos é menor se comparado aos bebês com um mês de idade
 
 ]
 
