@@ -130,7 +130,7 @@ name: descritiva
 - Segundo corte na base realizado, retirando dados de momentos do experimento que não eram de interesse da pesquisadora;
 <br><br>
 
-- Variáveis do experimento recalculadas 
+- Variáveis do experimento recalculadas
 <br><br>
 
 - Avaliação da _Frequência de apertos_ ao invés do _Número de apertos_;
@@ -318,7 +318,7 @@ class: middle center inverse
 
 ---
 
-### Teste de Kruskal Wallis
+## Teste de Kruskal Wallis
 
 **Objetivo:** comparar a variável _Frequência de apertos_ por grupo, fixado um dia de sessão e uma condição experimental
 
@@ -338,7 +338,7 @@ $$
 
 
 $$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$
----
+
 ```{r include=FALSE}
 
 teste_kw <- function(cond, d) {
@@ -354,8 +354,18 @@ teste_kw <- function(cond, d) {
 }
 ```
 
+---
+### Resultados e Interpretações
+
 .pull-left[
-**Contingente**
+- **Contingente**: Com um nível de significância de 10%, há evidências contrárias a hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
+
+<br><br><br>
+
+- **Não Contingente**: há evidências contrárias a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
+]
+.pull-right[
+<!-- **Contingente** -->
 ```{r}
 d1 <- teste_kw("c", 1)
 d2 <- teste_kw("c", 2)
@@ -369,7 +379,7 @@ dplyr::bind_cols(
   knitr::kable()
 ```
 <br><br>
-**Não Contingente**
+<!-- **Não Contingente** -->
 ```{r}
 n1 <- teste_kw("nc", 1)
 n2 <- teste_kw("nc", 2)
@@ -383,9 +393,19 @@ dplyr::bind_cols(
   knitr::kable()
 ```
 ]
+---
+### Resultados e Interpretações
 
-.pull-rigt[
-**Basal 1**
+.pull-left[
+- **Basal 1:** também ao nível de significância de 10%, apenas o
+dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
+
+<br><br><br><br>
+
+- **Basal 2:** para todos os dias, há evidências favoráveis a hipótese  de igualdade entre as distribuições dos grupos.
+]
+.pull-right[
+<!-- **Basal 1** -->
 ```{r}
 b1 <- teste_kw("bas", 1)
 b2 <- teste_kw("bas", 2)
@@ -399,7 +419,7 @@ dplyr::bind_cols(
   knitr::kable()
 ```
 <br><br>
-**Basal 2**
+<!-- **Basal 2** -->
 ```{r}
 p1 <- teste_kw("pos", 1)
 p2 <- teste_kw("pos", 2)
@@ -413,23 +433,7 @@ dplyr::bind_cols(
   knitr::kable()
 ```
 ]
----
-## Resultados e Interpretações
 
-- **Contingente:** Com um nível de significância de 10%, há evidências contrárias a hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
-
-<br>
-
-- **Não Contingente:** há evidências contrárias a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
-
-<br>
-
-- **Basal 1:** também ao nível de significância de 10%, apenas o
-dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
-
-<br>
-
-- **Basal 2:** para todos os dias, há evidências favoráveis a hipótese  de igualdade entre as distribuições dos grupos.
 
 
 ---

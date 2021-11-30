@@ -7,6 +7,7 @@
     <meta name="author" content="Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel" />
     <meta name="author" content="Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota" />
     <meta name="author" content="Orientador: Prof. Dr. Luis Gustavo Esteves" />
+    <script src="apresentacao3_files/header-attrs/header-attrs.js"></script>
     <link href="apresentacao3_files/panelset/panelset.css" rel="stylesheet" />
     <script src="apresentacao3_files/panelset/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -139,7 +140,7 @@ name: descritiva
 - Segundo corte na base realizado, retirando dados de momentos do experimento que não eram de interesse da pesquisadora;
 &lt;br&gt;&lt;br&gt;
 
-- Variáveis do experimento recalculadas 
+- Variáveis do experimento recalculadas
 &lt;br&gt;&lt;br&gt;
 
 - Avaliação da _Frequência de apertos_ ao invés do _Número de apertos_;
@@ -276,7 +277,7 @@ class: middle center inverse
 
 ---
 
-### Teste de Kruskal Wallis
+## Teste de Kruskal Wallis
 
 **Objetivo:** comparar a variável _Frequência de apertos_ por grupo, fixado um dia de sessão e uma condição experimental
 
@@ -296,11 +297,21 @@ $$
 
 
 `$$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$`
----
 
+
+
+---
+### Resultados e Interpretações
 
 .pull-left[
-**Contingente**
+- **Contingente**: Com um nível de significância de 10%, há evidências contrárias a hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+- **Não Contingente**: há evidências contrárias a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
+]
+.pull-right[
+&lt;!-- **Contingente** --&gt;
 
 |Dia   | statistic|   p.value|
 |:-----|---------:|---------:|
@@ -308,7 +319,7 @@ $$
 |Dia 2 | 4.8621554| 0.0879420|
 |Dia 3 | 0.6745258| 0.7137212|
 &lt;br&gt;&lt;br&gt;
-**Não Contingente**
+&lt;!-- **Não Contingente** --&gt;
 
 |Dia   | statistic|   p.value|
 |:-----|---------:|---------:|
@@ -316,9 +327,19 @@ $$
 |Dia 2 | 3.1808300| 0.2038410|
 |Dia 3 | 0.2970006| 0.8619997|
 ]
+---
+### Resultados e Interpretações
 
-.pull-rigt[
-**Basal 1**
+.pull-left[
+- **Basal 1:** também ao nível de significância de 10%, apenas o
+dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+- **Basal 2:** para todos os dias, há evidências favoráveis a hipótese  de igualdade entre as distribuições dos grupos.
+]
+.pull-right[
+&lt;!-- **Basal 1** --&gt;
 
 |Dia   | statistic|   p.value|
 |:-----|---------:|---------:|
@@ -326,7 +347,7 @@ $$
 |Dia 2 | 4.6432806| 0.0981125|
 |Dia 3 | 0.3395176| 0.8438683|
 &lt;br&gt;&lt;br&gt;
-**Basal 2**
+&lt;!-- **Basal 2** --&gt;
 
 |Dia   | statistic|   p.value|
 |:-----|---------:|---------:|
@@ -334,23 +355,7 @@ $$
 |Dia 2 | 2.9850649| 0.2248026|
 |Dia 3 | 0.8924057| 0.6400539|
 ]
----
-## Resultados e Interpretações
 
-- **Contingente:** Com um nível de significância de 10%, há evidências contrárias a hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,09);
-
-&lt;br&gt;
-
-- **Não Contingente:** há evidências contrárias a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,08);
-
-&lt;br&gt;
-
-- **Basal 1:** também ao nível de significância de 10%, apenas o
-dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,86)
-
-&lt;br&gt;
-
-- **Basal 2:** para todos os dias, há evidências favoráveis a hipótese  de igualdade entre as distribuições dos grupos.
 
 
 ---
@@ -483,6 +488,9 @@ class: center, middle
 
 [**slides**](https://rmhirota.github.io/cea2/pres/apresentacao3.html)&lt;br&gt;
 [**análises**](https://github.com/rmhirota/cea2)
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
