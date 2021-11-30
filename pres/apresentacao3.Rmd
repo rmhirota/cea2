@@ -130,6 +130,9 @@ name: descritiva
 - Segundo corte na base realizado, retirando dados de momentos do experimento que não eram de interesse da pesquisadora;
 <br><br>
 
+- Variáveis do experimento recalculadas 
+<br><br>
+
 - Avaliação da _Frequência de apertos_ ao invés do _Número de apertos_;
 <br><br>
 
@@ -182,6 +185,7 @@ name: descritiva
 ## Frequência de apertos
 
 ```{r include = FALSE}
+da_spss <- readr::read_rds("../data-raw/2_tidy_spss.rds")
 boxplot_freq <- function(cond) {
   label_cond <- switch(
     cond,
@@ -336,7 +340,6 @@ $$
 $$T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1)$$
 ---
 ```{r include=FALSE}
-da_spss <- readr::read_rds("../data-raw/2_tidy_spss.rds")
 
 teste_kw <- function(cond, d) {
   da <- da_spss %>%
@@ -552,13 +555,13 @@ name: teste
 
 ### Frequência de apertos
 
-- A hipótese de igualdade entre os grupos varia de condição para condição;
+- A hipótese de igualdade entre os grupos varia de condição para condição e de sessão para sessão;
 
 
 - Na basal 2, há evidências favoráveis a hipótese de igualdade entre as distribuições dos grupos;
 
 
-- Também na basal 2, há indícios de que a frequência de apertos do dia 1 é maior do que nos dias 2 e 3.
+- Também na basal 2, há indícios de que a mediana da frequência de apertos do dia 1 é maior do que nos dias 2 e 3.
 
 ---
 class: inverse center middle
