@@ -57,6 +57,7 @@ xaringanExtra::use_logo("imagens/ime.png")
 
 ```{r dados, include=FALSE}
 library(magrittr)
+library(patchwork)
 ```
 
 
@@ -74,12 +75,8 @@ name: estudo
 # Relembrando o Estudo
 
 ---
-
-
-<br><br>
---
 .pull-left[
-### Objetivo
+## Objetivo
 
 - Verificar se bebês de um a três meses são capazes de identificar
 uma relação entre seus apertos e alterações no contexto ambiental;
@@ -91,7 +88,7 @@ uma relação entre seus apertos e alterações no contexto ambiental;
 
 --
 .pull-right[
-### Experimento
+## Experimento
 
 - **Condição Basal**: sem nenhuma variação ambiental;
 
@@ -126,31 +123,31 @@ name: descritiva
 
 ---
 
-##Após primeira apresentação:
+## Atualizações
 
 <br><br>
 
-- Segundo corte na base realizado;
+- Segundo corte na base realizado, retirando dados de momentos do experimento que não eram de interesse da pesquisadora;
 <br><br>
 
 - Avaliação da _Frequência de apertos_ ao invés do _Número de apertos_;
 <br><br>
 
-- **Definição de uma nova variável**: Tempo entre apertos
+- Definição de uma nova variável: Tempo entre apertos, calculado a partir dos dados originais cortados
 
 ---
-## Boxplots - Condição Contingente
+### Boxplots - Condição Contingente
 
 .left-column[
 ### Tempo entre vídeos (Grupo 1)
 
 - Comportamento entre indivíduos de um mesmo grupo é heterogêneo
 
-- A extenção dos boxplots indica uma grande variabilidade nessa variável.
+- A extensão dos boxplots indica uma grande variabilidade nessa variável.
 ]
 
 .right-column[
-<img src="imagens/tempo_video_g1.jpeg" width="750">
+<img src="imagens/tempo_video_g1.jpeg" width="700">
 ]
 
 ---
@@ -164,7 +161,7 @@ name: descritiva
 ]
 
 .right-column[
-<img src="imagens/tempo_video_g2.jpeg" width="750">
+<img src="imagens/tempo_video_g2.jpeg" width="700">
 ]
 ---
 .left-column[
@@ -177,8 +174,64 @@ name: descritiva
 ]
 
 .right-column[
-<img src="imagens/tempo_video_g3.jpeg" width="750">
+<img src="imagens/tempo_video_g3.jpeg" width="700">
 ]
+
+---
+
+## Frequência de apertos
+
+```{r include = FALSE}
+boxplot_freq <- function(cond) {
+  label_cond <- switch(
+    cond,
+    bas = "Basal 1", pos = "Basal 2",
+    c = "Contingente", nc = "Não contingente"
+  )
+  da_spss %>%
+    dplyr::filter(condicao == cond) %>%
+    ggplot2::ggplot(ggplot2::aes(x = grupo, y = freq_apertos, fill = dia)) +
+    ggplot2::geom_boxplot(colour = "grey", outlier.colour = "red") +
+    ggplot2::scale_fill_viridis_d() +
+    ggplot2::labs(x = "Grupo", y = glue::glue("Freq - {label_cond}")) +
+    ggplot2::theme_minimal(18) +
+    ggplot2::facet_wrap(~dia)
+}
+
+basal1 <- boxplot_freq("bas")
+contingente <- boxplot_freq("c")
+naocont <- boxplot_freq("nc")
+basal2 <- boxplot_freq("pos")
+```
+
+.left-column[
+- Na condição **Basal 1**, a frequência vai ficando mais parecida entre os grupos com o passar dos dias
+
+- Já na **Basal 2**, é mais difícil encontrar um padrão que distingue os grupos
+]
+
+.right-column[
+```{r fig.height=5}
+basal1 + basal2
+```
+]
+
+---
+## Frequência de apertos
+
+.left-column[
+- Na maioria dos casos, as diferenças observadas entre grupos se confirmaram nos testes não paramétricos
+
+- Com a presença do vídeo, as condições em que observamos uma diferença um pouco mais nítida são no dia 2 da Contingente e no dia 1 da Não Contingente
+]
+.right-column[
+```{r fig.height=5}
+contingente + naocont
+```
+]
+
+
+
 ---
 class: inverse center middle
 name: processo
@@ -198,7 +251,7 @@ name: processo
 
 ---
 
-Para a maioria dos bebês observados os testes de Kolmogorov-Smirnov rejeitaram a hipótese de exponencialidade dado por:
+Para a maioria dos bebês observados, os testes de Kolmogorov-Smirnov rejeitaram a hipótese de exponencialidade dado por:
 
 <br>
 
@@ -208,11 +261,7 @@ $$H_{1}: Tempo_{ijk} \not\sim Exponencial(\alpha_{ijk})$$
 <br>
 
 tal que $i$ = i-ésimo bebê, $j$ = j-ésimo dia de $k$ = k-ésima
-condição
-
-para algum $\alpha_{ijk}$ > 0
-
-<br><br>
+condição para algum $\alpha_{ijk}$ > 0
 
 ###Exemplo:
 
@@ -249,9 +298,19 @@ purrr::map2_dfr(bbs$grupo, bbs$nome, teste_ks) %>%
 ```
 
 ---
-### Primeira Conclusão
+### Conclusões parciais
 
-- Fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê depende dos apertos executados anteriormente
+- A taxa de apertos não parece ser constante, o que podem indicar que o comportamento dos bebês mudam com o tempo de sessão;
+
+- Fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê depende dos apertos executados anteriormente;
+
+- Além disso, pelos gráficos observados da frequência de apertos por dia, na condição Basal 1 parece haver uma mudança do padrão de apertar dos bebês também ao longo dos dias de experimento.
+
+
+---
+class: middle center inverse
+
+# Testes não paramétricos
 
 ---
 
@@ -403,7 +462,7 @@ da_wilcoxon <- da_spss %>%
   dplyr::filter(condicao %in% c("pos")) %>%
   dplyr::mutate(id = paste0(nome, grupo)) %>%
   dplyr::select(id, dia, condicao, freq_apertos) %>%
-  tidyr::pivot_wider(names_from = condicao, values_from = freq_apertos) 
+  tidyr::pivot_wider(names_from = condicao, values_from = freq_apertos)
 
 teste_w2 <- function(dia1, dia2, alt = "greater") {
   d1 <- da_wilcoxon %>%

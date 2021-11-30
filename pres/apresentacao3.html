@@ -7,6 +7,7 @@
     <meta name="author" content="Colaboradores: Luiz Eduardo P. B. T. Dantas e Edison de Jesus Manoel" />
     <meta name="author" content="Responsáveis: Giovanna Vendeiro Vilar, Mariana Almeida, Renata Massami Hirota" />
     <meta name="author" content="Orientador: Prof. Dr. Luis Gustavo Esteves" />
+    <script src="apresentacao3_files/header-attrs/header-attrs.js"></script>
     <link href="apresentacao3_files/panelset/panelset.css" rel="stylesheet" />
     <script src="apresentacao3_files/panelset/panelset.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -84,12 +85,8 @@ name: estudo
 # Relembrando o Estudo
 
 ---
-
-
-&lt;br&gt;&lt;br&gt;
---
 .pull-left[
-### Objetivo
+## Objetivo
 
 - Verificar se bebês de um a três meses são capazes de identificar
 uma relação entre seus apertos e alterações no contexto ambiental;
@@ -101,7 +98,7 @@ uma relação entre seus apertos e alterações no contexto ambiental;
 
 --
 .pull-right[
-### Experimento
+## Experimento
 
 - **Condição Basal**: sem nenhuma variação ambiental;
 
@@ -136,31 +133,31 @@ name: descritiva
 
 ---
 
-##Após primeira apresentação:
+## Atualizações
 
 &lt;br&gt;&lt;br&gt;
 
-- Segundo corte na base realizado;
+- Segundo corte na base realizado, retirando dados de momentos do experimento que não eram de interesse da pesquisadora;
 &lt;br&gt;&lt;br&gt;
 
 - Avaliação da _Frequência de apertos_ ao invés do _Número de apertos_;
 &lt;br&gt;&lt;br&gt;
 
-- **Definição de uma nova variável**: Tempo entre apertos
+- Definição de uma nova variável: Tempo entre apertos, calculado a partir dos dados originais cortados
 
 ---
-## Boxplots - Condição Contingente
+### Boxplots - Condição Contingente
 
 .left-column[
 ### Tempo entre vídeos (Grupo 1)
 
 - Comportamento entre indivíduos de um mesmo grupo é heterogêneo
 
-- A extenção dos boxplots indica uma grande variabilidade nessa variável.
+- A extensão dos boxplots indica uma grande variabilidade nessa variável.
 ]
 
 .right-column[
-&lt;img src="imagens/tempo_video_g1.jpeg" width="750"&gt;
+&lt;img src="imagens/tempo_video_g1.jpeg" width="700"&gt;
 ]
 
 ---
@@ -174,7 +171,7 @@ name: descritiva
 ]
 
 .right-column[
-&lt;img src="imagens/tempo_video_g2.jpeg" width="750"&gt;
+&lt;img src="imagens/tempo_video_g2.jpeg" width="700"&gt;
 ]
 ---
 .left-column[
@@ -187,8 +184,39 @@ name: descritiva
 ]
 
 .right-column[
-&lt;img src="imagens/tempo_video_g3.jpeg" width="750"&gt;
+&lt;img src="imagens/tempo_video_g3.jpeg" width="700"&gt;
 ]
+
+---
+
+## Frequência de apertos
+
+
+
+.left-column[
+- Na condição **Basal 1**, a frequência vai ficando mais parecida entre os grupos com o passar dos dias
+
+- Já na **Basal 2**, é mais difícil encontrar um padrão que distingue os grupos
+]
+
+.right-column[
+&lt;img src="apresentacao3_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
+]
+
+---
+## Frequência de apertos
+
+.left-column[
+- Na maioria dos casos, as diferenças observadas entre grupos se confirmaram nos testes não paramétricos
+
+- Com a presença do vídeo, as condições em que observamos uma diferença um pouco mais nítida são no dia 2 da Contingente e no dia 1 da Não Contingente
+]
+.right-column[
+&lt;img src="apresentacao3_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+]
+
+
+
 ---
 class: inverse center middle
 name: processo
@@ -208,7 +236,7 @@ name: processo
 
 ---
 
-Para a maioria dos bebês observados os testes de Kolmogorov-Smirnov rejeitaram a hipótese de exponencialidade dado por:
+Para a maioria dos bebês observados, os testes de Kolmogorov-Smirnov rejeitaram a hipótese de exponencialidade dado por:
 
 &lt;br&gt;
 
@@ -218,11 +246,7 @@ Para a maioria dos bebês observados os testes de Kolmogorov-Smirnov rejeitaram 
 &lt;br&gt;
 
 tal que `\(i\)` = i-ésimo bebê, `\(j\)` = j-ésimo dia de `\(k\)` = k-ésima
-condição
-
-para algum `\(\alpha_{ijk}\)` &gt; 0
-
-&lt;br&gt;&lt;br&gt;
+condição para algum `\(\alpha_{ijk}\)` &gt; 0
 
 ###Exemplo:
 
@@ -234,9 +258,19 @@ para algum `\(\alpha_{ijk}\)` &gt; 0
 |    3| 0.3293864| 0.0000000|One-sample Kolmogorov-Smirnov test |two-sided   |
 
 ---
-### Primeira Conclusão
+### Conclusões parciais
 
-- Fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê depende dos apertos executados anteriormente
+- A taxa de apertos não parece ser constante, o que podem indicar que o comportamento dos bebês mudam com o tempo de sessão;
+
+- Fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê depende dos apertos executados anteriormente;
+
+- Além disso, pelos gráficos observados da frequência de apertos por dia, na condição Basal 1 parece haver uma mudança do padrão de apertar dos bebês também ao longo dos dias de experimento.
+
+
+---
+class: middle center inverse
+
+# Testes não paramétricos
 
 ---
 
@@ -447,6 +481,9 @@ class: center, middle
 
 [**slides**](https://rmhirota.github.io/cea2/pres/apresentacao3.html)&lt;br&gt;
 [**análises**](https://github.com/rmhirota/cea2)
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
