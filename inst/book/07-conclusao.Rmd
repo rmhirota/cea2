@@ -1,6 +1,10 @@
 # Conclusão
 
+A partir da análise inferencial concluímos que a taxa de apertos por minuto de cada bebê em cada condição e dia não parece ser constante, o que pode indicar que o comportamento dos participantes muda ao longo do tempo de sessão. Logo, fixados uma condição e dia de sessão, há indícios de que um aperto de um bebê depende dos apertos executados anteriormente. No entanto, salientamos que a variável Tempo entre apertos utilizada nessa análise apresenta alguns ruídos por ter sido calculada manualmente pelas alunas a partir da definição de aperto.
 
+Ao analisar a frequência de apertos, percebe-se que a hipótese de igualdade entre os grupos varia de condição para condição e de sessão para sessão. Apenas na basal 2 todos os dias do experimento apresentam evidências favoráveis a hipótese de igualdade entre as distribuições dos grupos. Além disso, nessa condição também há indicíos de que a mediana da frequência de apertos do dia 1 é maior do que nos dias 2 e 3.
+
+Com relação ao experimento, a aleatorização na ordem de apresentação das condições contingente e não contingente pode vir a causar uma interferência nos obtenção de padrões e análises após o estímulo visual. Por fim, não foi possível concluir se os bebês são capazes de identificar uma relação entre seus apertos e alterações no contexto ambiental. 
 
 
 \newpage

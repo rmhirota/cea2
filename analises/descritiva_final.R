@@ -145,6 +145,33 @@ grupo3 <- dia1 | dia2 | dia3
 ggplot2::ggsave("analises/perfis_grupo3.png", grupo3,width = 7, height = 7)
 ggplot2::ggsave("pres/plots/perfis_grupo3.png", grupo3,width = 7, height = 7)
 
+
+# Frequencia de apertos boxplot
+
+da_spss <- readr::read_rds("../data-raw/2_tidy_spss.rds")
+boxplot_freq <- function(cond) {
+  label_cond <- switch(
+    cond,
+    bas = "Basal 1", pos = "Basal 2",
+    c = "Contingente", nc = "Não contingente"
+  )
+  da_spss %>%
+    dplyr::filter(condicao == cond) %>%
+    ggplot2::ggplot(ggplot2::aes(x = grupo, y = freq_apertos, fill = dia)) +
+    ggplot2::geom_boxplot(colour = "grey", outlier.colour = "red") +
+    ggplot2::scale_fill_viridis_d() +
+    ggplot2::labs(x = "Grupo", y = glue::glue("Freq - {label_cond}")) +
+    ggplot2::theme_minimal(18) +
+    ggplot2::facet_wrap(~dia)
+}
+
+basal1 <- boxplot_freq("bas")
+contingente <- boxplot_freq("c")
+naocont <- boxplot_freq("nc")
+basal2 <- boxplot_freq("pos")
+bass = basal1+basal2
+conting = contingente+naocont
+
 # Frequencia de apertos (Basal 2) ----------------------------------------------------
 da_spss <- readr::read_rds("data-raw/2_tidy_spss.rds") #base agrupada
 
