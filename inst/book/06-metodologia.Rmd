@@ -1,12 +1,12 @@
 # Metodologia {#metodologia}
 
-Nessa seção apresentamos a análise inferencial com o intuito de caracterizar o desenvolvimento da ação manipulativa de apertar em bebês. Devido as limitações encontradas no projeto, foram exploradas metodologias de inferência paramétrica e não paramétrica. A seguir, serão apresentadas os métodos aplicados aos dados do estudo.
+Nessa seção apresentamos a análise inferencial, com o intuito de caracterizar o desenvolvimento da ação manipulativa de apertar em bebês. Devido às limitações encontradas no projeto, foram exploradas metodologias de inferência paramétrica e não paramétrica. A seguir, serão apresentadas os métodos aplicados aos dados do estudo.
 
 ## Análise paramétrica
 
-Primeiramente, analisamos a variável tempo entre apertos a fim de entender se a mesma se ajusta a uma distribuição exponencial. Essa é frequentemente usada para modelar o tempo entre eventos que ocorrem a uma taxa média constante. Salientamos que a variável tempo entre apertos utilizada nessa análise apresenta alguns ruídos por ter sido calculada manualmente pelas alunas a partir da definição de aperto.
+Primeiramente, analisamos a variável tempo entre apertos a fim de entender se a mesma se ajusta a uma distribuição exponencial. Essa é frequentemente usada para modelar o tempo entre eventos que ocorrem a uma taxa média constante. Salientamos que a variável tempo entre apertos utilizada nessa análise pode apresentar alguns ruídos por ter sido calculada manualmente pelas alunas a partir da definição de aperto.
 
-Fixado um dia e condição do experimento,foram construidos histogramas da variável citada acima para cada bebê. Observamos que, para alguns participantes, o gráfico não apresentava o comportamento de decaimento esperado para dados cuja distribuição é exponencial. A fim de verificar se de fato a suposição é rejeitada, foi utilizado o teste de Kolmogorov-Smirnov, cuja hipótese nula define que a amostra de interesse é retirada da distribuição de referência.
+Fixado um dia e condição do experimento,foram construídos histogramas da variável para cada bebê. Observamos que, para alguns participantes, o gráfico não apresentou o comportamento de decaimento esperado de uma distribuição exponencial. A fim de verificar se de fato a suposição é rejeitada, foi utilizado o teste de Kolmogorov-Smirnov, cuja hipótese nula define que a amostra de interesse é retirada da distribuição de referência.
 
 Para a maioria dos bebês observados os testes rejeitaram a hipótese de exponencialidade dado por:
 
@@ -15,17 +15,17 @@ $$H_{1}: Tempo_{ijk} \not\sim Exponencial(\alpha_{ijk})$$
 
 tal que $i$ = i-ésimo bebê, $j$ = j-ésimo dia de $k$ = k-ésima condição para algum $\alpha_{ijk}$ > 0.
 
-Dado que a distribuição exponencial é a única dentre as contínuas com a característica de perda de memória - a chegada de uma ocasião é independente do evento anterior - esse resultado pode ser um indicativo de que os apertos não ocorrem a uma taxa média constante. Ou seja, fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê depende dos apertos executados anteriormente.
+Dado que a distribuição exponencial é a única dentre as contínuas com a característica de perda de memória -a chegada de uma ocasião é independente do evento anterior- esse resultado pode ser um indicativo de que os apertos não ocorrem a uma taxa média constante. Ou seja, fixados uma condição e dia de sessão, há indicíos de que um aperto de um bebê sofre influência dos apertos executados anteriormente.
 
 ## Análise não paramétrica
 
-Em conversa com a pesquisadora determinamos que a variável de maior interesse para o estudo é a frequência de apertos, visto que ela caracteriza a quantidade de apertos em relação ao tempo total de cada sessão. Como explicado anteriormente, houveram alguns cortes nos dados, ocasionando uma variação nos tempos de sessão de cada condição.
+Em conversa com a pesquisadora determinamos que a variável de maior interesse para o estudo é a frequência de apertos, visto que ela caracteriza a quantidade de apertos em relação ao tempo total de cada sessão. Como explicado anteriormente, alguns cortes nos dados ocasionaram em uma variação dos tempos de sessão para cada condição.
 
-Conforme apontado na literatura (Wolfowitz, 1942) devemos nos referir a situação onde uma distribuição é completamente determinada pelo conhecimento de seu conjunto de parâmetros finitos como o caso paramétrico, e denotar o caso oposto, onde as formas funcionais das distribuições são desconhecidas, como o caso não paramétrico. Logo, como não foi possível identificar uma distribução conhecida para a variável proposta, decidimos seguir com testes não paramétricos.
+Conforme apontado na literatura (Wolfowitz, 1942) devemos nos referir à situação onde uma distribuição é completamente determinada pelo conhecimento de seu conjunto de parâmetros finitos como o caso paramétrico, e denotar o caso oposto, onde as formas funcionais das distribuições são desconhecidas, como o caso não paramétrico. Logo, como não foi possível identificar uma distribução conhecida para a variável proposta, decidimos seguir com testes não paramétricos.
 
 ### Teste de Kruskall-Wallis
 
-O teste proposto por Wallis é conhecido como um equivalente ao teste pareado de Friedman da ANOVA de 1 fator em $k$ níveis. Enquanto os testes de análise de variância dependam do pressuposto de que todas as populações sob comparação são independentes e normalmente distribuídos, o teste Kruskal Wallis não coloca tal restrição na comparação (Conover,1990).
+O teste proposto por Wallis é conhecido como um equivalente ao teste pareado de Friedman da ANOVA de 1 fator em $k$ níveis. Enquanto os testes de análise de variância dependem do pressuposto de que todas as populações sob comparação são independentes e normalmente distribuídos, o teste Kruskal Wallis não impõe tal restrição na comparação (Conover,1990).
 Ele pode ser utilizado na comparação de três ou mais amostras independentes e determina se há indícios de diferença entre as populações.
 
 A comparação dos grupos é realizada por meio da mediana dos postos e a hipótese nula pode ser definida da seguinte forma:
@@ -34,7 +34,7 @@ A comparação dos grupos é realizada por meio da mediana dos postos e a hipót
 $$ H_0: todas\; as\; k\; distribuições\; são\; idênticas \\
    H_1: ao\; menos\; uma\; população\; tende\; a\; produzir\; valores\; maiores\; que\; as\; outras $$
 
-Primeiramente, os dados são ordenados e em seguida atribui-se postos para cada valor. Em seguida, esses valores devem ser somados dentro de cada população e a estatística do teste é calculada através da fórmula:
+Primeiramente, os dados são ordenados de forma crescente e, em seguida, atribui-se postos para cada valor. Em seguida, esses valores devem ser somados dentro de cada população e a estatística do teste é calculada através da fórmula:
 
 $$ T = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}[R(X_{i}) - \frac{n_{i}}{2}(N + 1)]^{2}}{n_{i}} = \frac{12}{N + 1}\frac{\sum^{k}_{i=1}R_{i}^2}{n_{i}} - 3(N + 1) $$
 
@@ -54,7 +54,7 @@ As suposições do teste de Kruskall-Wallis são:
 
 ### Interpretação dos resultados
 
-No contexto do trabalho, a ideia era comparar a frequência de apertos por grupo, fixado um dia de sessão e uma condição experimental.
+No contexto do trabalho, a ideia era comparar a frequência de apertos por grupo, fixados um dia de sessão e uma condição experimental.
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 # Kruskal-Wallis -----------------------------------------------------
@@ -74,7 +74,7 @@ teste_kw <- function(cond, d) {
 }
 ```
 
-Ao analisarmos a condição contingente na Tabela 5, adotando um nível de significância de 10%, há evidências contrárias a hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,088). Para os demais dias de sessão o mesmo não acontece (valor-p > 0.10)
+Ao analisarmos a condição contingente (Tabela 5), adotando um nível de significância de 10%, há evidências contrárias à hipótese de igualdade de distribuição entre os grupos no dia 2 (valor-p = 0,088). Para os demais dias de sessão o mesmo não acontece (valor-p > 0.10). 
 
 ```{r}
 # Contingente
@@ -90,7 +90,7 @@ dplyr::bind_cols(
   knitr::kable()
 ```
 
-Já na condição não contingente apresentada na Tabela 6, há evidências contrárias a hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,085). Observa-se então diferentes resultados nas duas condições relacionadas ao estímulo visual.
+Já na condição não contingente, apresentada na Tabela 6, há evidências contrárias à hipótese de igualdade entre as distribuições dos grupos apenas no dia 1 (valor-p = 0,085). Observa-se então diferentes resultados nas duas condições relacionadas ao estímulo visual.
 
 ```{r}
 n1 <- teste_kw("nc", 1)
@@ -105,8 +105,7 @@ dplyr::bind_cols(
   knitr::kable()
 ```
 
-Também ao nível de significância de 10%, na condição basal 1 apenas o
-dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,844). O resultado pode ser verificado na Tabela 7 a seguir.
+Também ao nível de significância de 10%, na condição basal 1 apenas o dia 3 mantém a hipótese de igualdade das distribuições (valor-P = 0,844). O resultado pode ser verificado na Tabela 7 a seguir.
 
 ```{r}
 # Basal 1
@@ -122,7 +121,7 @@ dplyr::bind_cols(
   knitr::kable()
 ```
 
-Por fim, na basal 2, há evidências favoráveis a hipótese de igualdade entre as distribuições dos grupos para todos os dias do experimento (valor-p > 0,10) como apresentado na Tabela 8.
+Por fim, na basal 2, há evidências favoráveis à hipótese de igualdade entre as distribuições dos grupos para todos os dias do experimento (valor-p > 0,10) como apresentado na Tabela 8.
 
 ```{r}
 # Basal 2
@@ -142,19 +141,19 @@ Dado o resultado interessante da condição basal 2, optamos por investigar mais
 
 ### Teste de Wilcoxon
 
-O segundo teste escolhido é frequentemente usado no lugar do Teste t (paramétrico) quando as populações comparadas não são normalmente distribuídas. Logo, a hipótese nula do teste bilateral pode ser definida da seguinte forma:
+O segundo teste escolhido é frequentemente usado no lugar do Teste T (paramétrico), quando as populações comparadas não são normalmente distribuídas. Logo, a hipótese nula do teste bilateral pode ser definida da seguinte forma:
 
 $$ H_0: a\; mediana\; das\; diferenças\;é\; zero = as\;duas\; populações\; são\; iguais \\
    H_1: caso\; contrário $$
 
-Primeiramente, são calculadas as diferenças entre a variável dos dados pareados:
+Primeiramente, são calculadas as diferenças entre os dados pareados:
 
 $$ |D_i| = |Y_i - X_i| $$
 com $i$ = 1,2...$n^{'}$
 
-Omitimos da análise os pares nos quais $D_i$ são nulos. Em seguida, atribui-se postos $R_i$ para cada valor, com $R_i$ =  1 o par com o menor valor de $|D_i|$ e $R_i$ = $n$ o par com o maior valor de $D_i$. No caso em que vários postos têm o mesmo valor de $|D_i|$, trabalha-se com postos médios. 
+Omitimos da análise os pares nos quais $D_i$ são nulos. Em seguida, ordena-se as diferenças e atribui-se postos $R_i$ para cada valor, com $R_i$ =  1 o par com o menor valor de $|D_i|$ e $R_i$ = $n$ o par com o maior valor de $D_i$. No caso em que vários postos têm o mesmo valor de $|D_i|$, trabalha-se com postos médios. 
 
-Por fim, a estatística $T = \sum^{n}_{i=1}R_i$ é calculada e rejeita-se a hipótese nula ao nível de significância $\alpha$ se $T > W_{1-\alpha/2}$ ou $T < W_{alpha/2}$, onde $ W_{1-\alpha/2}$ e $W_{\alpha/2}$ são os quantis da estatística de Wilcoxon.
+Por fim, a estatística $T = \sum^{n}_{i=1} R_i $ é calculada e rejeita-se a hipótese nula ao nível de significância $\alpha$ se $T > W_{1-\alpha/2}$ ou $T < W_{alpha/2}$, onde $ W_{1-\alpha/2}$ e $W_{\alpha/2}$ são os quantis da estatística de Wilcoxon. 
 
 Obs: $n \leq n^{'}$ = quantidade de diferenças não nulas e $R_i = Posto(|D_i|)$
 
@@ -166,9 +165,9 @@ Algumas suposições do teste Wilcoxon são:
 
 ### Interpretação dos resultados
 
-No contexto do trabalho, o objetivo era comparar entre os dias do experimento, a diferença da frequência de apertos na condição basal 2. Temos uma amostra de dados pareados pois são observados os mesmos bebês em diferentes dias do experimento.
+No contexto do trabalho, o objetivo era comparar a diferença da frequência de apertos na condição basal 2 entre os dias do experimento. Temos uma amostra de dados pareados pois são observados os mesmos bebês em diferentes dias do experimento.
 
-Como o teste de Kruskal-Wallis indicou que para todos os dias na condição basal 2 há evidências favoráveis a hipótese de igualdade entre as distribuições dos grupos, consideramos os bebês de diferentes faixas-etárias como uma unidade.
+Como o teste de Kruskal-Wallis indicou que para todos os dias na condição basal 2 há evidências favoráveis à hipótese de igualdade entre as distribuições dos grupos, não consideramos a separação dos bebês de diferentes faixas-etárias.
 
 Por fim, aplicamos um teste uliteral cuja hipótese alternativa indica que a mediana de uma população é maior do que a mediana da outra.
 
@@ -205,4 +204,4 @@ dplyr::bind_cols(
 
 Adotando-se 5% como nível de significância, a Tabela 9 nos mostra que há indicíos de diferença entre as medianas dos dias 1 e 2, pois o teste com $H_1 : Md1 > Md2$ resultou em um valor-p = 0.0448. Além disso, adotando um corte mais conservador de 10% também parece existir indicios de diferença entre as medianas dos dias 1 e 3, pois o teste com $H_1 : Md1 > Md3$ resultou em um valor-p = 0,0567.
 
-Assim, considerando todos os bebês na condição basal 2, o teste indica evidências favoráveis a hipótese de que a mediana do dia 1 é maior do que as demais
+Assim, considerando todos os bebês na condição basal 2, o teste indica evidências favoráveis a hipótese de que a mediana do dia 1 é maior do que as demais. 
