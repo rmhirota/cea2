@@ -18,12 +18,10 @@ frequência-de-apertos
 metodologia
 análise-paramétrica
 análise-não-paramétrica
-teste-de-wilcoxon
-interpretação-dos-resultados
 teste-de-kruskall-wallis
+interpretação-dos-resultados
+teste-de-wilcoxon
 interpretação-dos-resultados-1
-taxa-de-falha-não-paramétrica
-interpretação-dos-resultados-2
 conclusão
 técnicas-estatísticas-utilizadas
 tabelas
