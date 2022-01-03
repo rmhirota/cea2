@@ -1,0 +1,10 @@
+As etapas de análise foram divididas segundo a ordem dos códigos em PROGRAMA/
+
+1_tidy_brutos.R: Importação da base original e arrumação dos dados para modelagem;
+2_tidy_spss.R: Importação e arrumação da base calculada fornecida pela pesquisadora para modelagem;
+analises_finais.R: Análise descritiva e testes de hipóteses.
+
+Caso seja do interesse da pesquisadora adicionar novos dados (brutos), basta salvar o(s) arquivo(s) dentro da estrutura por Grupo e Bebê em DADOS/copia_dados_brutos,
+com o nome do arquivo padronizado {BEBE}{DIA}{CONDICAO}.
+
+O pacote/repositório completo também está disponível em https://github.com/rmhirota/cea2
